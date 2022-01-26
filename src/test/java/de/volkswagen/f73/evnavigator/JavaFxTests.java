@@ -1,27 +1,15 @@
 package de.volkswagen.f73.evnavigator;
 
 import com.sun.javafx.application.PlatformImpl;
-import de.saxsys.javafx.test.JfxRunner;
-import de.volkswagen.f73.evnavigator.application.JavaFxApplication;
 import de.volkswagen.f73.evnavigator.controller.*;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import net.rgielen.fxweaver.core.FxWeaver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+
 
 @SpringBootTest
 class JavaFxTests {

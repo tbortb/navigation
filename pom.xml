@@ -53,15 +53,40 @@
 			<version>11</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sothawo</groupId>
-			<artifactId>mapjfx</artifactId>
-			<version>1.33.2</version>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx</artifactId>
+			<version>11.1.1</version>
 		</dependency>
+
+		<!-- JDK 8 PACKAGES FOR PRODUCTION -->
 		<dependency>
 			<groupId>de.jensd</groupId>
 			<artifactId>fontawesomefx</artifactId>
 			<version>8.9</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sothawo</groupId>
+			<artifactId>mapjfx</artifactId>
+			<version>1.33.2</version>
+		</dependency>
+
+		<!-- JDK 11 PACKAGES FOR SONARQUBE -->
+<!--		<dependency>-->
+<!--			<groupId>de.jensd</groupId>-->
+<!--			<artifactId>fontawesomefx-commons</artifactId>-->
+<!--			<version>9.1.2</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>de.jensd</groupId>-->
+<!--			<artifactId>fontawesomefx-fontawesome</artifactId>-->
+<!--			<version>4.7.0-9.1.2</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.sothawo</groupId>-->
+<!--			<artifactId>mapjfx</artifactId>-->
+<!--			<version>2.15.3</version>-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 	<build>
@@ -71,6 +96,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
 	</build>
 
 </project>
