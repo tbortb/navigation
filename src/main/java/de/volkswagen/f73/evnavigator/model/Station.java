@@ -19,6 +19,8 @@ import java.util.Objects;
 @Entity
 public class Station {
 
+    //TODO: maybe add Socket_schuko, Socket_type2, Socket_type2_output
+
     @Id
     @CsvCustomBindByName(column = "id", converter = StringConverter.class)
     private String id;
