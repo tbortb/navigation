@@ -68,7 +68,7 @@ public class AddPoi {
             }
             final Coordinate newPosition = event.getCoordinate().normalize();
 
-            this.currentMarker = new Marker(getClass().getResource("/images/poi.png"), -20, -70)
+            this.currentMarker = new Marker(getClass().getResource("/images/markers/poi.png"), -20, -70)
                     .setPosition(newPosition)
                     .setVisible(true);
             this.latitudeInput.setText(String.valueOf(newPosition.getLatitude()));
