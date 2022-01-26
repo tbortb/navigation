@@ -5,7 +5,6 @@ import com.opencsv.exceptions.CsvConstraintViolationException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import de.volkswagen.f73.evnavigator.model.Station;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +29,7 @@ public class FeeConverter  extends AbstractBeanField<Station, Boolean> {
         }
 
         //return null (undefined) if no keyword is met
+        // TODO error handling
         return null;
     }
 }

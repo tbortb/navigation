@@ -1,8 +1,6 @@
 package de.volkswagen.f73.evnavigator.model;
 
-import com.opencsv.bean.CsvBindAndJoinByName;
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByName;
 import de.volkswagen.f73.evnavigator.util.csv_converters.FeeConverter;
 import de.volkswagen.f73.evnavigator.util.csv_converters.MembershipConverter;

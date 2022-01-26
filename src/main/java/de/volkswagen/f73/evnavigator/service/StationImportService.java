@@ -5,7 +5,6 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class StationImportService {
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(path));
         ) {
-            CsvToBean<Station> csvToBean = new CsvToBeanBuilder(reader)
+            CsvToBean<Station> csvToBean = new CsvToBeanBuilder<Station>(reader)
                     .withType(Station.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .withIgnoreQuotations(false)
