@@ -5,6 +5,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,6 +25,19 @@ public class StationImportService {
 
     @Autowired
     private StationRepository stationRepo;
+
+    public List<Station> insertStationsToDB(Collection<Station> stations){
+        return this.stationRepo.saveAll(stations);
+    }
+
+    public Station insertStationToDB(Station station){
+        return this.stationRepo.save(station);
+    }
+
+    public List<Station> csvToDB(String path){
+        List<Station> stations = csvToStations(path);
+        return this.insertStationsToDB(stations);
+    }
 
     public List<Station> csvToStations(String path) {
 
