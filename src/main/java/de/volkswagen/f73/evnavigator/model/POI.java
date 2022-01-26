@@ -12,12 +12,14 @@ import javax.persistence.Id;
 @Entity
 public class POI {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
-        private String name;
-        private Double lat;
-        private Double lon;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String name;
+    private Double lat;
+    private Double lon;
+
+    public POI(){}
 
     public POI(Integer id, String name, Double lat, Double lon) {
         this.id = id;

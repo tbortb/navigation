@@ -21,6 +21,8 @@ public class Route {
     private Double endLat;
     private Double endLon;
 
+    public Route(){}
+
     public Route(Integer id, String name, Double startLat, Double startLon, Double endLat, Double endLon) {
         this.id = id;
         this.name = name;

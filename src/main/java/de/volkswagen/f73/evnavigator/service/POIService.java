@@ -2,6 +2,7 @@ package de.volkswagen.f73.evnavigator.service;
 
 import de.volkswagen.f73.evnavigator.model.POI;
 import de.volkswagen.f73.evnavigator.repository.POIRepository;
+import de.volkswagen.f73.evnavigator.util.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,9 @@ public class POIService {
         return this.poiRepo.save(poi);
     }
 
-    public List<POI> getPOIsCloseTo(Double lat, Double lon, Double distKm){
+    public List<POI> getPOIsCloseTo(Double lat, Double lon, Double maxDistKm){
         List<POI> pois = this.poiRepo.findAll();
 
-        return pois.stream().filter(p -> true).collect(Collectors.toList());
+        return pois.stream().filter(p -> DistanceCalculator.getDistanceKM(lat, lon, p.getLat(), p.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 }
