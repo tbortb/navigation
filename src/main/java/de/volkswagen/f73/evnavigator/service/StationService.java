@@ -20,10 +20,14 @@ import java.util.List;
  * @author Bücker, Thies (SE-A/34)
  */
 @Service
-public class StationImportService {
+public class StationService {
 
     @Autowired
     private StationRepository stationRepo;
+
+    public List<Station> getAllStations() {
+        return this.stationRepo.findAll();
+    }
 
     public List<Station> insertStationsToDB(Collection<Station> stations){
         return this.stationRepo.saveAll(stations);

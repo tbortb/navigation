@@ -32,7 +32,7 @@ public class SettingsMenu {
 
     @FXML
     private void openAddPoiView() {
-        this.fxWeaver.load(Navigation.class).getController().show();
+        this.fxWeaver.load(AddPoi.class).getController().show();
     }
 
 }

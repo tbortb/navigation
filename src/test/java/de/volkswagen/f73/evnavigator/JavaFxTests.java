@@ -28,6 +28,7 @@ class JavaFxTests {
 		classes.add(Menu.class);
 		classes.add(SettingsMenu.class);
 		classes.add(AddStation.class);
+		classes.add(AddPoi.class);
 	}
 
 	@BeforeEach

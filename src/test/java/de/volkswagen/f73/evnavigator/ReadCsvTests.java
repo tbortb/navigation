@@ -2,7 +2,7 @@ package de.volkswagen.f73.evnavigator;
 
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.repository.StationRepository;
-import de.volkswagen.f73.evnavigator.service.StationImportService;
+import de.volkswagen.f73.evnavigator.service.StationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ public class ReadCsvTests {
     private String stationsCsvLocation;
 
     @Autowired
-    private StationImportService stationImportService;
+    private StationService stationService;
 
     @Autowired
     private StationRepository stationRepo;
@@ -64,7 +64,7 @@ public class ReadCsvTests {
      */
     @Test
     void parseCsvToStationsTest(){
-        List<Station> readStations = Assertions.assertDoesNotThrow(() -> this.stationImportService.csvToStations(this.stationsCsvLocation));
+        List<Station> readStations = Assertions.assertDoesNotThrow(() -> this.stationService.csvToStations(this.stationsCsvLocation));
 
         Assertions.assertEquals(this.sampleStations.size(), readStations.size());
 
@@ -78,7 +78,7 @@ public class ReadCsvTests {
      */
     @Test
     void insertStationsIntoDBTest(){
-        List<Station> returnedStations = Assertions.assertDoesNotThrow(() -> this.stationImportService.insertStationsToDB(this.sampleStations));
+        List<Station> returnedStations = Assertions.assertDoesNotThrow(() -> this.stationService.insertStationsToDB(this.sampleStations));
         List<Station> insertedStations = this.stationRepo.findAll();
 
         //Compare returnedStations with sampleStations and compare insertedStations with sampleStations
