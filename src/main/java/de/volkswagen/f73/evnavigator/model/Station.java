@@ -2,26 +2,33 @@ package de.volkswagen.f73.evnavigator.model;
 
 import com.opencsv.bean.CsvBindAndJoinByName;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvCustomBindByName;
+import de.volkswagen.f73.evnavigator.util.csv_converters.FeeConverter;
+import de.volkswagen.f73.evnavigator.util.csv_converters.MembershipConverter;
+import de.volkswagen.f73.evnavigator.util.csv_converters.StringConverter;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 /**
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
+@Entity
 public class Station {
 
     @Id
-    @CsvBindByName(column = "id")
+    @CsvCustomBindByName(column = "id", converter = StringConverter.class)
     private String id;
-    @CsvBindByName(column = "name")
+    @CsvCustomBindByName(column = "name", converter = StringConverter.class)
     private String name;
-    @CsvCustomBindByName(column = "authentication_membership_card")
+    @CsvCustomBindByName(column = "authentication_membership_card", converter = MembershipConverter.class)
     private Boolean hasMembership;
-    @CsvCustomBindByName(column = "fee")
+    @CsvCustomBindByName(column = "fee", converter = FeeConverter.class)
     private Boolean hasFee;
-    @CsvBindByName(column = "operator")
+    @CsvCustomBindByName(column = "operator", converter = StringConverter.class)
     private String operator;
     @CsvBindByName(column = "lon")
     private Double lon;
@@ -31,7 +38,7 @@ public class Station {
     public Station() {
     }
 
-    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, Boolean operator, Double lon, Double lat) {
+    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator, Double lon, Double lat) {
         this.id = id;
         this.name = name;
         this.hasMembership = hasMembership;
@@ -73,11 +80,11 @@ public class Station {
         this.hasFee = hasFee;
     }
 
-    public Boolean getOperator() {
+    public String getOperator() {
         return operator;
     }
 
-    public void setOperator(Boolean operator) {
+    public void setOperator(String operator) {
         this.operator = operator;
     }
 
@@ -108,5 +115,20 @@ public class Station {
                 ", lon=" + lon +
                 ", lat=" + lat +
                 '}';
+    }
+
+
+    //TODO: Apply correct format
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Station station = (Station) o;
+        return Objects.equals(id, station.id) && Objects.equals(name, station.name) && Objects.equals(hasMembership, station.hasMembership) && Objects.equals(hasFee, station.hasFee) && Objects.equals(operator, station.operator) && Objects.equals(lon, station.lon) && Objects.equals(lat, station.lat);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, hasMembership, hasFee, operator, lon, lat);
     }
 }

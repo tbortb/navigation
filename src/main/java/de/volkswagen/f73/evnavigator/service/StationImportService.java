@@ -1,0 +1,46 @@
+package de.volkswagen.f73.evnavigator.service;
+
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import de.volkswagen.f73.evnavigator.model.Station;
+import de.volkswagen.f73.evnavigator.repository.StationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Justo, David (SE-A/34)
+ * @author Bücker, Thies (SE-A/34)
+ */
+@Service
+public class StationImportService {
+
+    @Autowired
+    private StationRepository stationRepo;
+
+    public List<Station> csvToStations(String path) {
+
+        List<Station> station = new ArrayList<>();
+        try (
+                Reader reader = Files.newBufferedReader(Paths.get(path));
+        ) {
+            CsvToBean<Station> csvToBean = new CsvToBeanBuilder(reader)
+                    .withType(Station.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .withIgnoreQuotations(false)
+                    .withSeparator(',')
+                    .build();
+
+            station = csvToBean.parse();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return station;
+    }
+}
