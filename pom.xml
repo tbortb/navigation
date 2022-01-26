@@ -42,25 +42,26 @@
 			<artifactId>opencsv</artifactId>
 			<version>5.5.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
 			<version>11</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>11</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.sothawo</groupId>
 			<artifactId>mapjfx</artifactId>
 			<version>1.33.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>de.jensd</groupId>
+			<artifactId>fontawesomefx</artifactId>
+			<version>8.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="menuBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Menu">
+    <Button contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10px;" text="RADIO" HBox.hgrow="SOMETIMES">
+        <graphic>
+            <FontAwesomeIconView glyphName="MUSIC" size="80" />
+        </graphic>
+      <HBox.margin>
+         <Insets left="25.0" right="25.0" />
+      </HBox.margin>
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+    </Button>
+    <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="PHONE" HBox.hgrow="SOMETIMES">
+        <graphic>
+            <FontAwesomeIconView glyphName="PHONE" size="80" />
+        </graphic>
+      <HBox.margin>
+         <Insets left="25.0" right="25.0" />
+      </HBox.margin>
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+    </Button>
+    <Button onAction="#openNavigationView" alignment="CENTER" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="NAVIGATION" HBox.hgrow="SOMETIMES">
+        <graphic>
+            <FontAwesomeIconView glyphName="MAP_MARKER" size="80" />
+        </graphic>
+        <HBox.margin>
+            <Insets left="25.0" right="25.0" />
+        </HBox.margin>
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+    </Button>
+    <Button onAction="#openSettingsView" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="DATA" HBox.hgrow="SOMETIMES">
+        <graphic>
+            <FontAwesomeIconView glyphName="COG" size="80" />
+        </graphic>
+      <HBox.margin>
+         <Insets left="25.0" right="25.0" />
+      </HBox.margin>
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+    </Button>
+
+</HBox>
