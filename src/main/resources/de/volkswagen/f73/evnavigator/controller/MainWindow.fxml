@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:controller="de.volkswagen.f73.evnavigator.controller.MainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.MainWindow">
    <top>
-      <Label fx:id="label" text="Main Menu" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets top="40.0" />
-         </BorderPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <HBox fx:id="topMenu" alignment="CENTER" prefHeight="40.0" prefWidth="1060.0" BorderPane.alignment="CENTER">
+         <Button fx:id="standbyButton" onAction="#toggleStandby" style="-fx-background-radius: 30px;" HBox.hgrow="SOMETIMES">
+            <graphic>
+               <FontAwesomeIconView glyphName="POWER_OFF" size="32" />
+            </graphic>
+            <HBox.margin>
+               <Insets left="30.0" right="30.0" />
+            </HBox.margin>
+         </Button>
+         <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="793.0" text="Menu Title" HBox.hgrow="ALWAYS">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <font>
+               <Font name="System Bold" size="22.0" />
+            </font></Label>
+         <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="125.0" text="Clock" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
+            <font>
+               <Font name="System Bold" size="17.0" />
+            </font>
+         </Label>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </HBox>
    </top>
 </BorderPane>
