@@ -2,10 +2,13 @@ package de.volkswagen.f73.evnavigator.service;
 
 
 import com.sothawo.mapjfx.Coordinate;
+import de.volkswagen.f73.evnavigator.model.Route;
+import de.volkswagen.f73.evnavigator.repository.RouteRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,6 +27,9 @@ public class RouteService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RouteService.class);
     private static final String OSRM_URL = "https://router.project-osrm.org/route/v1/car/%s?geometries=geojson&overview=full&alternatives=false&skip_waypoints=true";
+
+    @Autowired
+    private RouteRepository routeRepo;
 
     public JSONObject getRouteFromCoordinates(double originLat, double originLon, double destLat, double destLon) {
         String param = String.format(Locale.US, "%f,%f;%f,%f", originLon, originLat, destLon, destLat);
@@ -97,5 +103,13 @@ public class RouteService {
             LOGGER.error("Error parsing distance from JSON: {}", e.getMessage());
             return "";
         }
+    }
+
+    public List<Route> getSavedRoutes(){
+        return this.routeRepo.findAll();
+    }
+
+    public Route saveRoute(Route route){
+        return this.routeRepo.save(route);
     }
 }

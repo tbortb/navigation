@@ -2,7 +2,11 @@ package de.volkswagen.f73.evnavigator.controller;
 
 import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapView;
+import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
+import de.volkswagen.f73.evnavigator.model.POI;
+import de.volkswagen.f73.evnavigator.model.Station;
+import de.volkswagen.f73.evnavigator.service.StationService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -25,6 +29,7 @@ public class AddStation {
     private static final Logger LOGGER = LoggerFactory.getLogger(AddStation.class);
     private static final int ZOOM_DEFAULT = 14;
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
+    private Marker currentMarker;
 
     @FXML
     private HBox stationBox;
@@ -41,6 +46,9 @@ public class AddStation {
 
     @Autowired
     private FxWeaver fxWeaver;
+
+    @Autowired
+    private StationService stationService;
 
     @FXML
     private void initialize() {
@@ -61,11 +69,30 @@ public class AddStation {
     private void setUpMapEventHandlers() {
         map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
             event.consume();
+            if (this.currentMarker != null) {
+                map.removeMarker(this.currentMarker);
+            }
             final Coordinate newPosition = event.getCoordinate().normalize();
+
+            this.currentMarker = new Marker(getClass().getResource("/images/markers/poi.png"), -20, -70)
+                    .setPosition(newPosition)
+                    .setVisible(true);
             this.latitudeInput.setText(String.valueOf(newPosition.getLatitude()));
             this.longitudeInput.setText(String.valueOf(newPosition.getLongitude()));
-
+            this.map.addMarker(this.currentMarker);
         });
+    }
+
+    @FXML
+    private void saveStation() {
+        //TODO: insert selections for fee and membership
+        Station newStation = new Station(this.nameInput.getText(),
+                true,
+                true,
+                this.operatorInput.getText(),
+                Double.valueOf(this.latitudeInput.getText()),
+                Double.valueOf(this.longitudeInput.getText()));
+        this.stationService.saveStation(newStation);
     }
 
 }

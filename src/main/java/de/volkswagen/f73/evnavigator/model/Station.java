@@ -7,6 +7,8 @@ import de.volkswagen.f73.evnavigator.util.csv_converters.MembershipConverter;
 import de.volkswagen.f73.evnavigator.util.csv_converters.StringConverter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ public class Station {
     //TODO: maybe add Socket_schuko, Socket_type2, Socket_type2_output
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @CsvCustomBindByName(column = "id", converter = StringConverter.class)
     private String id;
     @CsvCustomBindByName(column = "name", converter = StringConverter.class)
@@ -40,6 +43,15 @@ public class Station {
 
     public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator, Double lon, Double lat) {
         this.id = id;
+        this.name = name;
+        this.hasMembership = hasMembership;
+        this.hasFee = hasFee;
+        this.operator = operator;
+        this.lon = lon;
+        this.lat = lat;
+    }
+
+    public Station(String name, Boolean hasMembership, Boolean hasFee, String operator, Double lon, Double lat) {
         this.name = name;
         this.hasMembership = hasMembership;
         this.hasFee = hasFee;

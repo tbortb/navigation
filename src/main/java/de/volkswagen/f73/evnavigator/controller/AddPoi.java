@@ -4,6 +4,8 @@ import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
+import de.volkswagen.f73.evnavigator.model.POI;
+import de.volkswagen.f73.evnavigator.service.POIService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -44,6 +46,9 @@ public class AddPoi {
     private TextField longitudeInput;
 
     @Autowired
+    private POIService poiService;
+
+    @Autowired
     private FxWeaver fxWeaver;
 
     @FXML
@@ -79,7 +84,10 @@ public class AddPoi {
 
     @FXML
     private void savePoi() {
-        throw new NotImplementedException();
+        POI newPOI = new POI(this.nameInput.getText(),
+                Double.valueOf(this.latitudeInput.getText()),
+                Double.valueOf(this.longitudeInput.getText()));
+        this.poiService.savePOI(newPOI);
     }
 
 }

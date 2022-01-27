@@ -51,7 +51,7 @@ public class MainWindow {
     @FXML
     private void initialize() {
         LOGGER.debug("Parsing default CSV stations...");
-        this.stationService.csvToDB(this.stationsCsvLocation);
+        this.stationService.csvToEmptyDB(this.stationsCsvLocation);
         fxWeaver.load(Menu.class).getController().show();
     }
 

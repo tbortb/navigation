@@ -28,6 +28,12 @@ public class POI {
         this.lon = lon;
     }
 
+    public POI(String name, Double lat, Double lon) {
+        this.name = name;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -62,11 +68,6 @@ public class POI {
 
     @Override
     public String toString() {
-        return "POI{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lat=" + lat +
-                ", lon=" + lon +
-                '}';
+        return name;
     }
 }

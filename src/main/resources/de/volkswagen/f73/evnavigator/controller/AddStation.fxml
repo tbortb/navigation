@@ -48,7 +48,7 @@
                   <TextField fx:id="longitudeInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" text="Save" />
+            <Button mnemonicParsing="false" text="Save" onAction="#saveStation"/>
          </children>
       </VBox>
    </children>

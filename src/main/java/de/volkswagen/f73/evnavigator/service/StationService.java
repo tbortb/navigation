@@ -41,6 +41,15 @@ public class StationService {
         return this.stationRepo.save(station);
     }
 
+    public void csvToEmptyDB(String path){
+        if (this.stationRepo.count() == 0){
+            this.csvToDB(path);
+            LOGGER.debug("Filled database with default entries");
+        } else{
+            LOGGER.debug("Database is not empty");
+        }
+    }
+
     public List<Station> csvToDB(String path){
         List<Station> stations = csvToStations(path);
         return this.insertStationsToDB(stations);
@@ -64,5 +73,9 @@ public class StationService {
             LOGGER.error("Csv parsing error: {}", e.getMessage());
         }
         return station;
+    }
+
+    public Station saveStation(Station station){
+        return this.stationRepo.save(station);
     }
 }

@@ -32,6 +32,14 @@ public class Route {
         this.endLon = endLon;
     }
 
+    public Route(String name, Double startLat, Double startLon, Double endLat, Double endLon) {
+        this.name = name;
+        this.startLat = startLat;
+        this.startLon = startLon;
+        this.endLat = endLat;
+        this.endLon = endLon;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -82,13 +90,6 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Route{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", startLat=" + startLat +
-                ", startLon=" + startLon +
-                ", endLat=" + endLat +
-                ", endLon=" + endLon +
-                '}';
+        return name;
     }
 }

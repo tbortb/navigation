@@ -57,7 +57,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="263.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Save Route">
+      <Button layoutX="263.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Save Route" onAction="#saveRoute">
          <font>
             <Font size="14.0" />
          </font>
