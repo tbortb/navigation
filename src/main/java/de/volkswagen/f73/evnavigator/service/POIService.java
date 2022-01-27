@@ -30,6 +30,6 @@ public class POIService {
     public List<POI> getPOIsCloseTo(Double lat, Double lon, Double maxDistKm){
         List<POI> pois = this.poiRepo.findAll();
 
-        return pois.stream().filter(p -> DistanceCalculator.getDistanceKM(lat, lon, p.getLat(), p.getLon()) <= maxDistKm).collect(Collectors.toList());
+        return pois.stream().filter(p -> DistanceCalculator.getDistanceAsCrowFliesKm(lat, lon, p.getLat(), p.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 }
