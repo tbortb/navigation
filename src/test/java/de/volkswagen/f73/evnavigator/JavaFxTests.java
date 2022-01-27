@@ -2,8 +2,6 @@ package de.volkswagen.f73.evnavigator;
 
 import com.sun.javafx.application.PlatformImpl;
 import de.volkswagen.f73.evnavigator.controller.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ class JavaFxTests {
 		classes.add(Menu.class);
 		classes.add(SettingsMenu.class);
 		classes.add(AddStation.class);
-		classes.add(AddPoi.class);
+		classes.add(AddPlace.class);
 	}
 
 	@BeforeEach

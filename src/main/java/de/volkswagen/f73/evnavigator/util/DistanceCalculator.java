@@ -22,9 +22,7 @@ public class DistanceCalculator {
         double a = haversine(diffLat) + Math.cos(startLat) * Math.cos(endLat) * haversine(diffLong);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        double distance = EARTH_RADIUS_KM * c;
-
-        return distance;
+        return EARTH_RADIUS_KM * c;
     }
 
     private static double haversine(double val) {

@@ -6,11 +6,11 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
-import java.util.Random;
 import java.util.UUID;
 
 /**
- * Generates a random positive integer to use as a pseudounique ID.
+ * Generates an ID conditionally. If the object already has an ID (e.g. from CSV import) it keeps it,
+ * if not it gets assigned a UUID.
  *
  * @author Bücker, Thies (SE-A/34)
  * @author Justo, David (SE-A/34)

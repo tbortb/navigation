@@ -176,7 +176,7 @@ public class Navigation {
 
         this.currentCoordinate = new Coordinate(lat, lon);
 
-        this.currentMarker = new Marker(getClass().getResource("/images/markers/poi.png"), -20, -70)
+        this.currentMarker = new Marker(getClass().getResource("/images/markers/place.png"), -20, -70)
                 .setPosition(this.currentCoordinate)
                 .setVisible(true);
 
@@ -265,6 +265,7 @@ public class Navigation {
                 this.destinationMarker.getPosition().getLongitude());
         this.routeService.saveRoute(route);
         this.routeList.setItems(FXCollections.observableArrayList(routeService.getSavedRoutes()));
+
     }
 
     @FXML
@@ -281,5 +282,21 @@ public class Navigation {
 
         this.stationMarkers.addAll(markers);
         this.stationMarkers.forEach(this.map::addMarker);
+    }
+
+    @FXML
+    public void showStationsAlongRoute() {
+
+        this.stationMarkers.forEach(this.map::removeMarker);
+        this.stationMarkers.clear();
+
+        List<Station> closeStations = stationService.getStationsAlongPath(this.currentPath, this.distanceSlider.getValue());
+
+        List<Marker> markers = closeStations.stream().map(s -> buildMarker(s.getLat(), s.getLon(), MapUtils.MarkerImage.STATION)
+        ).collect(Collectors.toList());
+
+        this.stationMarkers.addAll(markers);
+        this.stationMarkers.forEach(this.map::addMarker);
+
     }
 }

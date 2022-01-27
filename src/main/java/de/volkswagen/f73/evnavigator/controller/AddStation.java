@@ -6,6 +6,7 @@ import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.service.StationService;
+import de.volkswagen.f73.evnavigator.util.MapUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Component;
 @Component
 @FxmlView
 public class AddStation {
+
+    // TODO: Migrate this with AddPlace, it's the same...
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AddStation.class);
     private static final int ZOOM_DEFAULT = 14;
@@ -73,9 +76,8 @@ public class AddStation {
             }
             final Coordinate newPosition = event.getCoordinate().normalize();
 
-            this.currentMarker = new Marker(getClass().getResource("/images/markers/poi.png"), -20, -70)
-                    .setPosition(newPosition)
-                    .setVisible(true);
+            this.currentMarker = MapUtils.buildMarker(newPosition.getLatitude(), newPosition.getLongitude(), MapUtils.MarkerImage.PLACE);
+
             this.latitudeInput.setText(String.valueOf(newPosition.getLatitude()));
             this.longitudeInput.setText(String.valueOf(newPosition.getLongitude()));
             this.map.addMarker(this.currentMarker);

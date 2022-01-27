@@ -15,7 +15,6 @@ public class MapUtils {
     }
 
     public static void setInputFromCoordinate(TextField lat, TextField lon, Coordinate coord) {
-        //LOGGER.debug("Setting input from map click event...");
         if (coord != null) {
             lat.setText(String.valueOf(coord.getLatitude()));
             lon.setText(String.valueOf(coord.getLongitude()));
@@ -25,7 +24,7 @@ public class MapUtils {
     public enum MarkerImage {
         DESTINATION("destination.png"),
         ORIGIN("home.png"),
-        POI("poi.png"),
+        PLACE("place.png"),
         STATION("station.png");
 
         private String filename;
