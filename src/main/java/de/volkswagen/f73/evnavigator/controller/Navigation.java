@@ -7,11 +7,11 @@ import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
 import de.volkswagen.f73.evnavigator.model.POI;
 import de.volkswagen.f73.evnavigator.model.Route;
+import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.service.POIService;
 import de.volkswagen.f73.evnavigator.service.RouteService;
 import de.volkswagen.f73.evnavigator.service.StationService;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -42,6 +44,7 @@ public class Navigation {
     private static final int ZOOM_DEFAULT = 14;
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private Marker currentMarker;
+    private List<Marker> stationMarkers = new ArrayList<>();
     private Marker destinationMarker;
     private Marker originMarker;
     private Coordinate currentCoordinate;
@@ -69,6 +72,8 @@ public class Navigation {
     private Button saveRouteBtn;
     @FXML
     private Button calcRouteBtn;
+    @FXML
+    private Slider distanceSlider;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -120,6 +125,8 @@ public class Navigation {
                 //TODO: calculate zoom level and map position to display entire route
             }
         });
+
+
     }
 
     public void show() {
@@ -249,5 +256,21 @@ public class Navigation {
                 this.destinationMarker.getPosition().getLongitude());
         this.routeService.saveRoute(route);
         this.routeList.setItems(FXCollections.observableArrayList(routeService.getSavedRoutes()));
+    }
+
+    @FXML
+    public void onShowCloseStations() {
+        this.stationMarkers.forEach(this.map::removeMarker);
+        this.stationMarkers.clear();
+        List<Station> closeStations = this.stationService.getStationsCloseTo(this.currentMarker.getPosition().getLatitude(),
+                this.currentMarker.getPosition().getLongitude(),
+                this.distanceSlider.getValue());
+
+        List<Marker> markers = closeStations.stream().map(s -> new Marker(getClass().getResource("/images/markers/station.png"),
+                -20,-70).setPosition(new Coordinate(s.getLat(), s.getLon())).setVisible(true)
+                ).collect(Collectors.toList());
+
+        this.stationMarkers.addAll(markers);
+        this.stationMarkers.forEach(this.map::addMarker);
     }
 }

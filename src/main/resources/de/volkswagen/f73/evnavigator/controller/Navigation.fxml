@@ -55,10 +55,11 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="719.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Show Close Stations">
+      <Button layoutX="719.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Show Close Stations" onAction="#onShowCloseStations">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+      <Slider fx:id="distanceSlider" layoutX="473.0" layoutY="607.0" max="200.0" min="1.0" prefHeight="14.0" prefWidth="192.0" showTickLabels="true" value="50.0" />
    </children>
 </AnchorPane>
