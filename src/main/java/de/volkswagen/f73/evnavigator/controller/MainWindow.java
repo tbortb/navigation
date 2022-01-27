@@ -70,4 +70,7 @@ public class MainWindow {
         return this.menuTitle;
     }
 
+    public BorderPane getRootPane() {
+        return rootPane;
+    }
 }

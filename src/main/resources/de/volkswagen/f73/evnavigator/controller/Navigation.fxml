@@ -4,48 +4,65 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="navigationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Navigation">
    <children>
-      <MapView fx:id="map" layoutX="28.0" layoutY="40.0" minHeight="400.0" minWidth="400.0" prefHeight="423.0" prefWidth="847.0" />
-      <TextField fx:id="originLatInput" layoutX="207.0" layoutY="487.0" prefHeight="25.0" prefWidth="179.0" />
-      <ListView fx:id="routeList" layoutX="896.0" layoutY="75.0" prefHeight="237.0" prefWidth="257.0" />
-      <Label layoutX="32.0" layoutY="490.0" text="Origin">
+      <MapView fx:id="map" layoutX="28.0" layoutY="40.0" minHeight="396.0" minWidth="400.0" prefHeight="425.0" prefWidth="847.0" />
+      <TextField fx:id="originLatInput" layoutX="207.0" layoutY="508.0" prefHeight="25.0" prefWidth="179.0" />
+      <ListView fx:id="routeList" layoutX="897.0" layoutY="72.0" prefHeight="269.0" prefWidth="257.0" />
+      <Label layoutX="32.0" layoutY="511.0" text="Origin">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="142.0" layoutY="491.0" text="Latitude" />
-      <TextField fx:id="destLatInput" layoutX="207.0" layoutY="528.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="28.0" layoutY="531.0" text="Destination">
+      <Label layoutX="142.0" layoutY="512.0" text="Latitude" />
+      <TextField fx:id="destLatInput" layoutX="207.0" layoutY="549.0" prefHeight="25.0" prefWidth="179.0" />
+      <Label layoutX="28.0" layoutY="552.0" text="Destination">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="142.0" layoutY="532.0" text="Latitude" />
-      <Label layoutX="982.0" layoutY="40.0" text="Saved Routes">
+      <Label layoutX="142.0" layoutY="553.0" text="Latitude" />
+      <Label layoutX="981.0" layoutY="40.0" text="Saved Routes">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="poiList" layoutX="898.0" layoutY="385.0" prefHeight="237.0" prefWidth="257.0" />
+      <ListView fx:id="poiList" layoutX="899.0" layoutY="382.0" prefHeight="269.0" prefWidth="257.0" />
       <Label layoutX="1013.0" layoutY="350.0" text="POIs">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="originLonInput" layoutX="479.0" layoutY="487.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="414.0" layoutY="491.0" text="Longitude" />
-      <TextField fx:id="destLonInput" layoutX="479.0" layoutY="528.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="414.0" layoutY="532.0" text="Longitude" />
-      <Button layoutX="670.0" layoutY="487.0" mnemonicParsing="false" onAction="#loadOriginFromPoi" text="Load from POIs" />
-      <Button layoutX="670.0" layoutY="528.0" mnemonicParsing="false" onAction="#loadDestinationFromPoi" text="Load from POIs" />
-      <Button layoutX="777.0" layoutY="487.0" mnemonicParsing="false" onAction="#loadOriginFromMap" text="Load from map" />
-      <Button layoutX="777.0" layoutY="528.0" mnemonicParsing="false" onAction="#loadDestinationFromMap" text="Load from map" />
-      <Button layoutX="376.0" layoutY="594.0" mnemonicParsing="false" onAction="#calculateRoute" prefHeight="56.0" prefWidth="151.0" text="Calculate Route">
+      <TextField fx:id="originLonInput" layoutX="479.0" layoutY="508.0" prefHeight="25.0" prefWidth="179.0" />
+      <Label layoutX="414.0" layoutY="512.0" text="Longitude" />
+      <TextField fx:id="destLonInput" layoutX="479.0" layoutY="549.0" prefHeight="25.0" prefWidth="179.0" />
+      <Label layoutX="414.0" layoutY="553.0" text="Longitude" />
+      <Button layoutX="777.0" layoutY="509.0" mnemonicParsing="false" onAction="#loadOriginFromPoi" text="Load from POIs" />
+      <Button layoutX="777.0" layoutY="550.0" mnemonicParsing="false" onAction="#loadDestinationFromPoi" text="Load from POIs" />
+      <Button layoutX="681.0" layoutY="508.0" mnemonicParsing="false" onAction="#loadOriginFromMap" text="Use Marker" />
+      <Button layoutX="681.0" layoutY="549.0" mnemonicParsing="false" onAction="#loadDestinationFromMap" text="Use Marker" />
+      <Button layoutX="32.0" layoutY="595.0" mnemonicParsing="false" onAction="#calculateRoute" prefHeight="56.0" prefWidth="151.0" text="Calculate Route">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Slider fx:id="zoomSlider" layoutX="28.0" layoutY="478.0" majorTickUnit="4.0" max="28.0" minorTickCount="1" prefHeight="14.0" prefWidth="847.0" value="14.0" />
+      <Button layoutX="493.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Save Marker as POI">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="263.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Save Route">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="719.0" layoutY="595.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="151.0" text="Show Close Stations">
          <font>
             <Font size="14.0" />
          </font>

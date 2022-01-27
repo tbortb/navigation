@@ -2,16 +2,20 @@ package de.volkswagen.f73.evnavigator;
 
 import com.sun.javafx.application.PlatformImpl;
 import de.volkswagen.f73.evnavigator.controller.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @SpringBootTest
+@TestPropertySource(locations= "classpath:application-test.properties")
 class JavaFxTests {
 
 	@Autowired
@@ -55,14 +59,17 @@ class JavaFxTests {
 
 	@Test
 	void setViewInMainWindow() {
+		fxWeaver.load(SettingsMenu.class).getController().show();
+		Assertions.assertEquals("menuBox", fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
+		Assertions.assertEquals("Settings", fxWeaver.getBean(MainWindow.class).getTitle().getText());
+
 		fxWeaver.load(Navigation.class).getController().show();
+		Assertions.assertEquals("navigationPane", fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
 		Assertions.assertEquals("Navigation", fxWeaver.getBean(MainWindow.class).getTitle().getText());
 
 		fxWeaver.load(Menu.class).getController().show();
+		Assertions.assertEquals("menuBox", fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
 		Assertions.assertEquals("Main Menu", fxWeaver.getBean(MainWindow.class).getTitle().getText());
-
-		fxWeaver.load(SettingsMenu.class).getController().show();
-		Assertions.assertEquals("Settings", fxWeaver.getBean(MainWindow.class).getTitle().getText());
 	}
 
 	@AfterAll

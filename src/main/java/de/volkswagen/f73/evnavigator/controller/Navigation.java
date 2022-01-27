@@ -1,30 +1,30 @@
 package de.volkswagen.f73.evnavigator.controller;
 
-import com.grum.geocalc.EarthCalc;
-import com.grum.geocalc.Point;
 import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.CoordinateLine;
 import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
+import de.volkswagen.f73.evnavigator.service.RouteService;
 import de.volkswagen.f73.evnavigator.service.StationService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.apache.commons.lang3.NotImplementedException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.DecimalFormat;
+import java.util.List;
 
-import static de.volkswagen.f73.evnavigator.util.geo.CoordinateUtils.calculateDistance;
 
 /**
  * @author Justo, David (SE-A/34)
@@ -56,6 +56,8 @@ public class Navigation {
     @FXML
     private TextField destLonInput;
     @FXML
+    private Slider zoomSlider;
+    @FXML
     private ListView poiList;
     @FXML
     private ListView routeList;
@@ -64,25 +66,27 @@ public class Navigation {
     private FxWeaver fxWeaver;
     @Autowired
     private StationService stationService;
+    @Autowired
+    private RouteService routeService;
 
     @FXML
     private void initialize() {
         map.setZoom(ZOOM_DEFAULT);
         map.setCenter(LOCATION_DEFAULT);
-        setUpMapEventHandlers();
+        map.setAnimationDuration(500);
+        setUpMapEvents();
         // don't block the view when initializing map
         Platform.runLater(() -> {
             LOGGER.debug("Initializing MapJFX map...");
             map.initialize();
         });
-
     }
 
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.navigationPane, "Navigation");
     }
 
-    private void setUpMapEventHandlers() {
+    private void setUpMapEvents() {
         map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
             event.consume();
             if (this.currentMarker != null) {
@@ -96,6 +100,8 @@ public class Navigation {
 
             this.map.addMarker(this.currentMarker);
         });
+
+        this.zoomSlider.valueProperty().bindBidirectional(this.map.zoomProperty());
     }
 
     @FXML
@@ -133,10 +139,15 @@ public class Navigation {
         Coordinate dest = new Coordinate(destLat, destLon);
 
 
-        this.currentPath = new CoordinateLine(origin, dest);
+        JSONObject json = routeService.getRouteFromCoordinates(originLat, originLon, destLat, destLon);
+
+        List<Coordinate> waypoints = routeService.getCoordinatesFromRoute(json);
+        LOGGER.info("Calculated distance is: {}", routeService.getDistanceFromRoute(json));
+
+        this.currentPath = new CoordinateLine(waypoints);
 
         this.currentPath.setVisible(true);
-        this.currentPath.setColor(Color.PURPLE);
+        this.currentPath.setColor(Color.BLUE);
         this.currentPath.setWidth(10);
 
         if (this.destinationMarker != null) {
@@ -144,11 +155,11 @@ public class Navigation {
             this.map.removeMarker(this.originMarker);
         }
 
-        this.destinationMarker = new Marker(getClass().getResource("/images/markers/station.png"), -20, -70)
+        this.destinationMarker = new Marker(getClass().getResource("/images/markers/destination.png"), -20, -70)
                 .setPosition(dest)
                 .setVisible(true);
 
-        this.originMarker = new Marker(getClass().getResource("/images/markers/station.png"), -20, -70)
+        this.originMarker = new Marker(getClass().getResource("/images/markers/home.png"), -20, -70)
                 .setPosition(origin)
                 .setVisible(true);
 
@@ -156,8 +167,6 @@ public class Navigation {
             this.map.removeMarker(this.currentMarker);
             this.currentMarker = null;
         }
-
-        LOGGER.info("Calculated distance is: {}", calculateDistance(originLat, originLon, destLat, destLon));
 
         this.map.addMarker(this.originMarker);
         this.map.addMarker(this.destinationMarker);
