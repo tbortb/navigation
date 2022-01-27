@@ -11,6 +11,7 @@ import de.volkswagen.f73.evnavigator.service.POIService;
 import de.volkswagen.f73.evnavigator.service.RouteService;
 import de.volkswagen.f73.evnavigator.service.StationService;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +65,10 @@ public class Navigation {
     private ListView<POI> poiList;
     @FXML
     private ListView<Route> routeList;
+    @FXML
+    private Button saveRouteBtn;
+    @FXML
+    private Button calcRouteBtn;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -86,11 +91,33 @@ public class Navigation {
             map.initialize();
         });
 
+        this.calcRouteBtn.disableProperty().bind(this.originLatInput.textProperty().isEmpty().or(
+                this.originLonInput.textProperty().isEmpty().or(
+                        this.destLatInput.textProperty().isEmpty().or(
+                                this.destLonInput.textProperty().isEmpty()
+                        )
+                )
+        ));
+
+        this.saveRouteBtn.setDisable(true);
+
         this.poiList.setOnMouseClicked(e -> {
             if(this.poiList.getSelectionModel().getSelectedItem() != null){
                 POI currentPoi = this.poiList.getSelectionModel().getSelectedItem();
                 displayMarkerOnMap(currentPoi.getLat(), currentPoi.getLon());
                 this.map.setCenter(new Coordinate(currentPoi.getLat(), currentPoi.getLon()));
+            }
+        });
+
+        this.routeList.setOnMouseClicked(e -> {
+            if(this.routeList.getSelectionModel().getSelectedItem() != null){
+                Route currentRoute = this.routeList.getSelectionModel().getSelectedItem();
+                this.originLatInput.setText(currentRoute.getStartLat().toString());
+                this.originLonInput.setText(currentRoute.getStartLon().toString());
+                this.destLatInput.setText(currentRoute.getEndLat().toString());
+                this.destLonInput.setText(currentRoute.getEndLon().toString());
+                this.calculateRoute();
+                //TODO: calculate zoom level and map position to display entire route
             }
         });
     }
@@ -108,6 +135,7 @@ public class Navigation {
             Double lon = event.getCoordinate().normalize().getLongitude();
             this.displayMarkerOnMap(lat, lon);
         });
+
 
         this.zoomSlider.valueProperty().bindBidirectional(this.map.zoomProperty());
     }
@@ -194,6 +222,8 @@ public class Navigation {
         this.map.addMarker(this.destinationMarker);
 
         this.map.addCoordinateLine(this.currentPath);
+
+        this.saveRouteBtn.setDisable(false);
 
     }
 
