@@ -4,6 +4,8 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.repository.StationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import java.util.List;
  */
 @Service
 public class StationService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StationService.class);
 
     @Autowired
     private StationRepository stationRepo;
@@ -57,7 +61,7 @@ public class StationService {
 
             station = csvToBean.parse();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Csv parsing error: {}", e.getMessage());
         }
         return station;
     }
