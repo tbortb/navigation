@@ -2,9 +2,11 @@ package de.volkswagen.f73.evnavigator.model;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
+import de.volkswagen.f73.evnavigator.util.IDGenerator;
 import de.volkswagen.f73.evnavigator.util.csv_converters.FeeConverter;
 import de.volkswagen.f73.evnavigator.util.csv_converters.MembershipConverter;
 import de.volkswagen.f73.evnavigator.util.csv_converters.StringConverter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,8 @@ public class Station {
     //TODO: maybe add Socket_schuko, Socket_type2, Socket_type2_output
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = IDGenerator.GENERATOR_NAME)
+    @GenericGenerator(name = IDGenerator.GENERATOR_NAME, strategy = "de.volkswagen.f73.evnavigator.util.IDGenerator")
     @CsvCustomBindByName(column = "id", converter = StringConverter.class)
     private String id;
     @CsvCustomBindByName(column = "name", converter = StringConverter.class)
@@ -41,7 +44,7 @@ public class Station {
     public Station() {
     }
 
-    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator, Double lon, Double lat) {
+    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator, Double lat, Double lon) {
         this.id = id;
         this.name = name;
         this.hasMembership = hasMembership;
@@ -51,7 +54,7 @@ public class Station {
         this.lat = lat;
     }
 
-    public Station(String name, Boolean hasMembership, Boolean hasFee, String operator, Double lon, Double lat) {
+    public Station(String name, Boolean hasMembership, Boolean hasFee, String operator, Double lat, Double lon) {
         this.name = name;
         this.hasMembership = hasMembership;
         this.hasFee = hasFee;

@@ -4,7 +4,6 @@ import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
-import de.volkswagen.f73.evnavigator.model.POI;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.service.StationService;
 import javafx.application.Platform;

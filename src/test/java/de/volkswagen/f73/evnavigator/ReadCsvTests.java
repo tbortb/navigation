@@ -43,9 +43,9 @@ public class ReadCsvTests {
     void setUp(){
         this.stationRepo.deleteAll();
         this.sampleStations.clear();
-        this.sampleStations.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 10.3187933, 47.727446));
-        this.sampleStations.add(new Station("node/5549505721", "name1", true, false, "Tesla", 12.6866268,53.5167306));
-        this.sampleStations.add(new Station("node/7848608385", "name2", false, false, "Thüringer Energie AG", 11.0412338,51.0150151));
+        this.sampleStations.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
+        this.sampleStations.add(new Station("node/5549505721", "name1", true, false, "Tesla", 53.5167306, 12.6866268));
+        this.sampleStations.add(new Station("node/7848608385", "name2", false, false, "Thüringer Energie AG",51.0150151 ,11.0412338));
     }
 
 

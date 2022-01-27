@@ -32,8 +32,8 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="poiList" layoutX="899.0" layoutY="382.0" prefHeight="269.0" prefWidth="257.0" />
-      <Label layoutX="1013.0" layoutY="350.0" text="POIs">
+      <ListView fx:id="placeList" layoutX="899.0" layoutY="382.0" prefHeight="269.0" prefWidth="257.0" />
+      <Label layoutX="1013.0" layoutY="350.0" text="Places">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

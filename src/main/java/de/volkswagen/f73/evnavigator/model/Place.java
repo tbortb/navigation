@@ -10,7 +10,7 @@ import javax.persistence.Id;
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class POI {
+public class Place {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +19,16 @@ public class POI {
     private Double lat;
     private Double lon;
 
-    public POI(){}
+    public Place(){}
 
-    public POI(Integer id, String name, Double lat, Double lon) {
+    public Place(Integer id, String name, Double lat, Double lon) {
         this.id = id;
         this.name = name;
         this.lat = lat;
         this.lon = lon;
     }
 
-    public POI(String name, Double lat, Double lon) {
+    public Place(String name, Double lat, Double lon) {
         this.name = name;
         this.lat = lat;
         this.lon = lon;

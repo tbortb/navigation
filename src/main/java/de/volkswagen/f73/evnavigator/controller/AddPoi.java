@@ -4,15 +4,14 @@ import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
-import de.volkswagen.f73.evnavigator.model.POI;
-import de.volkswagen.f73.evnavigator.service.POIService;
+import de.volkswagen.f73.evnavigator.model.Place;
+import de.volkswagen.f73.evnavigator.service.PlaceService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class AddPoi {
     private TextField longitudeInput;
 
     @Autowired
-    private POIService poiService;
+    private PlaceService placeService;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -84,10 +83,10 @@ public class AddPoi {
 
     @FXML
     private void savePoi() {
-        POI newPOI = new POI(this.nameInput.getText(),
+        Place newPlace = new Place(this.nameInput.getText(),
                 Double.valueOf(this.latitudeInput.getText()),
                 Double.valueOf(this.longitudeInput.getText()));
-        this.poiService.savePOI(newPOI);
+        this.placeService.savePlace(newPlace);
     }
 
 }

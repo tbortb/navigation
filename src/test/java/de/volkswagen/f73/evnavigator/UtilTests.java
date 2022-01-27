@@ -27,7 +27,7 @@ public class UtilTests {
         double expectedDistance = 2.914;
         double errorMarginPct = 0.01;
 
-        double actualDistance = DistanceCalculator.getDistanceAsCrowFliesKm(lat1, lon1, lat2, lon2);
+        double actualDistance = DistanceCalculator.getLinearDistanceKm(lat1, lon1, lat2, lon2);
 
         Assertions.assertTrue(actualDistance < expectedDistance * (1 + errorMarginPct));
         Assertions.assertTrue(actualDistance > expectedDistance * (1 - errorMarginPct));

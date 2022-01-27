@@ -10,8 +10,8 @@ public class DistanceCalculator {
 
     private DistanceCalculator(){}
 
-    public static double getDistanceAsCrowFliesKm(double startLat, double startLon,
-                                                  double endLat, double endLon) {
+    public static double getLinearDistanceKm(double startLat, double startLon,
+                                             double endLat, double endLon) {
 
         double diffLat = Math.toRadians((endLat - startLat));
         double diffLong = Math.toRadians((endLon - startLon));

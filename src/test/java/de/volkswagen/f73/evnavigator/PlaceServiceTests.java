@@ -1,9 +1,8 @@
 package de.volkswagen.f73.evnavigator;
 
-import de.volkswagen.f73.evnavigator.model.POI;
-import de.volkswagen.f73.evnavigator.model.Station;
-import de.volkswagen.f73.evnavigator.repository.POIRepository;
-import de.volkswagen.f73.evnavigator.service.POIService;
+import de.volkswagen.f73.evnavigator.model.Place;
+import de.volkswagen.f73.evnavigator.repository.PlaceRepository;
+import de.volkswagen.f73.evnavigator.service.PlaceService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Justo, David (SE-A/34)
@@ -22,31 +19,31 @@ import java.util.Set;
  */
 @SpringBootTest
 @TestPropertySource(locations= "classpath:application-test.properties")
-public class POIServiceTests {
+public class PlaceServiceTests {
 
     @Autowired
-    private POIService poiService;
+    private PlaceService placeService;
 
     @Autowired
-    private POIRepository poiRepo;
+    private PlaceRepository poiRepo;
 
-    private List<POI> samplePOIs = new ArrayList<>();
+    private List<Place> samplePOIs = new ArrayList<>();
 
     @BeforeEach
     void setUp(){
         this.poiRepo.deleteAll();
         this.samplePOIs.clear();
-        this.samplePOIs.add(new POI(null, "first", 49.243824, -121.887340));
-        this.samplePOIs.add(new POI(null, "second", 49.235347, -121.92532));
+        this.samplePOIs.add(new Place(null, "first", 49.243824, -121.887340));
+        this.samplePOIs.add(new Place(null, "second", 49.235347, -121.92532));
     }
 
     /**
-     * Check if a POI can be added to the POIRepository
+     * Check if a Place can be added to the PlaceRepository
      */
     @Test
     void addPOITest(){
-        POI toSave = this.samplePOIs.get(0);
-        POI saved = Assertions.assertDoesNotThrow(() -> this.poiService.savePOI(toSave));
+        Place toSave = this.samplePOIs.get(0);
+        Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(toSave));
 
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(toSave.getName(), saved.getName());
@@ -54,15 +51,15 @@ public class POIServiceTests {
     }
 
     /**
-     * Check if POIs can be fetched from the POIRepository
+     * Check if POIs can be fetched from the PlaceRepository
      */
     @Test
     void getPOITest(){
-        for (POI poi : this.samplePOIs){
-            Assertions.assertDoesNotThrow(() -> this.poiService.savePOI(poi));
+        for (Place place : this.samplePOIs){
+            Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
         }
 
-        List<POI> fetched = Assertions.assertDoesNotThrow(() -> this.poiService.getAllPOIs());
+        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAllPlaces());
 
         Assertions.assertNotNull(fetched);
         Assertions.assertEquals(this.samplePOIs.size(), fetched.size());
@@ -72,7 +69,7 @@ public class POIServiceTests {
     }
 
     /**
-     * Check if the POIService correctly fetches pois close to a given point
+     * Check if the PlaceService correctly fetches pois close to a given point
      */
     @Test
     void getClosePOIsTest(){
@@ -81,11 +78,11 @@ public class POIServiceTests {
         double maxDistKm = 1;
         int expectedSize = 1;
 
-        for (POI poi : this.samplePOIs){
-            Assertions.assertDoesNotThrow(() -> this.poiService.savePOI(poi));
+        for (Place place : this.samplePOIs){
+            Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
         }
 
-        List<POI> fetched = Assertions.assertDoesNotThrow(() -> this.poiService.getPOIsCloseTo(closeToLat, closeToLon, maxDistKm));
+        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getPlacesCloseTo(closeToLat, closeToLon, maxDistKm));
 
         Assertions.assertNotNull(fetched);
         Assertions.assertEquals(expectedSize, fetched.size());

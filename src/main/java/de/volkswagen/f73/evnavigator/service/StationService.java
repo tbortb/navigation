@@ -2,7 +2,6 @@ package de.volkswagen.f73.evnavigator.service;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import de.volkswagen.f73.evnavigator.model.POI;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.repository.StationRepository;
 import de.volkswagen.f73.evnavigator.util.DistanceCalculator;
@@ -85,6 +84,6 @@ public class StationService {
     public List<Station> getStationsCloseTo(Double lat, Double lon, Double maxDistKm){
         List<Station> stations = this.stationRepo.findAll();
 
-        return stations.stream().filter(s -> DistanceCalculator.getDistanceAsCrowFliesKm(lat, lon, s.getLat(), s.getLon()) <= maxDistKm).collect(Collectors.toList());
+        return stations.stream().filter(s -> DistanceCalculator.getLinearDistanceKm(lat, lon, s.getLat(), s.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 }
