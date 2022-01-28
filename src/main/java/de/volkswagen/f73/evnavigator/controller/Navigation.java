@@ -52,7 +52,6 @@ public class Navigation {
     private Coordinate currentCoordinate;
     private CoordinateLine currentPath;
     private CoordinateLine linearPath;
-    private MapCircle stationRadius;
 
     @FXML
     private AnchorPane navigationPane;
@@ -164,19 +163,6 @@ public class Navigation {
             }
         });
 
-
-        this.distanceSlider.setOnMouseReleased(e -> {
-            LOGGER.debug("Drag on distance slider detected.");
-            Coordinate radiusCenter = this.currentCoordinate != null ? this.currentCoordinate : LOCATION_DEFAULT;
-
-            if (this.stationRadius != null) {
-                this.map.removeMapCircle(this.stationRadius);
-            }
-
-            this.stationRadius = new MapCircle(radiusCenter, this.distanceSlider.getValue() * 1000 * 2);
-            this.stationRadius.setVisible(true);
-            this.map.addMapCircle(this.stationRadius);
-        });
     }
 
     /**

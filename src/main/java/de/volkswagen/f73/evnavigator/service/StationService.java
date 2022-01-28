@@ -138,7 +138,7 @@ public class StationService {
     public List<Station> getStationsCloseTo(Double lat, Double lon, Double maxDistKm) {
         List<Station> stations = this.stationRepo.findAll();
 
-        return stations.stream().filter(s -> GeoUtils.getLinearDistanceKm(lat, lon, s.getLat(), s.getLon()) <= maxDistKm).collect(Collectors.toList());
+        return stations.stream().parallel().filter(s -> GeoUtils.getLinearDistanceKm(lat, lon, s.getLat(), s.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 
     /**
@@ -157,9 +157,8 @@ public class StationService {
 
         List<Station> stationsWithinBoundaries = this.stationRepo.findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(latMin, lonMin, latMax, lonMax);
 
-
-        return stationsWithinBoundaries.stream().parallel().filter(s ->
-                path.getCoordinateStream().parallel().anyMatch(p -> GeoUtils.getLinearDistanceKm(p.getLatitude(), p.getLongitude(), s.getLat(), s.getLon()) <= maxDistKm)
+        return stationsWithinBoundaries.stream().filter(s ->
+                path.getCoordinateStream().anyMatch(p -> GeoUtils.getLinearDistanceKm(p.getLatitude(), p.getLongitude(), s.getLat(), s.getLon()) <= maxDistKm)
         ).collect(Collectors.toList());
     }
 }
