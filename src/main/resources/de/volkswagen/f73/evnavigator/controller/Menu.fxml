@@ -40,16 +40,16 @@
             <Font name="System Bold" size="14.0" />
         </font>
     </Button>
-    <Button onAction="#openSettingsView" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="DATA" HBox.hgrow="SOMETIMES">
+    <Button onAction="#openSettingsView" alignment="CENTER" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="DATA" HBox.hgrow="SOMETIMES">
         <graphic>
             <FontAwesomeIconView glyphName="COG" size="80" />
         </graphic>
-      <HBox.margin>
-         <Insets left="25.0" right="25.0" />
-      </HBox.margin>
-      <font>
-         <Font name="System Bold" size="14.0" />
-      </font>
+        <HBox.margin>
+            <Insets left="25.0" right="25.0" />
+        </HBox.margin>
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
     </Button>
 
 </HBox>

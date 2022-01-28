@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 @FxmlView
 public class AddStation {
 
-    // TODO: Migrate this with AddPlace, it's the same...
+    // TODO: Migrate this with ManagePlaces, it's the same...
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AddStation.class);
     private static final int ZOOM_DEFAULT = 14;

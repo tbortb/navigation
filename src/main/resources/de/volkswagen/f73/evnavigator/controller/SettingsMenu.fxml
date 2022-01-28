@@ -7,27 +7,28 @@
 <?import javafx.scene.text.Font?>
 
 <HBox fx:id="menuBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.SettingsMenu">
-    <Button onAction="#openAddStationView" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="STATIONS" HBox.hgrow="SOMETIMES">
+
+    <Button onAction="#openAddStationView" alignment="CENTER" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="STATIONS" HBox.hgrow="SOMETIMES">
         <graphic>
-            <FontAwesomeIconView glyphName="PLUG" size="80" text="" />
+            <FontAwesomeIconView glyphName="PLUG" size="80" />
         </graphic>
-      <HBox.margin>
-         <Insets left="40.0" right="40.0" />
-      </HBox.margin>
-      <font>
-         <Font name="System Bold" size="14.0" />
-      </font>
+        <HBox.margin>
+            <Insets left="25.0" right="25.0" />
+        </HBox.margin>
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
     </Button>
-    <Button onAction="#openAddPlaceView" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="PLACES" HBox.hgrow="SOMETIMES">
+    <Button onAction="#openAddPlaceView" alignment="CENTER" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="PLACES" HBox.hgrow="SOMETIMES">
         <graphic>
             <FontAwesomeIconView glyphName="GLOBE" size="80" />
         </graphic>
-      <HBox.margin>
-         <Insets left="40.0" right="40.0" />
-      </HBox.margin>
-      <font>
-         <Font name="System Bold" size="14.0" />
-      </font>
+        <HBox.margin>
+            <Insets left="25.0" right="25.0" />
+        </HBox.margin>
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
     </Button>
 
 </HBox>

@@ -32,7 +32,7 @@ public class SettingsMenu {
 
     @FXML
     private void openAddPlaceView() {
-        this.fxWeaver.load(AddPlace.class).getController().show();
+        this.fxWeaver.load(ManagePlaces.class).getController().show();
     }
 
 }

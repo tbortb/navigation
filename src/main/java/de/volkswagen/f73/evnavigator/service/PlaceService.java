@@ -53,4 +53,8 @@ public class PlaceService {
 
         return places.stream().filter(p -> GeoUtils.getLinearDistanceKm(lat, lon, p.getLat(), p.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
+
+    public void deletePlace(Place place) {
+        this.placeRepo.delete(place);
+    }
 }

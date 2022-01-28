@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.sothawo.mapjfx.MapView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -42,25 +43,36 @@
       <Label layoutX="414.0" layoutY="512.0" text="Longitude" />
       <TextField fx:id="destLonInput" layoutX="479.0" layoutY="549.0" prefHeight="25.0" prefWidth="179.0" />
       <Label layoutX="414.0" layoutY="553.0" text="Longitude" />
-      <Button layoutX="681.0" layoutY="508.0" mnemonicParsing="false" onAction="#loadOriginFromMap" text="From Map" />
-      <Button layoutX="681.0" layoutY="549.0" mnemonicParsing="false" onAction="#loadDestinationFromMap" text="From Map" />
+      <Button graphicTextGap="20.0" layoutX="681.0" layoutY="508.0" mnemonicParsing="false" onAction="#loadOriginFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map">
+         <graphic>
+            <FontAwesomeIconView glyphName="MAP_MARKER" size="16" />
+         </graphic>
+      </Button>
+      <Button graphicTextGap="20.0" layoutX="681.0" layoutY="549.0" mnemonicParsing="false" onAction="#loadDestinationFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map">
+         <graphic>
+            <FontAwesomeIconView glyphName="MAP_MARKER" size="16" />
+         </graphic>
+      </Button>
       <Button fx:id="calcRouteBtn" layoutX="32.0" layoutY="595.0" mnemonicParsing="false" onAction="#calculateRoute" prefHeight="56.0" prefWidth="151.0" text="Calculate Route">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
       <Slider fx:id="zoomSlider" layoutX="28.0" layoutY="478.0" majorTickUnit="4.0" max="28.0" minorTickCount="1" prefHeight="14.0" prefWidth="847.0" value="14.0" />
-      <Button fx:id="saveRouteBtn" disable="true" layoutX="263.0" layoutY="595.0" mnemonicParsing="false" onAction="#saveRoute" prefHeight="56.0" prefWidth="151.0" text="Save Route">
+      <Button fx:id="saveRouteBtn" disable="true" layoutX="244.0" layoutY="595.0" mnemonicParsing="false" onAction="#saveRoute" prefHeight="56.0" prefWidth="151.0" text="Save Route">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="719.0" layoutY="595.0" mnemonicParsing="false" onAction="#onShowCloseStations" prefHeight="56.0" prefWidth="151.0" text="Show Close Stations">
+      <Button fx:id="closeStations" layoutX="722.0" layoutY="592.0" mnemonicParsing="false" onAction="#onShowCloseStations" prefHeight="20.0" prefWidth="151.0" text="Show Close Stations">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Slider fx:id="distanceSlider" layoutX="473.0" layoutY="607.0" max="200.0" min="1.0" prefHeight="14.0" prefWidth="192.0" showTickLabels="true" value="50.0" />
-      <Button fx:id="stationsAlongRoute" onAction="#showStationsAlongRoute" layoutX="763.0" layoutY="512.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="127.0" text="Stations along Route" />
+      <Slider fx:id="distanceSlider" blockIncrement="1.0" layoutX="427.0" layoutY="601.0" max="200.0" minorTickCount="5" prefHeight="38.0" prefWidth="273.0" showTickLabels="true" showTickMarks="true" value="50.0" />
+      <Button fx:id="stationsAlongRoute" disable="true" layoutX="722.0" layoutY="621.0" mnemonicParsing="false" onAction="#showStationsAlongRoute" prefHeight="33.0" prefWidth="151.0" text="Stations along Route">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
