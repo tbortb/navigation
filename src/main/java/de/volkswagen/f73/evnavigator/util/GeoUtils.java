@@ -1,9 +1,5 @@
 package de.volkswagen.f73.evnavigator.util;
 
-import com.sothawo.mapjfx.Coordinate;
-
-import java.util.List;
-
 /**
  * Utility class for several calculations around geolocal coordinates.
  *
@@ -46,19 +42,23 @@ public class GeoUtils {
         return Math.pow(Math.sin(val / 2), 2);
     }
 
-    /**
-     * Calculates the approximated cardinal direction of a given route via its origin and destination coordinates.
-     *
-     * @return array of exactly two directions, first latitudinal, second longitudinal
-     */
-    public static CardinalPoint[] calculateCardinalPoint(double startLat, double startLon,
-                                                         double endLat, double endLon) {
-        CardinalPoint[] directions = new CardinalPoint[2];
 
-        directions[0] = startLat > endLat ? CardinalPoint.SOUTH : CardinalPoint.NORTH;
-        directions[1] = startLon > endLon ? CardinalPoint.WEST : CardinalPoint.EAST;
+    public static boolean isValidCoordinate(String lat, String lon) {
 
-        return directions;
+        double latitude;
+        double longitude;
+        try {
+            latitude = Double.parseDouble(lat);
+            longitude = Double.parseDouble(lon);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+
+        return isValidCoordinate(latitude, longitude);
+    }
+
+    public static boolean isValidCoordinate(double lat, double lon) {
+        return (Math.abs(lat) <= 90) && (Math.abs(lon) <= 180);
     }
 
     public enum CardinalPoint {

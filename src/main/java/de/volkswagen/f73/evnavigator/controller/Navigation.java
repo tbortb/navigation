@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static de.volkswagen.f73.evnavigator.util.GeoUtils.isValidCoordinate;
+import static de.volkswagen.f73.evnavigator.util.GuiUtils.*;
 import static de.volkswagen.f73.evnavigator.util.MapUtils.buildMarker;
 import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate;
 
@@ -45,6 +47,7 @@ public class Navigation {
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
     private static final int ZOOM_DEFAULT = 14;
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
+
     private Marker currentMarker;
     private final List<Marker> stationMarkers = new ArrayList<>();
     private Marker destinationMarker;
@@ -77,6 +80,10 @@ public class Navigation {
     private Button calcRouteBtn;
     @FXML
     private Slider distanceSlider;
+    @FXML
+    private Button stationsAlongRoute;
+    @FXML
+    private Button closeStations;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -104,6 +111,9 @@ public class Navigation {
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
+                this.currentCoordinate = LOCATION_DEFAULT;
+                this.currentMarker = buildMarker(LOCATION_DEFAULT.getLatitude(), LOCATION_DEFAULT.getLongitude(), MapUtils.MarkerImage.PLACE, false);
+                this.map.addMarker(this.currentMarker);
                 this.setUpMapEvents();
             }
         });
@@ -141,6 +151,8 @@ public class Navigation {
                 )
         ));
 
+        this.closeStations.disableProperty().bind(this.currentMarker.visibleProperty().not());
+
         this.saveRouteBtn.setDisable(true);
 
         this.placeList.setOnMouseClicked(e -> {
@@ -172,17 +184,12 @@ public class Navigation {
      * @param lon longitude
      */
     private void displayMarkerOnMap(Double lat, Double lon) {
-        if (this.currentMarker != null) {
-            this.map.removeMarker(this.currentMarker);
-        }
 
+        this.currentMarker.setVisible(true);
         this.currentCoordinate = new Coordinate(lat, lon);
+        this.currentMarker.setPosition(this.currentCoordinate);
+        this.currentMarker.setPosition(this.currentCoordinate);
 
-        this.currentMarker = new Marker(this.getClass().getResource("/images/markers/place.png"), -20, -70)
-                .setPosition(this.currentCoordinate)
-                .setVisible(true);
-
-        this.map.addMarker(this.currentMarker);
     }
 
     /**
@@ -191,6 +198,16 @@ public class Navigation {
     @FXML
     private void loadOriginFromMap() {
         setInputFromCoordinate(this.originLatInput, this.originLonInput, this.currentCoordinate);
+        if (!isValidCoordinate(this.originLatInput.getText(), this.originLonInput.getText())) {
+            showError(COORD_ERROR_TITLE, COORD_ERROR_BODY);
+            return;
+        }
+
+        Coordinate origin = new Coordinate(Double.parseDouble(this.originLatInput.getText()),
+                Double.parseDouble(this.originLonInput.getText()));
+
+        this.setRouteMarkers(origin, false);
+
     }
 
     /**
@@ -199,6 +216,15 @@ public class Navigation {
     @FXML
     private void loadDestinationFromMap() {
         setInputFromCoordinate(this.destLatInput, this.destLonInput, this.currentCoordinate);
+        if (!isValidCoordinate(this.destLatInput.getText(), this.destLonInput.getText())) {
+            showError(COORD_ERROR_TITLE, COORD_ERROR_BODY);
+            return;
+        }
+
+        Coordinate dest = new Coordinate(Double.parseDouble(this.destLatInput.getText()),
+                Double.parseDouble(this.destLonInput.getText()));
+
+        this.setRouteMarkers(dest, true);
     }
 
     /**
@@ -214,6 +240,12 @@ public class Navigation {
             this.map.removeCoordinateLine(this.linearPath);
         }
 
+        if (!isValidCoordinate(this.originLatInput.getText(), this.originLonInput.getText())
+                || !isValidCoordinate(this.destLatInput.getText(), this.destLonInput.getText())) {
+            showError(COORD_ERROR_TITLE, COORD_ERROR_BODY);
+            return;
+        }
+
         double originLat = Double.parseDouble(this.originLatInput.getText());
         double originLon = Double.parseDouble(this.originLonInput.getText());
         double destLat = Double.parseDouble(this.destLatInput.getText());
@@ -226,10 +258,13 @@ public class Navigation {
         LOGGER.info("Route distance is: {}", this.routeService.getDistanceFromRoute(json));
         LOGGER.info("Linear distance is: {}", GeoUtils.getLinearDistanceKm(originLat, originLon, destLat, destLon));
 
+        this.map.setExtent(Extent.forCoordinates(waypoints));
+
         this.currentPath = new CoordinateLine(waypoints);
         this.currentPath.setVisible(true);
         this.currentPath.setColor(Color.BLUE);
         this.currentPath.setWidth(10);
+        this.map.addCoordinateLine(this.currentPath);
 
         this.linearPath = new CoordinateLine(origin, dest);
         this.linearPath.setVisible(true);
@@ -238,35 +273,41 @@ public class Navigation {
         this.map.addCoordinateLine(this.linearPath);
 
 
-        this.setRouteMarkers(origin, dest);
+
+
+        this.stationsAlongRoute.setDisable(false);
+        this.setRouteMarkers(origin, false);
+        this.setRouteMarkers(dest, true);
 
         this.saveRouteBtn.setDisable(false);
     }
 
     /**
-     * Draws two different markers on the map for origin and destination coordinates.
+     * Draws different markers on the map for origin and destination coordinates.
      *
-     * @param origin Coordinate object of the origin
-     * @param dest   Coordinate object of the destination
+     * @param coord         Coordinate object of the location
+     * @param isDestination whether this is a destination (origin, if false)
      */
-    private void setRouteMarkers(Coordinate origin, Coordinate dest) {
-        this.map.addCoordinateLine(this.currentPath);
+    private void setRouteMarkers(Coordinate coord, boolean isDestination) {
 
-        if (this.destinationMarker != null) {
+
+        if (isDestination && this.destinationMarker != null) {
             this.map.removeMarker(this.destinationMarker);
+        }
+        if (!isDestination && this.originMarker != null) {
             this.map.removeMarker(this.originMarker);
         }
 
-        this.destinationMarker = buildMarker(dest.getLatitude(), dest.getLongitude(), MapUtils.MarkerImage.DESTINATION);
-        this.originMarker = buildMarker(origin.getLatitude(), origin.getLongitude(), MapUtils.MarkerImage.ORIGIN);
+        this.currentMarker.setVisible(false);
 
-        if (this.currentMarker != null) {
-            this.map.removeMarker(this.currentMarker);
-            this.currentMarker = null;
+        if (isDestination) {
+            this.destinationMarker = buildMarker(coord.getLatitude(), coord.getLongitude(), MapUtils.MarkerImage.DESTINATION);
+            this.map.addMarker(this.destinationMarker);
+        } else {
+            this.originMarker = buildMarker(coord.getLatitude(), coord.getLongitude(), MapUtils.MarkerImage.ORIGIN);
+            this.map.addMarker(this.originMarker);
         }
 
-        this.map.addMarker(this.originMarker);
-        this.map.addMarker(this.destinationMarker);
     }
 
 
@@ -313,6 +354,10 @@ public class Navigation {
      */
     @FXML
     public void showStationsAlongRoute() {
+        if (this.currentPath == null) {
+            showError("No route found", "Please calculate a route to show stations along its path.");
+            return;
+        }
 
         this.stationMarkers.forEach(this.map::removeMarker);
         this.stationMarkers.clear();
@@ -324,6 +369,5 @@ public class Navigation {
 
         this.stationMarkers.addAll(markers);
         this.stationMarkers.forEach(this.map::addMarker);
-
     }
 }

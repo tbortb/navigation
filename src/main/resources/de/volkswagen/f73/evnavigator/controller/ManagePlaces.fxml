@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.sothawo.mapjfx.MapView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.ManagePlaces">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="53.0" layoutY="527.0" text="Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameInput" layoutX="120.0" layoutY="524.0" prefHeight="25.0" prefWidth="184.0" />
+      <MapView fx:id="map" layoutX="26.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" prefHeight="459.0" prefWidth="804.0" />
+      <Button graphicTextGap="15.0" layoutX="279.0" layoutY="586.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save">
+         <graphic>
+            <FontAwesomeIconView glyphName="SAVE" size="32" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="972.0" layoutY="37.0" text="Places">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="latitudeInput" layoutX="416.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" />
+      <Label layoutX="629.0" layoutY="527.0" text="Longitude">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="longitudeInput" layoutX="714.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" />
+      <ListView fx:id="placesList" layoutX="844.0" layoutY="64.0" prefHeight="432.0" prefWidth="296.0" />
+      <Separator layoutX="26.0" layoutY="508.0" prefWidth="1113.0" />
+      <Label layoutX="340.0" layoutY="527.0" text="Latitude">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button graphicTextGap="15.0" layoutX="416.0" layoutY="586.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #ffbaba;" text="Delete">
+         <graphic>
+            <FontAwesomeIconView glyphName="TRASH" size="32" />
+         </graphic>
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

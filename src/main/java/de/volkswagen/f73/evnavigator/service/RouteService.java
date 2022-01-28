@@ -54,6 +54,7 @@ public class RouteService {
             String response = restTemplate.getForObject(url, String.class);
             result = new JSONObject(response);
         } catch (Exception e) {
+            // TODO: show dialog on API error
             LOGGER.error("Error parsing OSRM API: {}", e.getMessage());
         }
         return result;

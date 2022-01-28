@@ -36,7 +36,7 @@ class JavaFxTests {
 		classes.add(Menu.class);
 		classes.add(SettingsMenu.class);
 		classes.add(AddStation.class);
-		classes.add(AddPlace.class);
+		classes.add(ManagePlaces.class);
 	}
 
 	/**
