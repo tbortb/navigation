@@ -1,6 +1,7 @@
 package de.volkswagen.f73.evnavigator.controller;
 
 import de.volkswagen.f73.evnavigator.service.StationService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,6 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Controller for the MainWindow view - the root view of this application.
@@ -57,6 +62,26 @@ public class MainWindow {
         LOGGER.debug("Parsing default CSV stations...");
         this.stationService.csvToEmptyDB(this.stationsCsvLocation);
         this.fxWeaver.load(Menu.class).getController().show();
+        this.startClock();
+    }
+
+    private void startClock() {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        Runnable updateTime = () -> {
+            while(true) {
+                Date date = new Date();
+                Platform.runLater(() -> this.clock.textProperty().set(dateFormat.format(date)));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        Thread clockThread = new Thread(updateTime);
+        clockThread.setDaemon(true);
+        clockThread.start();
     }
 
     /**
