@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<HBox fx:id="poiBox" alignment="CENTER" minHeight="700.0" minWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.AddPlace">
+<HBox fx:id="placeBox" alignment="CENTER" minHeight="700.0" minWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.AddPlace">
    <children>
       <MapView fx:id="map" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" prefHeight="433.0" prefWidth="466.0" HBox.hgrow="ALWAYS">
          <HBox.margin>
@@ -46,7 +46,7 @@
                   <TextField fx:id="longitudeInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <Button onAction="#savePoi" mnemonicParsing="false" text="Save" />
+            <Button onAction="#savePlace" mnemonicParsing="false" text="Save" />
          </children>
       </VBox>
    </children>

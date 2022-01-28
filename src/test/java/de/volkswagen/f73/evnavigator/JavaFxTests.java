@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * @author Justo, David (SE-A/34)
+ * @author Bücker, Thies (SE-A/34)
+ */
 @SpringBootTest
 @TestPropertySource(locations= "classpath:application-test.properties")
 class JavaFxTests {
@@ -19,11 +23,13 @@ class JavaFxTests {
 	@Autowired
 	FxWeaver fxWeaver;
 
-	private static List<Class> classes = new ArrayList<>();
+	private static final List<Class> classes = new ArrayList<>();
 
+	/**
+	 * Loads the JavaFX environment without actually launching the UI
+	 */
 	@BeforeAll
 	static void setUp() {
-		// make the JavaFX environment load
 		PlatformImpl.startup(() -> {});
 		classes.add(MainWindow.class);
 		classes.add(Navigation.class);
@@ -33,46 +39,49 @@ class JavaFxTests {
 		classes.add(AddPlace.class);
 	}
 
+	/**
+	 * Loads and initializes each set up class with FxWeaver
+	 */
 	@BeforeEach
 	void init() {
-		classes.forEach(clazz -> fxWeaver.load(clazz));
+		classes.forEach(clazz -> this.fxWeaver.load(clazz));
 	}
 
 
+	/**
+	 * Asserts that loading a controller initializes its Bean
+	 */
 	@Test
 	void loadingControllersAndViews() {
 		classes.forEach(clazz -> {
-			Assertions.assertDoesNotThrow(() -> fxWeaver.load(clazz));
-			Assertions.assertNotNull(fxWeaver.load(clazz));
+			Assertions.assertDoesNotThrow(() -> this.fxWeaver.load(clazz));
+			Assertions.assertEquals(clazz, this.fxWeaver.getBean(clazz).getClass());
 		});
 	}
 
-	@Test
-	void loadingBeans() {
-		classes.forEach(clazz -> {
-			Assertions.assertDoesNotThrow(() -> fxWeaver.getBean(clazz));
-			Assertions.assertNotNull(fxWeaver.getBean(clazz));
-		});
-	}
-
+	/**
+	 * Asserts that switching scenes sets the correct Object on the MainWindow
+	 */
 	@Test
 	void setViewInMainWindow() {
-		fxWeaver.load(SettingsMenu.class).getController().show();
-		Assertions.assertEquals("menuBox", fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
-		Assertions.assertEquals("Settings", fxWeaver.getBean(MainWindow.class).getTitle().getText());
+		this.fxWeaver.load(SettingsMenu.class).getController().show();
+		Assertions.assertEquals("menuBox", this.fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
+		Assertions.assertEquals("Settings", this.fxWeaver.getBean(MainWindow.class).getTitle().getText());
 
-		fxWeaver.load(Navigation.class).getController().show();
-		Assertions.assertEquals("navigationPane", fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
-		Assertions.assertEquals("Navigation", fxWeaver.getBean(MainWindow.class).getTitle().getText());
+		this.fxWeaver.load(Navigation.class).getController().show();
+		Assertions.assertEquals("navigationPane", this.fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
+		Assertions.assertEquals("Navigation", this.fxWeaver.getBean(MainWindow.class).getTitle().getText());
 
-		fxWeaver.load(Menu.class).getController().show();
-		Assertions.assertEquals("menuBox", fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
-		Assertions.assertEquals("Main Menu", fxWeaver.getBean(MainWindow.class).getTitle().getText());
+		this.fxWeaver.load(Menu.class).getController().show();
+		Assertions.assertEquals("menuBox", this.fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
+		Assertions.assertEquals("Main Menu", this.fxWeaver.getBean(MainWindow.class).getTitle().getText());
 	}
 
+	/**
+	 * Shuts down the JavaFX thread after tests finished.
+	 */
 	@AfterAll
 	static void cleanUp() {
-		// shut down FX thread after tests
 		PlatformImpl.exit();
 	}
 

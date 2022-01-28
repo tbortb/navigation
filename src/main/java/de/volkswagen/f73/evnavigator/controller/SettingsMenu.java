@@ -31,7 +31,7 @@ public class SettingsMenu {
     }
 
     @FXML
-    private void openAddPoiView() {
+    private void openAddPlaceView() {
         this.fxWeaver.load(AddPlace.class).getController().show();
     }
 

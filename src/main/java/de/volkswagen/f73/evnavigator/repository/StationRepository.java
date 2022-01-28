@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ * JPA Repository for the Station model
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
 @Repository
 public interface StationRepository extends JpaRepository<Station, String> {
-    public List<Station> findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(Double lat, Double lon, Double lat2, Double lon2);
+    List<Station> findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(Double lat, Double lon, Double lat2, Double lon2);
 }

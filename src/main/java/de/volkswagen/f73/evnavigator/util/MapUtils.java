@@ -4,9 +4,16 @@ import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.Marker;
 import javafx.scene.control.TextField;
 
+/**
+ * Utility class for generic actions within a controller that uses mapjfx.
+ *
+ * @author Justo, David (SE-A/34)
+ * @author Bücker, Thies (SE-A/34)
+ */
 public class MapUtils {
 
-    private MapUtils() {}
+    private MapUtils() {
+    }
 
     public static Marker buildMarker(double lat, double lon, MarkerImage image) {
         return new Marker(MapUtils.class.getResource(String.format("/images/markers/%s", image.getFilename())), -20, -70)
@@ -27,7 +34,7 @@ public class MapUtils {
         PLACE("place.png"),
         STATION("station.png");
 
-        private String filename;
+        private final String filename;
 
         MarkerImage(String filename) {
             this.filename = filename;

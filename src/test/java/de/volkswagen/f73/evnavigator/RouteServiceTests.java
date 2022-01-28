@@ -12,6 +12,10 @@ import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
+/**
+ * @author Justo, David (SE-A/34)
+ * @author Bücker, Thies (SE-A/34)
+ */
 @SpringBootTest
 @TestPropertySource(locations= "classpath:application-test.properties")
 class RouteServiceTests {
@@ -26,34 +30,45 @@ class RouteServiceTests {
     @Autowired
     RouteService routeService;
 
+    /**
+     * Tests whether calling OSRM API returns a response that signals a correct request.
+     */
     @Test
-    void getRouteFromApiReturnsStatusCodeOk() throws JSONException {
-        JSONObject result = routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON, DESTINATION_LAT, DESTINATION_LON);
-        String responseCode = result.getString("code");
+    void getRouteFromApiReturnsStatusCodeOk()  {
+        JSONObject result = this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON, DESTINATION_LAT, DESTINATION_LON);
+        String responseCode = Assertions.assertDoesNotThrow(() -> result.getString("code"));
         Assertions.assertEquals("Ok", responseCode);
     }
 
+    /**
+     * Tests whether calling OSRM API with two coordinates far from each other returns a plausible response with many
+     * waypoints.
+     */
     @Test
     void longRouteJsonToCoordinatesReturnsManyWaypoints() {
-        List<Coordinate> waypoints = routeService.getCoordinatesFromRoute(
-                routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON, DESTINATION_LAT_FAR, DESTINATION_LON_FAR)
+        List<Coordinate> waypoints = this.routeService.getCoordinatesFromRoute(
+                this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON, DESTINATION_LAT_FAR, DESTINATION_LON_FAR)
         );
 
         Assertions.assertTrue(waypoints.size() > 1000);
     }
 
+    /**
+     * Tests whether calling OSRM API with two coordinates far from each other returns a response with a plausible
+     * distance.
+     */
     @Test
     void longRouteJsonToDistanceReturnsCorrectDistance() {
-        String distanceFull = routeService.getDistanceFromRoute(routeService.getRouteFromCoordinates(
+        String distanceFull = this.routeService.getDistanceFromRoute(this.routeService.getRouteFromCoordinates(
                 ORIGIN_LAT,
                 ORIGIN_LON,
                 DESTINATION_LAT_FAR,
                 DESTINATION_LON_FAR)
                 );
 
-        String distanceTrimmed = distanceFull.replaceAll("[^\\d.]", "").replace(",", ".");
+        String distanceTrimmed = distanceFull.replaceAll("[^\\d.,]", "").replace(",", ".");
 
         double distance = Assertions.assertDoesNotThrow(() -> Double.parseDouble(distanceTrimmed));
-        Assertions.assertTrue(distance > 250 && distance < 1000);
+        Assertions.assertTrue(distance > 250 && distance < 500);
     }
 }

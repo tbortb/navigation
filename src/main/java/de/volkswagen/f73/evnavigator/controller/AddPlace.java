@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
+ * Controller for the AddPlace view.
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
@@ -33,7 +35,7 @@ public class AddPlace {
     private Marker currentMarker;
 
     @FXML
-    private HBox poiBox;
+    private HBox placeBox;
     @FXML
     private MapView map;
     @FXML
@@ -51,27 +53,36 @@ public class AddPlace {
     @Autowired
     private FxWeaver fxWeaver;
 
+    /**
+     * Sets up the MapView.
+     */
     @FXML
     private void initialize() {
-        map.setZoom(ZOOM_DEFAULT);
-        map.setCenter(LOCATION_DEFAULT);
+        this.map.setZoom(ZOOM_DEFAULT);
+        this.map.setCenter(LOCATION_DEFAULT);
         LOGGER.debug("Initializing MapJFX map...");
-        setUpMapEventHandlers();
+        this.setUpMapEventHandlers();
         // don't block the view when initializing map
-        Platform.runLater(() -> map.initialize());
+        Platform.runLater(() -> this.map.initialize());
     }
 
+    /**
+     * Sets this view as the center of the MainWindow stage.
+     */
     public void show() {
-        this.fxWeaver.getBean(MainWindow.class).setView(this.poiBox, "Add Point of Interest");
+        this.fxWeaver.getBean(MainWindow.class).setView(this.placeBox, "Add Favorite Place");
     }
 
+    /**
+     * Initialization of MapView event Handlers.
+     */
     private void setUpMapEventHandlers() {
-        map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
+        this.map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
             event.consume();
             if (this.currentMarker != null) {
-                map.removeMarker(this.currentMarker);
+                this.map.removeMarker(this.currentMarker);
             }
-            final Coordinate newPosition = event.getCoordinate().normalize();
+            Coordinate newPosition = event.getCoordinate().normalize();
 
             this.currentMarker = MapUtils.buildMarker(newPosition.getLatitude(), newPosition.getLongitude(), MapUtils.MarkerImage.PLACE);
             this.latitudeInput.setText(String.valueOf(newPosition.getLatitude()));
@@ -80,8 +91,11 @@ public class AddPlace {
         });
     }
 
+    /**
+     * Wired to Button, saves user input to a Place in database.
+     */
     @FXML
-    private void savePoi() {
+    private void savePlace() {
         Place newPlace = new Place(this.nameInput.getText(),
                 Double.valueOf(this.latitudeInput.getText()),
                 Double.valueOf(this.longitudeInput.getText()));

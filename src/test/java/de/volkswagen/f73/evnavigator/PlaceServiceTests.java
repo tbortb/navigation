@@ -27,14 +27,14 @@ public class PlaceServiceTests {
     @Autowired
     private PlaceRepository poiRepo;
 
-    private List<Place> samplePOIs = new ArrayList<>();
+    private final List<Place> samplePlaces = new ArrayList<>();
 
     @BeforeEach
     void setUp(){
         this.poiRepo.deleteAll();
-        this.samplePOIs.clear();
-        this.samplePOIs.add(new Place(null, "first", 49.243824, -121.887340));
-        this.samplePOIs.add(new Place(null, "second", 49.235347, -121.92532));
+        this.samplePlaces.clear();
+        this.samplePlaces.add(new Place(null, "first", 49.243824, -121.887340));
+        this.samplePlaces.add(new Place(null, "second", 49.235347, -121.92532));
     }
 
     /**
@@ -42,7 +42,7 @@ public class PlaceServiceTests {
      */
     @Test
     void addPOITest(){
-        Place toSave = this.samplePOIs.get(0);
+        Place toSave = this.samplePlaces.get(0);
         Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(toSave));
 
         Assertions.assertNotNull(saved);
@@ -55,14 +55,14 @@ public class PlaceServiceTests {
      */
     @Test
     void getPOITest(){
-        for (Place place : this.samplePOIs){
+        for (Place place : this.samplePlaces){
             Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
         }
 
         List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAllPlaces());
 
         Assertions.assertNotNull(fetched);
-        Assertions.assertEquals(this.samplePOIs.size(), fetched.size());
+        Assertions.assertEquals(this.samplePlaces.size(), fetched.size());
 
         fetched.forEach(f -> Assertions.assertNotNull(f.getId()));
 
@@ -78,7 +78,7 @@ public class PlaceServiceTests {
         double maxDistKm = 1;
         int expectedSize = 1;
 
-        for (Place place : this.samplePOIs){
+        for (Place place : this.samplePlaces){
             Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
         }
 

@@ -19,7 +19,8 @@ public class Place {
     private Double lat;
     private Double lon;
 
-    public Place(){}
+    public Place() {
+    }
 
     public Place(Integer id, String name, Double lat, Double lon) {
         this.id = id;
@@ -35,7 +36,7 @@ public class Place {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -43,7 +44,7 @@ public class Place {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -51,7 +52,7 @@ public class Place {
     }
 
     public Double getLat() {
-        return lat;
+        return this.lat;
     }
 
     public void setLat(Double lat) {
@@ -59,7 +60,7 @@ public class Place {
     }
 
     public Double getLon() {
-        return lon;
+        return this.lon;
     }
 
     public void setLon(Double lon) {
@@ -68,6 +69,6 @@ public class Place {
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 }

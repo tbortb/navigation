@@ -22,9 +22,9 @@ public class IDGenerator implements IdentifierGenerator {
     @Override
     public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor, Object object) throws HibernateException {
 
-        Station bla = (Station) object;
-        if (bla.getId() != null) {
-            return bla.getId();
+        Station station = (Station) object;
+        if (station.getId() != null) {
+            return station.getId();
         }
         return UUID.randomUUID().toString();
 

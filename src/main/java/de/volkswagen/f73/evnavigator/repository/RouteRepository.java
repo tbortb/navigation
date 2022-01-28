@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
+ * JPA Repository for the Route model
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * Service class for the handling of route info
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
@@ -31,6 +33,15 @@ public class RouteService {
     @Autowired
     private RouteRepository routeRepo;
 
+    /**
+     * Fetches the OSRM API to get a car route from one coordinate to another.
+     *
+     * @param originLat latitude of the origin
+     * @param originLon longitude of the origin
+     * @param destLat   latitude of the destination
+     * @param destLon   longitude of the destination
+     * @return          JSONObject containing the response from OSRM API
+     */
     public JSONObject getRouteFromCoordinates(double originLat, double originLon, double destLat, double destLon) {
         String param = String.format(Locale.US, "%f,%f;%f,%f", originLon, originLat, destLon, destLat);
         String url = String.format(OSRM_URL, param);
@@ -42,12 +53,18 @@ public class RouteService {
             RestTemplate restTemplate = new RestTemplate();
             String response = restTemplate.getForObject(url, String.class);
             result = new JSONObject(response);
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Error parsing OSRM API: {}", e.getMessage());
         }
         return result;
     }
 
+    /**
+     * Parses a list of coordinates from an OSRM JSON response object containing a route.
+     *
+     * @param json the complete JSON response from OSRM API
+     * @return      a List of Coordinates to be used with mapjfx
+     */
     public List<Coordinate> getCoordinatesFromRoute(JSONObject json) {
 
         List<Coordinate> coordinateList = new ArrayList<>();
@@ -64,7 +81,7 @@ public class RouteService {
             JSONObject geometry = route.getJSONObject("geometry");
             JSONArray coordinates = geometry.getJSONArray("coordinates");
 
-            for(int i = 0 ; i < coordinates.length(); i++) {
+            for (int i = 0; i < coordinates.length(); i++) {
                 JSONArray coordinatePair = coordinates.getJSONArray(i);
 
                 double lon = coordinatePair.getDouble(0);
@@ -79,6 +96,13 @@ public class RouteService {
         return coordinateList;
     }
 
+    /**
+     * Parses the distance of a route from an OSRM JSON response object and translates it into a
+     * human-readable format.
+     *
+     * @param json the complete JSON response from OSRM API
+     * @return      a List of Coordinates to be used with mapjfx
+     */
     public String getDistanceFromRoute(JSONObject json) {
 
         LOGGER.debug("Parsing distance from JSON...");
@@ -105,11 +129,21 @@ public class RouteService {
         }
     }
 
-    public List<Route> getSavedRoutes(){
+    /**
+     * Returns all user saved Routes.
+     *
+     * @return
+     */
+    public List<Route> getSavedRoutes() {
         return this.routeRepo.findAll();
     }
 
-    public Route saveRoute(Route route){
+    /**
+     * Saves a route to Database
+     * @param route Route object to save
+     * @return      the saved route object
+     */
+    public Route saveRoute(Route route) {
         return this.routeRepo.save(route);
     }
 }

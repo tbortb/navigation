@@ -37,7 +37,7 @@ public class ReadCsvTests {
     @Autowired
     private StationRepository stationRepo;
 
-    private Set<Station> sampleStations = new HashSet<>();
+    private final Set<Station> sampleStations = new HashSet<>();
 
     @BeforeEach
     void setUp(){

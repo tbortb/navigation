@@ -8,6 +8,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
+ * Main JavaFX application starter class
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */

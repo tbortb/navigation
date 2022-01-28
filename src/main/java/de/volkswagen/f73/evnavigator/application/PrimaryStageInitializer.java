@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * Starter class for the primary stage after initialization is finished.
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
@@ -24,8 +26,8 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
 
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
-        final Stage stage = event.stage;
-        final Scene scene = new Scene(this.fxWeaver.loadView(MainWindow.class));
+        Stage stage = event.stage;
+        Scene scene = new Scene(this.fxWeaver.loadView(MainWindow.class));
         stage.setScene(scene);
         stage.show();
     }

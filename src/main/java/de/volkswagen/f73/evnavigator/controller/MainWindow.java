@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
+ * Controller for the MainWindow view - the root view of this application.
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
@@ -25,7 +27,6 @@ import org.springframework.stereotype.Component;
 public class MainWindow {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainWindow.class);
-
 
     @Value("${stations.default.path}")
     private String stationsCsvLocation;
@@ -48,22 +49,34 @@ public class MainWindow {
     @Autowired
     private StationService stationService;
 
+    /**
+     * Seeds the database with CSV values, takes the path from application.properties.
+     */
     @FXML
     private void initialize() {
         LOGGER.debug("Parsing default CSV stations...");
         this.stationService.csvToEmptyDB(this.stationsCsvLocation);
-        fxWeaver.load(Menu.class).getController().show();
+        this.fxWeaver.load(Menu.class).getController().show();
     }
 
+    /**
+     * Sets a view and changes the menu title.
+     *
+     * @param node  the Node to be set as the center view
+     * @param title the title to be displayed in the top menu
+     */
     public void setView(Node node, String title) {
         LOGGER.debug("Setting view to {} titled {}", node.getClass(), title);
         this.rootPane.setCenter(node);
         this.menuTitle.setText(title);
     }
 
+    /**
+     * Toggles the standby view, wired to the standby button.
+     */
     @FXML
     private void toggleStandby() {
-        fxWeaver.load(Menu.class).getController().show();
+        this.fxWeaver.load(Menu.class).getController().show();
     }
 
     public Label getTitle() {
@@ -71,6 +84,6 @@ public class MainWindow {
     }
 
     public BorderPane getRootPane() {
-        return rootPane;
+        return this.rootPane;
     }
 }

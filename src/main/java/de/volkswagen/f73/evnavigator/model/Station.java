@@ -3,9 +3,9 @@ package de.volkswagen.f73.evnavigator.model;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 import de.volkswagen.f73.evnavigator.util.IDGenerator;
-import de.volkswagen.f73.evnavigator.util.csv_converters.FeeConverter;
-import de.volkswagen.f73.evnavigator.util.csv_converters.MembershipConverter;
-import de.volkswagen.f73.evnavigator.util.csv_converters.StringConverter;
+import de.volkswagen.f73.evnavigator.model.csvconverters.FeeConverter;
+import de.volkswagen.f73.evnavigator.model.csvconverters.MembershipConverter;
+import de.volkswagen.f73.evnavigator.model.csvconverters.StringConverter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -63,7 +63,7 @@ public class Station {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -71,7 +71,7 @@ public class Station {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -79,7 +79,7 @@ public class Station {
     }
 
     public Boolean getHasMembership() {
-        return hasMembership;
+        return this.hasMembership;
     }
 
     public void setHasMembership(Boolean hasMembership) {
@@ -87,7 +87,7 @@ public class Station {
     }
 
     public Boolean getHasFee() {
-        return hasFee;
+        return this.hasFee;
     }
 
     public void setHasFee(Boolean hasFee) {
@@ -95,7 +95,7 @@ public class Station {
     }
 
     public String getOperator() {
-        return operator;
+        return this.operator;
     }
 
     public void setOperator(String operator) {
@@ -103,7 +103,7 @@ public class Station {
     }
 
     public Double getLon() {
-        return lon;
+        return this.lon;
     }
 
     public void setLon(Double lon) {
@@ -111,7 +111,7 @@ public class Station {
     }
 
     public Double getLat() {
-        return lat;
+        return this.lat;
     }
 
     public void setLat(Double lat) {
@@ -121,13 +121,13 @@ public class Station {
     @Override
     public String toString() {
         return "Station{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", hasMembership=" + hasMembership +
-                ", hasFee=" + hasFee +
-                ", operator=" + operator +
-                ", lon=" + lon +
-                ", lat=" + lat +
+                "id='" + this.id + '\'' +
+                ", name='" + this.name + '\'' +
+                ", hasMembership=" + this.hasMembership +
+                ", hasFee=" + this.hasFee +
+                ", operator=" + this.operator +
+                ", lon=" + this.lon +
+                ", lat=" + this.lat +
                 '}';
     }
 
@@ -136,13 +136,13 @@ public class Station {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Station station = (Station) o;
-        return Objects.equals(id, station.id) && Objects.equals(name, station.name) && Objects.equals(hasMembership, station.hasMembership) && Objects.equals(hasFee, station.hasFee) && Objects.equals(operator, station.operator) && Objects.equals(lon, station.lon) && Objects.equals(lat, station.lat);
+        return Objects.equals(this.id, station.id) && Objects.equals(this.name, station.name) && Objects.equals(this.hasMembership, station.hasMembership) && Objects.equals(this.hasFee, station.hasFee) && Objects.equals(this.operator, station.operator) && Objects.equals(this.lon, station.lon) && Objects.equals(this.lat, station.lat);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, hasMembership, hasFee, operator, lon, lat);
+        return Objects.hash(this.id, this.name, this.hasMembership, this.hasFee, this.operator, this.lon, this.lat);
     }
 }

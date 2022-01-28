@@ -18,7 +18,7 @@
          <Font name="System Bold" size="14.0" />
       </font>
     </Button>
-    <Button onAction="#openAddPoiView" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="PLACES" HBox.hgrow="SOMETIMES">
+    <Button onAction="#openAddPlaceView" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-radius: 10;" text="PLACES" HBox.hgrow="SOMETIMES">
         <graphic>
             <FontAwesomeIconView glyphName="GLOBE" size="80" />
         </graphic>

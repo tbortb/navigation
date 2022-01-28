@@ -8,7 +8,7 @@ import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.service.PlaceService;
 import de.volkswagen.f73.evnavigator.service.RouteService;
 import de.volkswagen.f73.evnavigator.service.StationService;
-import de.volkswagen.f73.evnavigator.util.DistanceCalculator;
+import de.volkswagen.f73.evnavigator.util.GeoUtils;
 import de.volkswagen.f73.evnavigator.util.MapUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -33,6 +33,8 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
 
 
 /**
+ * Controller for the navigation view.
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
@@ -44,7 +46,7 @@ public class Navigation {
     private static final int ZOOM_DEFAULT = 14;
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private Marker currentMarker;
-    private List<Marker> stationMarkers = new ArrayList<>();
+    private final List<Marker> stationMarkers = new ArrayList<>();
     private Marker destinationMarker;
     private Marker originMarker;
     private Coordinate currentCoordinate;
@@ -86,35 +88,43 @@ public class Navigation {
     @Autowired
     private PlaceService placeService;
 
+    /**
+     * Sets up the MapView.
+     */
     @FXML
     private void initialize() {
-        map.setZoom(ZOOM_DEFAULT);
-        map.setCenter(LOCATION_DEFAULT);
-        map.setAnimationDuration(500);
+        this.map.setZoom(ZOOM_DEFAULT);
+        this.map.setCenter(LOCATION_DEFAULT);
+        this.map.setAnimationDuration(500);
 
         // don't block the view when initializing map
         Platform.runLater(() -> {
             LOGGER.debug("Initializing MapJFX map...");
-            map.initialize();
+            this.map.initialize();
         });
 
-        map.initializedProperty().addListener((observable, oldValue, newValue) -> {
+        this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                setUpMapEvents();
+                this.setUpMapEvents();
             }
         });
     }
 
 
-
+    /**
+     * Sets this view as the center view in MainWindow, fetches places and routes from database.
+     */
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.navigationPane, "Navigation");
-        this.routeList.setItems(FXCollections.observableArrayList(routeService.getSavedRoutes()));
-        this.placeList.setItems(FXCollections.observableArrayList(placeService.getAllPlaces()));
+        this.routeList.setItems(FXCollections.observableArrayList(this.routeService.getSavedRoutes()));
+        this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAllPlaces()));
     }
 
+    /**
+     * Sets up event handlers and bindings.
+     */
     private void setUpMapEvents() {
-        map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
+        this.map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
             event.consume();
             Double lat = event.getCoordinate().normalize().getLatitude();
             Double lon = event.getCoordinate().normalize().getLongitude();
@@ -135,15 +145,15 @@ public class Navigation {
         this.saveRouteBtn.setDisable(true);
 
         this.placeList.setOnMouseClicked(e -> {
-            if(this.placeList.getSelectionModel().getSelectedItem() != null){
+            if (this.placeList.getSelectionModel().getSelectedItem() != null) {
                 Place currentPlace = this.placeList.getSelectionModel().getSelectedItem();
-                displayMarkerOnMap(currentPlace.getLat(), currentPlace.getLon());
+                this.displayMarkerOnMap(currentPlace.getLat(), currentPlace.getLon());
                 this.map.setCenter(new Coordinate(currentPlace.getLat(), currentPlace.getLon()));
             }
         });
 
         this.routeList.setOnMouseClicked(e -> {
-            if(this.routeList.getSelectionModel().getSelectedItem() != null){
+            if (this.routeList.getSelectionModel().getSelectedItem() != null) {
                 Route currentRoute = this.routeList.getSelectionModel().getSelectedItem();
                 this.originLatInput.setText(currentRoute.getStartLat().toString());
                 this.originLonInput.setText(currentRoute.getStartLon().toString());
@@ -163,36 +173,52 @@ public class Navigation {
                 this.map.removeMapCircle(this.stationRadius);
             }
 
-            this.stationRadius = new MapCircle(radiusCenter,  this.distanceSlider.getValue() * 1000 * 2);
+            this.stationRadius = new MapCircle(radiusCenter, this.distanceSlider.getValue() * 1000 * 2);
             this.stationRadius.setVisible(true);
             this.map.addMapCircle(this.stationRadius);
         });
     }
 
+    /**
+     * Shows a marker of a given coordinate on the map.
+     *
+     * @param lat latitude
+     * @param lon longitude
+     */
     private void displayMarkerOnMap(Double lat, Double lon) {
         if (this.currentMarker != null) {
-            map.removeMarker(this.currentMarker);
+            this.map.removeMarker(this.currentMarker);
         }
 
         this.currentCoordinate = new Coordinate(lat, lon);
 
-        this.currentMarker = new Marker(getClass().getResource("/images/markers/place.png"), -20, -70)
+        this.currentMarker = new Marker(this.getClass().getResource("/images/markers/place.png"), -20, -70)
                 .setPosition(this.currentCoordinate)
                 .setVisible(true);
 
         this.map.addMarker(this.currentMarker);
     }
 
+    /**
+     * Wired to button for loading coordinates from a marker on the map.
+     */
     @FXML
     private void loadOriginFromMap() {
         setInputFromCoordinate(this.originLatInput, this.originLonInput, this.currentCoordinate);
     }
 
+    /**
+     * Wired to button for loading coordinates from a marker on the map.
+     */
     @FXML
     private void loadDestinationFromMap() {
         setInputFromCoordinate(this.destLatInput, this.destLonInput, this.currentCoordinate);
     }
 
+    /**
+     * Shows a route between origin/destination that the user has set before.
+     * Draws the real route from API as well as the air-line onto the map.
+     */
     @FXML
     private void calculateRoute() {
         if (this.currentPath != null) {
@@ -209,10 +235,10 @@ public class Navigation {
         Coordinate origin = new Coordinate(originLat, originLon);
         Coordinate dest = new Coordinate(destLat, destLon);
 
-        JSONObject json = routeService.getRouteFromCoordinates(originLat, originLon, destLat, destLon);
-        List<Coordinate> waypoints = routeService.getCoordinatesFromRoute(json);
-        LOGGER.info("Route distance is: {}", routeService.getDistanceFromRoute(json));
-        LOGGER.info("Linear distance is: {}", DistanceCalculator.getLinearDistanceKm(originLat, originLon, destLat, destLon));
+        JSONObject json = this.routeService.getRouteFromCoordinates(originLat, originLon, destLat, destLon);
+        List<Coordinate> waypoints = this.routeService.getCoordinatesFromRoute(json);
+        LOGGER.info("Route distance is: {}", this.routeService.getDistanceFromRoute(json));
+        LOGGER.info("Linear distance is: {}", GeoUtils.getLinearDistanceKm(originLat, originLon, destLat, destLon));
 
         this.currentPath = new CoordinateLine(waypoints);
         this.currentPath.setVisible(true);
@@ -226,11 +252,17 @@ public class Navigation {
         this.map.addCoordinateLine(this.linearPath);
 
 
-        setRouteMarkers(origin, dest);
+        this.setRouteMarkers(origin, dest);
 
         this.saveRouteBtn.setDisable(false);
     }
 
+    /**
+     * Draws two different markers on the map for origin and destination coordinates.
+     *
+     * @param origin Coordinate object of the origin
+     * @param dest   Coordinate object of the destination
+     */
     private void setRouteMarkers(Coordinate origin, Coordinate dest) {
         this.map.addCoordinateLine(this.currentPath);
 
@@ -252,10 +284,15 @@ public class Navigation {
     }
 
 
+    /**
+     * Opens a window asking the user for a name and saves a named route to the database.
+     * Refreshes the route list in view.
+     */
     @FXML
     public void saveRoute() {
-        TextInputDialog td =new TextInputDialog();
-        td.setTitle("Geben sie einen Namen für die Route an");
+        TextInputDialog td = new TextInputDialog();
+        td.setTitle("New Route");
+        td.setHeaderText("Please enter a name for your new route.");
         td.showAndWait();
         String name = td.getEditor().getText();
         Route route = new Route(name,
@@ -264,13 +301,14 @@ public class Navigation {
                 this.destinationMarker.getPosition().getLatitude(),
                 this.destinationMarker.getPosition().getLongitude());
         this.routeService.saveRoute(route);
-        this.routeList.setItems(FXCollections.observableArrayList(routeService.getSavedRoutes()));
-
+        this.routeList.setItems(FXCollections.observableArrayList(this.routeService.getSavedRoutes()));
     }
 
+    /**
+     * Shows stations within a user defined radius close to a single marker.
+     */
     @FXML
     public void onShowCloseStations() {
-
         this.stationMarkers.forEach(this.map::removeMarker);
         this.stationMarkers.clear();
         List<Station> closeStations = this.stationService.getStationsCloseTo(this.currentMarker.getPosition().getLatitude(),
@@ -278,19 +316,22 @@ public class Navigation {
                 this.distanceSlider.getValue());
 
         List<Marker> markers = closeStations.stream().map(s -> buildMarker(s.getLat(), s.getLon(), MapUtils.MarkerImage.STATION)
-                ).collect(Collectors.toList());
+        ).collect(Collectors.toList());
 
         this.stationMarkers.addAll(markers);
         this.stationMarkers.forEach(this.map::addMarker);
     }
 
+    /**
+     * Shows stations within a user defined radius along a calculated route.
+     */
     @FXML
     public void showStationsAlongRoute() {
 
         this.stationMarkers.forEach(this.map::removeMarker);
         this.stationMarkers.clear();
 
-        List<Station> closeStations = stationService.getStationsAlongPath(this.currentPath, this.distanceSlider.getValue());
+        List<Station> closeStations = this.stationService.getStationsAlongPath(this.currentPath, this.distanceSlider.getValue());
 
         List<Marker> markers = closeStations.stream().map(s -> buildMarker(s.getLat(), s.getLon(), MapUtils.MarkerImage.STATION)
         ).collect(Collectors.toList());

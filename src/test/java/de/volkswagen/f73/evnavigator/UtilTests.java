@@ -1,6 +1,6 @@
 package de.volkswagen.f73.evnavigator;
 
-import de.volkswagen.f73.evnavigator.util.DistanceCalculator;
+import de.volkswagen.f73.evnavigator.util.GeoUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class UtilTests {
         double expectedDistance = 2.914;
         double errorMarginPct = 0.01;
 
-        double actualDistance = DistanceCalculator.getLinearDistanceKm(lat1, lon1, lat2, lon2);
+        double actualDistance = GeoUtils.getLinearDistanceKm(lat1, lon1, lat2, lon2);
 
         Assertions.assertTrue(actualDistance < expectedDistance * (1 + errorMarginPct));
         Assertions.assertTrue(actualDistance > expectedDistance * (1 - errorMarginPct));

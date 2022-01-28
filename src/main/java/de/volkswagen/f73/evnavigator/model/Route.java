@@ -21,7 +21,8 @@ public class Route {
     private Double endLat;
     private Double endLon;
 
-    public Route(){}
+    public Route() {
+    }
 
     public Route(Integer id, String name, Double startLat, Double startLon, Double endLat, Double endLon) {
         this.id = id;
@@ -41,7 +42,7 @@ public class Route {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -49,7 +50,7 @@ public class Route {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -57,7 +58,7 @@ public class Route {
     }
 
     public Double getStartLat() {
-        return startLat;
+        return this.startLat;
     }
 
     public void setStartLat(Double startLat) {
@@ -65,7 +66,7 @@ public class Route {
     }
 
     public Double getStartLon() {
-        return startLon;
+        return this.startLon;
     }
 
     public void setStartLon(Double startLon) {
@@ -73,7 +74,7 @@ public class Route {
     }
 
     public Double getEndLat() {
-        return endLat;
+        return this.endLat;
     }
 
     public void setEndLat(Double endLat) {
@@ -81,7 +82,7 @@ public class Route {
     }
 
     public Double getEndLon() {
-        return endLon;
+        return this.endLon;
     }
 
     public void setEndLon(Double endLon) {
@@ -90,6 +91,6 @@ public class Route {
 
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 }

@@ -4,6 +4,8 @@ import javafx.stage.Stage;
 import org.springframework.context.ApplicationEvent;
 
 /**
+ * Published event on Application readiness.
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
