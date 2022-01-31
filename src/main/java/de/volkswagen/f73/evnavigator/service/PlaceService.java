@@ -34,7 +34,7 @@ public class PlaceService {
      * Saves a single Place to database.
      *
      * @param place the Place object to save
-     * @return      the saved Place object
+     * @return the saved Place object
      */
     public Place savePlace(Place place) {
         return this.placeRepo.save(place);
@@ -46,7 +46,7 @@ public class PlaceService {
      * @param lat       latitude
      * @param lon       longitude
      * @param maxDistKm maximum distance in kilometers
-     * @return          a list of Places close to the coordinate
+     * @return  a list of Places close to the coordinate
      */
     public List<Place> getPlacesCloseTo(Double lat, Double lon, Double maxDistKm) {
         List<Place> places = this.placeRepo.findAll();

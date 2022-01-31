@@ -1,4 +1,4 @@
-package de.volkswagen.f73.evnavigator;
+package de.volkswagen.f73.evnavigator.service;
 
 import com.sothawo.mapjfx.Coordinate;
 import de.volkswagen.f73.evnavigator.service.RouteService;

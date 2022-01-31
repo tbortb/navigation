@@ -1,4 +1,4 @@
-package de.volkswagen.f73.evnavigator;
+package de.volkswagen.f73.evnavigator.service;
 
 import de.volkswagen.f73.evnavigator.model.Place;
 import de.volkswagen.f73.evnavigator.repository.PlaceRepository;
@@ -19,19 +19,19 @@ import java.util.List;
  */
 @SpringBootTest
 @TestPropertySource(locations= "classpath:application-test.properties")
-public class PlaceServiceTests {
+class PlaceServiceTests {
 
     @Autowired
     private PlaceService placeService;
 
     @Autowired
-    private PlaceRepository poiRepo;
+    private PlaceRepository placeRepo;
 
     private final List<Place> samplePlaces = new ArrayList<>();
 
     @BeforeEach
     void setUp(){
-        this.poiRepo.deleteAll();
+        this.placeRepo.deleteAll();
         this.samplePlaces.clear();
         this.samplePlaces.add(new Place(null, "first", 49.243824, -121.887340));
         this.samplePlaces.add(new Place(null, "second", 49.235347, -121.92532));

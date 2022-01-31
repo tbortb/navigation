@@ -1,7 +1,8 @@
-package de.volkswagen.f73.evnavigator;
+package de.volkswagen.f73.evnavigator.application;
 
 import com.sun.javafx.application.PlatformImpl;
 import de.volkswagen.f73.evnavigator.controller.*;
+import de.volkswagen.f73.evnavigator.util.GuiUtils;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ class JavaFxTests {
 	 * Asserts that loading a controller initializes its Bean
 	 */
 	@Test
-	void loadingControllersAndViews() {
+	void loadingControllersCreatesBeanWithCorrectClass() {
 		classes.forEach(clazz -> {
 			Assertions.assertDoesNotThrow(() -> this.fxWeaver.load(clazz));
 			Assertions.assertEquals(clazz, this.fxWeaver.getBean(clazz).getClass());
@@ -63,7 +64,7 @@ class JavaFxTests {
 	 * Asserts that switching scenes sets the correct Object on the MainWindow
 	 */
 	@Test
-	void setViewInMainWindow() {
+	void settingViewInMainWindowChangesView() {
 		this.fxWeaver.load(SettingsMenu.class).getController().show();
 		Assertions.assertEquals("menuBox", this.fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
 		Assertions.assertEquals("Settings", this.fxWeaver.getBean(MainWindow.class).getTitle().getText());
@@ -75,6 +76,16 @@ class JavaFxTests {
 		this.fxWeaver.load(Menu.class).getController().show();
 		Assertions.assertEquals("menuBox", this.fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
 		Assertions.assertEquals("Main Menu", this.fxWeaver.getBean(MainWindow.class).getTitle().getText());
+	}
+
+	/**
+	 * Asserts that the navigation button reacts to changes of the view
+	 */
+	@Test
+	void backButtonVisibilityIsDependentOnView() {
+		Assertions.assertFalse(this.fxWeaver.load(MainWindow.class).getController().getBackButton().isVisible());
+		this.fxWeaver.load(Navigation.class).getController().show();
+		Assertions.assertTrue(this.fxWeaver.getBean(MainWindow.class).getBackButton().isVisible());
 	}
 
 	/**

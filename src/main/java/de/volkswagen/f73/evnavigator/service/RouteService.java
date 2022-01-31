@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.DecimalFormat;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import static de.volkswagen.f73.evnavigator.util.GuiUtils.showError;
 
 /**
  * Service class for the handling of route info
@@ -40,7 +44,7 @@ public class RouteService {
      * @param originLon longitude of the origin
      * @param destLat   latitude of the destination
      * @param destLon   longitude of the destination
-     * @return          JSONObject containing the response from OSRM API
+     * @return JSONObject containing the response from OSRM API
      */
     public JSONObject getRouteFromCoordinates(double originLat, double originLon, double destLat, double destLon) {
         String param = String.format(Locale.US, "%f,%f;%f,%f", originLon, originLat, destLon, destLat);
@@ -53,10 +57,17 @@ public class RouteService {
             RestTemplate restTemplate = new RestTemplate();
             String response = restTemplate.getForObject(url, String.class);
             result = new JSONObject(response);
-        } catch (Exception e) {
+        } catch (HttpClientErrorException.BadRequest br) {
+            showError("Bad request", "The navigation API reported a bad request. " +
+                     "Please check your requested route.");
+            LOGGER.error("RestTemplate error: {}", br.getMessage());
+        } catch (ResourceAccessException | HttpClientErrorException ra) {
             // TODO: show dialog on API error
-            LOGGER.error("Error parsing OSRM API: {}", e.getMessage());
+            showError("Connection error", "API could not be reached. " +
+                    "Are you offline or behind firewall?");
+            LOGGER.error("RestTemplate error: {}", ra.getMessage());
         }
+
         return result;
     }
 
@@ -64,7 +75,7 @@ public class RouteService {
      * Parses a list of coordinates from an OSRM JSON response object containing a route.
      *
      * @param json the complete JSON response from OSRM API
-     * @return      a List of Coordinates to be used with mapjfx
+     * @return a List of Coordinates to be used with mapjfx
      */
     public List<Coordinate> getCoordinatesFromRoute(JSONObject json) {
 
@@ -102,7 +113,7 @@ public class RouteService {
      * human-readable format.
      *
      * @param json the complete JSON response from OSRM API
-     * @return      a List of Coordinates to be used with mapjfx
+     * @return a List of Coordinates to be used with mapjfx
      */
     public String getDistanceFromRoute(JSONObject json) {
 
@@ -133,7 +144,7 @@ public class RouteService {
     /**
      * Returns all user saved Routes.
      *
-     * @return
+     * @return a list of all Route objects in database
      */
     public List<Route> getSavedRoutes() {
         return this.routeRepo.findAll();
@@ -142,7 +153,7 @@ public class RouteService {
     /**
      * Saves a route to Database
      * @param route Route object to save
-     * @return      the saved route object
+     * @return the saved route object
      */
     public Route saveRoute(Route route) {
         return this.routeRepo.save(route);

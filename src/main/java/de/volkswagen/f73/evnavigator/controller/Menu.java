@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView
-public class Menu {
+public class Menu implements IMenuController {
 
     @FXML
     private HBox menuBox;

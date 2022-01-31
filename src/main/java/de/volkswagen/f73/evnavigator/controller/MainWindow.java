@@ -48,6 +48,12 @@ public class MainWindow {
     private Button standbyButton;
     @FXML
     private Pane contentPane;
+    @FXML
+    private Button backButton;
+
+    private Node viewBeforeStandby;
+    private boolean standByActive;
+    private boolean backButtonVisibleBeforeStandby;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -74,7 +80,8 @@ public class MainWindow {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.error("Clock thread sleep interrupted.");
+                    Thread.currentThread().interrupt();
                 }
             }
         };
@@ -101,7 +108,25 @@ public class MainWindow {
      */
     @FXML
     private void toggleStandby() {
-        this.fxWeaver.load(Menu.class).getController().show();
+        if (!this.standByActive) {
+            this.rootPane.setStyle("-fx-background-color: #000;");
+            this.backButtonVisibleBeforeStandby = this.backButton.isVisible();
+            this.backButton.setVisible(false);
+            this.viewBeforeStandby = this.rootPane.getCenter();
+            this.clock.setStyle("-fx-font-size: 24px;-fx-text-fill: white;-fx-pref-width: 250px");
+            this.rootPane.setCenter(this.clock);
+            this.menuTitle.setVisible(false);
+            this.standByActive = true;
+        } else {
+            this.rootPane.setStyle("");
+            this.menuTitle.setVisible(true);
+            this.backButton.setVisible(this.backButtonVisibleBeforeStandby);
+            this.rootPane.setCenter(this.viewBeforeStandby);
+            this.clock.setStyle("");
+            this.topMenu.getChildren().add(this.clock);
+            this.standByActive = false;
+        }
+
     }
 
     public Label getTitle() {
@@ -110,5 +135,9 @@ public class MainWindow {
 
     public BorderPane getRootPane() {
         return this.rootPane;
+    }
+
+    public Button getBackButton() {
+        return this.backButton;
     }
 }
