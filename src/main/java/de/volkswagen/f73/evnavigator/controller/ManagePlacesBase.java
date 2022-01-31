@@ -34,7 +34,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
  * @author Bücker, Thies (SE-A/34)
  */
 
-public class ManagePlacesBase<T extends PlaceBase, S extends ServiceBase> implements IMenuController {
+public abstract class ManagePlacesBase<T extends PlaceBase, S extends ServiceBase> implements IMenuController {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ManagePlacesBase.class);
     protected static final int ZOOM_DEFAULT = 14;
@@ -146,15 +146,10 @@ public class ManagePlacesBase<T extends PlaceBase, S extends ServiceBase> implem
         }
 
         if (this.selectedPlace == null) {
-            Place newPlace = new Place(this.nameInput.getText(),
-                    Double.valueOf(this.latitudeInput.getText()),
-                    Double.valueOf(this.longitudeInput.getText()));
-            this.placeService.save(newPlace);
+            this.placeService.save(createNewPlace());
         } else {
-            this.selectedPlace.setLat(Double.valueOf(this.latitudeInput.getText()));
-            this.selectedPlace.setLon(Double.valueOf(this.longitudeInput.getText()));
-            this.selectedPlace.setName(this.nameInput.getText());
-            this.placeService.save(this.selectedPlace);
+            this.updatePlace();
+            this.placeService.save(this.updatePlace());
         }
 
         fetchPlaces();
@@ -176,6 +171,18 @@ public class ManagePlacesBase<T extends PlaceBase, S extends ServiceBase> implem
         fetchPlaces();
 
     }
+
+    /**
+     * Method that creates a new place from the given input field
+     * @return a newly created place
+     */
+    protected abstract T createNewPlace();
+
+    /**
+     * Method that updates the selected place from the given input field
+     * @return the updated selected place
+     */
+    protected abstract T updatePlace();
 
 }
 

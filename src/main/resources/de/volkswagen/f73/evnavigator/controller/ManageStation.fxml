@@ -54,6 +54,6 @@
       <Separator layoutX="27.0" layoutY="560.0" prefWidth="1113.0" />
       <CheckBox fx:id="membershipNeededCb" layoutX="1036.0" layoutY="575.0" mnemonicParsing="false" text="Membership needed" />
       <CheckBox fx:id="hasFeeCb" layoutX="1036.0" layoutY="617.0" mnemonicParsing="false" text="Has Fee" />
-      <TextArea layoutX="202.0" layoutY="650.0" prefHeight="45.0" prefWidth="593.0" promptText="Notes" />
+      <TextArea fx:id="notesInput" layoutX="202.0" layoutY="650.0" prefHeight="45.0" prefWidth="593.0" promptText="Notes" />
    </children>
 </AnchorPane>

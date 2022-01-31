@@ -35,4 +35,19 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
 @FxmlView
 public class ManagePlaces extends ManagePlacesBase<Place, PlaceService>{
 
+
+    @Override
+    protected Place createNewPlace() {
+        return new Place(this.nameInput.getText(),
+                    Double.valueOf(this.latitudeInput.getText()),
+                    Double.valueOf(this.longitudeInput.getText()));
+    }
+
+    @Override
+    protected Place updatePlace() {
+        this.selectedPlace.setLat(Double.valueOf(this.latitudeInput.getText()));
+        this.selectedPlace.setLon(Double.valueOf(this.longitudeInput.getText()));
+        this.selectedPlace.setName(this.nameInput.getText());
+        return this.selectedPlace;
+    }
 }
