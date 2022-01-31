@@ -46,6 +46,8 @@ class StationServiceTests {
                 "TestOperator", 52.42072813, 10.746537651));
         this.sampleStations.add(new Station("Kassel Station", false, false,
                 "TestOperator", 51.31567287, 9.4978098202));
+        this.sampleStations.add(new Station("Hannover Station", false, false,
+                "TestOperator", 52.374206, 9.736088));
 
         CSV_TEST_STATIONS.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
         CSV_TEST_STATIONS.add(new Station("node/5549505721", "name1", null, null, true, "3", false, null, null, "Tesla", null, null, null, 53.5167306, 12.6866268));
@@ -97,7 +99,51 @@ class StationServiceTests {
 
         CoordinateLine wolfsburgToBraunschweig = new CoordinateLine(wolfsburg, braunschweig);
         List<Station> closeStations = this.stationService.getStationsAlongPath(wolfsburgToBraunschweig, 500.0);
-        Assertions.assertEquals(2, closeStations.size());
+        Assertions.assertEquals(3, closeStations.size());
+    }
+
+    /**
+     * Tests whether stations along a linear path are found.
+     * Wittenberge and Bad Karlshafen are connected with a line that crosses closely the MLC charging station.
+     */
+    @Test
+    void getStationsAlongLineShouldReturnCloseStation() {
+        this.stationService.saveStations(this.sampleStations);
+
+        Coordinate wittenberge = new Coordinate(52.994915, 11.741919);
+        Coordinate badKarlshafen = new Coordinate(51.643994, 9.438850);
+
+        List<Station> actual = stationService.getStationsAlongLine(wittenberge, badKarlshafen, 3.0);
+
+        Assertions.assertTrue(actual.size() == 1);
+        Assertions.assertEquals("MLC Station", actual.get(0).getName());
+
+    }
+
+    /**
+     * Tests whether stations closely behind or after a linear path are found.
+     * The route in this test starts a few kilometers away from each station. The line does not cross it,
+     * but it is still close enough.
+     */
+    @Test
+    void getStationsAlongLineShouldReturnStationsCloseToOriginAndDestination() {
+        this.stationService.saveStations(this.sampleStations);
+
+        Coordinate kassel = new Coordinate(51.317938, 9.500416);
+        Coordinate wolfsburg = new Coordinate(52.413913, 10.738788);
+
+        List<Station> actual = stationService.getStationsAlongLine(kassel, wolfsburg, 5.0);
+
+        Assertions.assertTrue(actual.size() == 2);
+    }
+
+    @Test
+    void getStationAtCoordinateShouldReturnKnownStation() {
+        this.stationService.saveStations(this.sampleStations);
+
+        Station actual = this.stationService.getStationAtCoordinate(51.31567287, 9.4978098202);
+        Assertions.assertNotNull(actual);
+        Assertions.assertEquals("Kassel Station", actual.getName());
     }
 
     /**

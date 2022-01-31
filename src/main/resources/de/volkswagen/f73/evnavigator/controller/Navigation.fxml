@@ -74,5 +74,10 @@
          <font>
             <Font size="14.0" />
          </font></Button>
+      <Button fx:id="stationsAlongLineBtn" layoutX="722.0" layoutY="651.0" mnemonicParsing="false" onAction="#showStationsAlongLine" prefHeight="33.0" prefWidth="151.0" text="Stations along Line">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

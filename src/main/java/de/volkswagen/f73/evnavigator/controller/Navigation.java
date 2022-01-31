@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static de.volkswagen.f73.evnavigator.util.GeoUtils.isValidCoordinate;
+import static de.volkswagen.f73.evnavigator.util.GeoUtils.*;
 import static de.volkswagen.f73.evnavigator.util.GuiUtils.*;
 import static de.volkswagen.f73.evnavigator.util.MapUtils.buildMarker;
 import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate;
@@ -294,8 +294,10 @@ public class Navigation {
         this.currentPath.setWidth(6);
         this.map.addCoordinateLine(this.linearPath);
 
-
-
+//        LOGGER.info("bearing in degrees: {}", bearingInDegrees(this.originMarker.getPosition(), this.destinationMarker.getPosition()));
+//        LOGGER.info("bearing in radians: {}", bearingInRadians(this.originMarker.getPosition(), this.destinationMarker.getPosition()));
+//
+//        LOGGER.info("Cross-track distance from line to point: {}", crossTrackDistanceFromLinearPathInKm(origin, dest, this.currentMarker.getPosition()));
 
         this.stationsAlongRouteBtn.setDisable(false);
         this.setRouteMarkers(origin, false);
@@ -385,6 +387,26 @@ public class Navigation {
         this.stationMarkers.clear();
 
         List<Station> closeStations = this.stationService.getStationsAlongPath(this.currentPath, this.distanceSlider.getValue());
+
+        List<Marker> markers = closeStations.stream().map(s -> buildMarker(s.getLat(), s.getLon(), MapUtils.MarkerImage.STATION)
+        ).collect(Collectors.toList());
+
+        this.stationMarkers.addAll(markers);
+        this.stationMarkers.forEach(this.map::addMarker);
+    }
+
+    @FXML
+    public void showStationsAlongLine() {
+        if (this.currentPath == null) {
+            showError("No route found", "Please calculate a route to show stations along its path.");
+            return;
+        }
+
+        this.stationMarkers.forEach(this.map::removeMarker);
+        this.stationMarkers.clear();
+
+        List<Station> closeStations = this.stationService.getStationsAlongLine(this.originMarker.getPosition(),
+                this.destinationMarker.getPosition(), this.distanceSlider.getValue());
 
         List<Marker> markers = closeStations.stream().map(s -> buildMarker(s.getLat(), s.getLon(), MapUtils.MarkerImage.STATION)
         ).collect(Collectors.toList());

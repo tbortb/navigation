@@ -1,5 +1,7 @@
 package de.volkswagen.f73.evnavigator.util;
 
+import com.sothawo.mapjfx.Coordinate;
+
 /**
  * Utility class for several calculations around geolocal coordinates.
  *
@@ -15,7 +17,7 @@ public class GeoUtils {
 
     /**
      * Gets the linear distance in Km between two coordinates.
-     * Calculation based on <a href="http://www.movable-type.co.uk/scripts/latlong.html?from=49.243824,-121.887340&to=49.235347,-121.92532">movable-type.co.uk</a>
+     * Calculation based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">movable-type.co.uk</a>
      *
      * @param startLat origin point latitude
      * @param startLon origin point longitude
@@ -42,6 +44,53 @@ public class GeoUtils {
         return Math.pow(Math.sin(val / 2), 2);
     }
 
+
+    /**
+     * Calculates the initial bearing in radians from an origin coordinate to a destination coordinate
+     * Calculation based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">movable-type.co.uk</a>
+     *
+     * @param origin origin coordinate
+     * @param dest   destination coordinate
+     * @return the initial bearing in radians
+     */
+    public static double bearingInRadians(Coordinate origin, Coordinate dest) {
+        double srcLat = Math.toRadians(origin.getLatitude());
+        double dstLat = Math.toRadians(dest.getLatitude());
+        double dLng = Math.toRadians(dest.getLongitude() - origin.getLongitude());
+
+        return Math.atan2(Math.sin(dLng) * Math.cos(dstLat),
+                Math.cos(srcLat) * Math.sin(dstLat) -
+                        Math.sin(srcLat) * Math.cos(dstLat) * Math.cos(dLng));
+    }
+
+    /**
+     * Calculates the initial bearing in degrees from an origin coordinate to a destination coordinate
+     * Calculation based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">movable-type.co.uk</a>
+     *
+     * @param origin origin coordinate
+     * @param dest   destination coordinate
+     * @return the initial bearing in degrees
+     */
+    public static double bearingInDegrees(Coordinate origin, Coordinate dest) {
+        return Math.toDegrees((bearingInRadians(origin, dest) + Math.PI) % Math.PI);
+    }
+
+    /**
+     * Calculates the shortest linear distance of a point in relation to a line between two coordinates.
+     * Calculation based on <a href="http://www.movable-type.co.uk/scripts/latlong.html">movable-type.co.uk</a>
+     *
+     * @param origin origin point of the line
+     * @param dest   destination point of the line
+     * @param point  coordinate to check the distance of
+     * @return the distance from the point to the line in km
+     */
+    public static double crossTrackDistanceFromLinearPathInKm(Coordinate origin, Coordinate dest, Coordinate point) {
+        double angularDistance = getLinearDistanceKm(origin.getLatitude(), origin.getLongitude(),
+                point.getLatitude(), point.getLongitude()) / EARTH_RADIUS_KM;
+
+        return Math.asin(Math.sin(angularDistance) * Math.sin(
+                bearingInRadians(origin, point) - bearingInRadians(origin, dest))) * EARTH_RADIUS_KM;
+    }
 
     /**
      * Checks whether two strings are valid coordinates when parsed as doubles

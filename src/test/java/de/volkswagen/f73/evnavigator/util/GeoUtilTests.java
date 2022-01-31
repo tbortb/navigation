@@ -1,5 +1,6 @@
 package de.volkswagen.f73.evnavigator.util;
 
+import com.sothawo.mapjfx.Coordinate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -34,14 +35,17 @@ class GeoUtilTests {
     @Test
     void coordinateValidationShouldDetectWrongInput() {
         String wrongLat = "51,2382";
-        String wrongLon = "9.82147";
+        String correctLon = "9.82147";
         double wrongLat2 = 210.282853;
-        double wrongLon2 = -192.2582719;
+        double wrongLon = -192.2582719;
 
-        Assertions.assertFalse(GeoUtils.isValidCoordinate(wrongLat, wrongLon));
-        Assertions.assertFalse(GeoUtils.isValidCoordinate(wrongLat2, wrongLon2));
+        Assertions.assertFalse(GeoUtils.isValidCoordinate(wrongLat, correctLon));
+        Assertions.assertFalse(GeoUtils.isValidCoordinate(wrongLat2, wrongLon));
     }
 
+    /**
+     * Tests whether geographically and formally correct coordinates get validated correctly
+     */
     @Test
     void coordinateValidationShouldPassValidInput() {
         String lat = "52.421150";
@@ -52,5 +56,22 @@ class GeoUtilTests {
 
         Assertions.assertTrue(GeoUtils.isValidCoordinate(lat, lon));
         Assertions.assertTrue(GeoUtils.isValidCoordinate(lat2, lon2));
+    }
+
+    /**
+     * Checks whether bearingInRadians returns the correct value for a known bearing.
+     * The start bearing from Baghdad to Osaka is approximately 60°.
+     */
+    @Test
+    void bearingInDegreesShouldReturnKnownValue() {
+        Coordinate baghdad = new Coordinate(35.0, 45.0);
+        Coordinate osaka = new Coordinate(35.0, 135.0);
+
+        double actual = GeoUtils.bearingInDegrees(baghdad, osaka);
+        double expected = 60;
+        double errorMarginPct = 0.01;
+
+        Assertions.assertTrue(actual < expected * (1 + errorMarginPct ));
+        Assertions.assertTrue(actual > expected * (1 - errorMarginPct ));
     }
 }

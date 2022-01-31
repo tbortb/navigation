@@ -185,7 +185,49 @@ public class StationService {
             });
         }
 
+        return filteredList;
+    }
 
+    /**
+     * Fetches stations within a distance of a line between two coordinates.
+     * Checks radii around waypoints along the route within max/min latitude/longitude boundaries.
+     * To fill the potential gap around the start and destination coordinate, it adds another radius
+     * around each of those.
+     *
+     * @param path      CoordinateLine containing at least two Coordinate objects
+     * @param maxDistKm maximum distance in Km from the path
+     * @return Station objects along the path
+     */
+    public List<Station> getStationsAlongLine(Coordinate origin, Coordinate dest, Double maxDistKm) {
+
+        double latMin = Math.min(origin.getLatitude(), dest.getLatitude());
+        double latMax = Math.max(origin.getLatitude(), dest.getLatitude());
+        double lonMin = Math.min(origin.getLongitude(), dest.getLongitude());
+        double lonMax = Math.max(origin.getLongitude(), dest.getLongitude());
+
+
+        List<Station> stationsWithinBoundaries = this.stationRepo.
+                findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(latMin, lonMin, latMax, lonMax);
+
+        List<Station> filteredList = stationsWithinBoundaries
+                .stream()
+                .parallel()
+                .filter(s -> Math.abs(GeoUtils.crossTrackDistanceFromLinearPathInKm(origin, dest,
+                        new Coordinate(s.getLat(), s.getLon()))) <= maxDistKm)
+                .collect(Collectors.toList());
+
+
+        getStationsCloseTo(origin.getLatitude(), origin.getLongitude(), maxDistKm).forEach(st -> {
+            if (!filteredList.contains(st)) {
+                filteredList.add(st);
+            }
+        });
+
+        getStationsCloseTo(dest.getLatitude(), dest.getLongitude(), maxDistKm).forEach(st -> {
+            if (!filteredList.contains(st)) {
+                filteredList.add(st);
+            }
+        });
 
         return filteredList;
     }
