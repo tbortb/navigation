@@ -1,4 +1,4 @@
 id,name,voltage,amperage,authentication_membership_card,capacity,fee,note,opening_hours,operator,socket_schuko,socket_type2,socket_type2_output,lon,lat
 "node/663773225",null,null,null,null,null,"0,5",null,null,"Allgäuer Überlandwerk",null,null,null,10.3187933,47.727446
 "node/5549505721","name1",null,null,"yEs","3","no",null,null,"Tesla",null,"yes",null,12.6866268,53.5167306
-"node/7848608385","name2",null,null,"nO",null,"kostenlos",null,null,"Thüringer Energie AG",null,null,null,11.0412338,51.0150151
+"node/7848608385","name2","10-36","wahrscheinlich5","nO",null,"kostenlos",null,null,"Thüringer Energie AG",0,1,22000,11.0412338,51.0150151

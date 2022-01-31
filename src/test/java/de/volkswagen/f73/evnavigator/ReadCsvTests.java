@@ -44,8 +44,9 @@ public class ReadCsvTests {
         this.stationRepo.deleteAll();
         this.sampleStations.clear();
         this.sampleStations.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
-        this.sampleStations.add(new Station("node/5549505721", "name1", true, false, "Tesla", 53.5167306, 12.6866268));
-        this.sampleStations.add(new Station("node/7848608385", "name2", false, false, "Thüringer Energie AG",51.0150151 ,11.0412338));
+        this.sampleStations.add(new Station("node/5549505721", "name1", null, null, true, "3", false, null, null, "Tesla", null, null, null, 53.5167306, 12.6866268));
+        //TODO:lat and long must be reverset in Stations
+        this.sampleStations.add(new Station("node/7848608385", "name2", 36, 5, false,null, false,null, null, "Thüringer Energie AG",0,1,22,51.0150151 ,11.0412338));
     }
 
 
@@ -68,8 +69,12 @@ public class ReadCsvTests {
 
         Assertions.assertEquals(this.sampleStations.size(), readStations.size());
 
+        this.sampleStations.forEach(s -> LOGGER.info(s.toString()));
+
         for (Station readStation : readStations){
+            LOGGER.info(readStation.toString());
             Assertions.assertTrue(this.sampleStations.contains(readStation));
+
         }
     }
 
