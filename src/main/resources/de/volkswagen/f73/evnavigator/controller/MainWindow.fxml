@@ -19,6 +19,11 @@
                <Insets left="30.0" right="30.0" />
             </HBox.margin>
          </Button>
+         <Button fx:id="backButton" style="-fx-background-radius: 10px;" visible="false">
+            <graphic>
+               <FontAwesomeIconView glyphName="ARROW_LEFT" size="32" textAlignment="CENTER" wrappingWidth="40.428571701049805" />
+            </graphic>
+         </Button>
          <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="793.0" text="Menu Title" HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets />

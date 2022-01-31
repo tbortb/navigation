@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static de.volkswagen.f73.evnavigator.util.GuiUtils.setBackButtonNavigation;
+
 /**
  * Controller for the AddStation view.
  *
@@ -68,6 +70,7 @@ public class AddStation {
 
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.stationBox, "Add Station");
+        setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, false);
     }
 
     private void setUpMapEventHandlers() {

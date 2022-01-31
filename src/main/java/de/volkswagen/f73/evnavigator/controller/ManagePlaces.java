@@ -102,7 +102,8 @@ public class ManagePlaces {
      */
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Add Favorite Place");
-        fetchPlaces();
+        setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, false);
+        this.fetchPlaces();
     }
 
     /**

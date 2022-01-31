@@ -81,9 +81,9 @@ public class Navigation {
     @FXML
     private Slider distanceSlider;
     @FXML
-    private Button stationsAlongRoute;
+    private Button stationsAlongRouteBtn;
     @FXML
-    private Button closeStations;
+    private Button closeStationsBtn;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -125,6 +125,8 @@ public class Navigation {
      */
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.navigationPane, "Navigation");
+        setBackButtonNavigation(this.fxWeaver, Menu.class);
+
         this.routeList.setItems(FXCollections.observableArrayList(this.routeService.getSavedRoutes()));
         this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAllPlaces()));
     }
@@ -151,7 +153,7 @@ public class Navigation {
                 )
         ));
 
-        this.closeStations.disableProperty().bind(this.currentMarker.visibleProperty().not());
+        this.closeStationsBtn.disableProperty().bind(this.currentMarker.visibleProperty().not());
 
         this.saveRouteBtn.setDisable(true);
 
@@ -187,7 +189,6 @@ public class Navigation {
 
         this.currentMarker.setVisible(true);
         this.currentCoordinate = new Coordinate(lat, lon);
-        this.currentMarker.setPosition(this.currentCoordinate);
         this.currentMarker.setPosition(this.currentCoordinate);
 
     }
@@ -254,6 +255,11 @@ public class Navigation {
         Coordinate dest = new Coordinate(destLat, destLon);
 
         JSONObject json = this.routeService.getRouteFromCoordinates(originLat, originLon, destLat, destLon);
+
+        if (json == null) {
+            return;
+        }
+
         List<Coordinate> waypoints = this.routeService.getCoordinatesFromRoute(json);
         LOGGER.info("Route distance is: {}", this.routeService.getDistanceFromRoute(json));
         LOGGER.info("Linear distance is: {}", GeoUtils.getLinearDistanceKm(originLat, originLon, destLat, destLon));
@@ -275,7 +281,7 @@ public class Navigation {
 
 
 
-        this.stationsAlongRoute.setDisable(false);
+        this.stationsAlongRouteBtn.setDisable(false);
         this.setRouteMarkers(origin, false);
         this.setRouteMarkers(dest, true);
 

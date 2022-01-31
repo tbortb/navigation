@@ -18,7 +18,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +50,7 @@ public class StationService {
      * @param stations List of Station objects to save
      * @return  List of saved Station object
      */
-    public List<Station> insertStationsToDB(Collection<Station> stations) {
+    public List<Station> saveStations(Collection<Station> stations) {
         return this.stationRepo.saveAll(stations);
     }
 
@@ -61,7 +60,7 @@ public class StationService {
      * @param station a Station object to save
      * @return the saved Station object
      */
-    public Station insertStationToDB(Station station) {
+    public Station saveStation(Station station) {
         return this.stationRepo.save(station);
     }
 
@@ -88,7 +87,7 @@ public class StationService {
      */
     public List<Station> csvToDB(String path) {
         List<Station> stations = this.csvToStations(path);
-        return this.insertStationsToDB(stations);
+        return this.saveStations(stations);
     }
 
     /**
@@ -118,16 +117,6 @@ public class StationService {
     }
 
     /**
-     * Saves a station to DB.
-     *
-     * @param station Station object to save
-     * @return the saved Station object
-     */
-    public Station saveStation(Station station) {
-        return this.stationRepo.save(station);
-    }
-
-    /**
      * Fetches stations within a radius of a given coordinate.
      *
      * @param lat       latitude
@@ -138,11 +127,14 @@ public class StationService {
     public List<Station> getStationsCloseTo(Double lat, Double lon, Double maxDistKm) {
         List<Station> stations = this.stationRepo.findAll();
 
-        return stations.stream().filter(s -> GeoUtils.getLinearDistanceKm(lat, lon, s.getLat(), s.getLon()) <= maxDistKm).collect(Collectors.toList());
+        return stations.stream().parallel().filter(s -> GeoUtils.getLinearDistanceKm(lat, lon, s.getLat(), s.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 
     /**
      * Fetches stations within a distance of a given path.
+     * Checks radii around waypoints along the route within max/min latitude/longitude boundaries.
+     * To fill the potential gap around the start and destination coordinate, it adds another radius
+     * around each of those.
      *
      * @param path      CoordinateLine containing at least two Coordinate objects
      * @param maxDistKm maximum distance in Km from the path
@@ -155,11 +147,35 @@ public class StationService {
         double lonMin = path.getCoordinateStream().mapToDouble(Coordinate::getLongitude).min().getAsDouble();
         double lonMax = path.getCoordinateStream().mapToDouble(Coordinate::getLongitude).max().getAsDouble();
 
-        List<Station> stationsWithinBoundaries = this.stationRepo.findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(latMin, lonMin, latMax, lonMax);
+        List<Station> stationsWithinBoundaries = this.stationRepo.
+                findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(latMin, lonMin, latMax, lonMax);
 
-
-        return stationsWithinBoundaries.stream().parallel().filter(s ->
-                path.getCoordinateStream().parallel().anyMatch(p -> GeoUtils.getLinearDistanceKm(p.getLatitude(), p.getLongitude(), s.getLat(), s.getLon()) <= maxDistKm)
+        List<Station> filteredList = stationsWithinBoundaries.stream().parallel().filter(s ->
+                path.getCoordinateStream().parallel().anyMatch(p -> GeoUtils.getLinearDistanceKm(
+                        p.getLatitude(), p.getLongitude(), s.getLat(), s.getLon()) <= maxDistKm)
         ).collect(Collectors.toList());
+
+        Coordinate firstCoord = path.getCoordinateStream().findFirst().orElse(null);
+        Coordinate lastCoord = path.getCoordinateStream().reduce((first, second) -> second).orElse(null);
+
+        if (firstCoord != null) {
+            getStationsCloseTo(firstCoord.getLatitude(), firstCoord.getLongitude(), maxDistKm).forEach(st -> {
+                if (!filteredList.contains(st)) {
+                    filteredList.add(st);
+                }
+            });
+        }
+
+        if (lastCoord != null) {
+            getStationsCloseTo(lastCoord.getLatitude(), lastCoord.getLongitude(), maxDistKm).forEach(st -> {
+                if (!filteredList.contains(st)) {
+                    filteredList.add(st);
+                }
+            });
+        }
+
+
+
+        return filteredList;
     }
 }
