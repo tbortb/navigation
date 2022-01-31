@@ -28,11 +28,11 @@ import static de.volkswagen.f73.evnavigator.util.GuiUtils.setBackButtonNavigatio
  */
 @Component
 @FxmlView
-public class AddStation {
+public class ManageStation {
 
     // TODO: Migrate this with ManagePlaces, it's the same...
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AddStation.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManageStation.class);
     private static final int ZOOM_DEFAULT = 14;
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private Marker currentMarker;
@@ -98,7 +98,7 @@ public class AddStation {
                 this.operatorInput.getText(),
                 Double.valueOf(this.latitudeInput.getText()),
                 Double.valueOf(this.longitudeInput.getText()));
-        this.stationService.saveStation(newStation);
+        this.stationService.save(newStation);
     }
 
 }
