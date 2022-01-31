@@ -16,9 +16,7 @@ import java.util.Objects;
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class Station {
-
-    //TODO: maybe add Socket_schuko, Socket_type2, Socket_type2_output
+public class Station implements PlaceBase{
 
     @Id
     @GeneratedValue(generator = IDGenerator.GENERATOR_NAME)

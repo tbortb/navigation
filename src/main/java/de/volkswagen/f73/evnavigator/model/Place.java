@@ -10,7 +10,7 @@ import javax.persistence.Id;
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class Place {
+public class Place implements PlaceBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

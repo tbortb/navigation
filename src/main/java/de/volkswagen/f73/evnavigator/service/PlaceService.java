@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author Bücker, Thies (SE-A/34)
  */
 @Service
-public class PlaceService {
+public class PlaceService implements ServiceBase<Place>{
 
     @Autowired
     private PlaceRepository placeRepo;
@@ -26,7 +26,7 @@ public class PlaceService {
      *
      * @return List of Place objects
      */
-    public List<Place> getAllPlaces() {
+    public List<Place> getAll() {
         return this.placeRepo.findAll();
     }
 
@@ -36,7 +36,7 @@ public class PlaceService {
      * @param place the Place object to save
      * @return the saved Place object
      */
-    public Place savePlace(Place place) {
+    public Place save(Place place) {
         return this.placeRepo.save(place);
     }
 
@@ -54,7 +54,7 @@ public class PlaceService {
         return places.stream().filter(p -> GeoUtils.getLinearDistanceKm(lat, lon, p.getLat(), p.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 
-    public void deletePlace(Place place) {
+    public void delete(Place place) {
         this.placeRepo.delete(place);
     }
 }

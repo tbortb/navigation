@@ -2,7 +2,6 @@ package de.volkswagen.f73.evnavigator.service;
 
 import de.volkswagen.f73.evnavigator.model.Place;
 import de.volkswagen.f73.evnavigator.repository.PlaceRepository;
-import de.volkswagen.f73.evnavigator.service.PlaceService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ class PlaceServiceTests {
     @Test
     void addPOITest(){
         Place toSave = this.samplePlaces.get(0);
-        Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(toSave));
+        Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.save(toSave));
 
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(toSave.getName(), saved.getName());
@@ -56,10 +55,10 @@ class PlaceServiceTests {
     @Test
     void getPOITest(){
         for (Place place : this.samplePlaces){
-            Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
+            Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
-        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAllPlaces());
+        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAll());
 
         Assertions.assertNotNull(fetched);
         Assertions.assertEquals(this.samplePlaces.size(), fetched.size());
@@ -79,7 +78,7 @@ class PlaceServiceTests {
         int expectedSize = 1;
 
         for (Place place : this.samplePlaces){
-            Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
+            Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
         List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getPlacesCloseTo(closeToLat, closeToLon, maxDistKm));

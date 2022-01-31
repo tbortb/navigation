@@ -129,7 +129,7 @@ public class Navigation {
         setBackButtonNavigation(this.fxWeaver, Menu.class);
 
         this.routeList.setItems(FXCollections.observableArrayList(this.routeService.getSavedRoutes()));
-        this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAllPlaces()));
+        this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAll()));
     }
 
     /**
