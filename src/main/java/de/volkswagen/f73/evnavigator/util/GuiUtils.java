@@ -21,6 +21,12 @@ public class GuiUtils {
     private GuiUtils() {
     }
 
+    /**
+     * Creates an error modal and shows it to the user
+     *
+     * @param title the title of the error window
+     * @param body  the error message shown in the body of the window
+     */
     public static void showError(String title, String body) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -30,15 +36,29 @@ public class GuiUtils {
         alert.showAndWait();
     }
 
-    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz) {
-        setBackButtonNavigation(fxWeaver, clazz, true);
-    }
-
-    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz, Boolean isRoot) {
+    /**
+     * Sets the back button functionality and its visibility after being clicked
+     *
+     * @param fxWeaver           FxWeaver bean to load controller with
+     * @param clazz              controller Class (implementing IMenuController) that should be shown after click
+     * @param isIntermediateMenu whether the controller to show is a root view or an intermediate view
+     */
+    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz,
+                                               Boolean isIntermediateMenu) {
         fxWeaver.getBean(MainWindow.class).getBackButton().setVisible(true);
         fxWeaver.getBean(MainWindow.class).getBackButton().setOnAction(e -> {
             fxWeaver.loadController(clazz).show();
-            fxWeaver.getBean(MainWindow.class).getBackButton().setVisible(!isRoot);
+            fxWeaver.getBean(MainWindow.class).getBackButton().setVisible(isIntermediateMenu);
         });
+    }
+
+    /**
+     * Sets the back button functionality, defaulting its visibility after click to false
+     *
+     * @param fxWeaver FxWeaver bean to load controller with
+     * @param clazz    controller Class (implementing IMenuController) that should be shown after click
+     */
+    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz) {
+        setBackButtonNavigation(fxWeaver, clazz, false);
     }
 }

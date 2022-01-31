@@ -15,13 +15,13 @@ public class GeoUtils {
 
     /**
      * Gets the linear distance in Km between two coordinates.
-     * Calculation based on http://www.movable-type.co.uk/scripts/latlong.html?from=49.243824,-121.887340&to=49.235347,-121.92532
+     * Calculation based on <a href="http://www.movable-type.co.uk/scripts/latlong.html?from=49.243824,-121.887340&to=49.235347,-121.92532">movable-type.co.uk</a>
      *
-     * @param startLat
-     * @param startLon
-     * @param endLat
-     * @param endLon
-     * @return
+     * @param startLat origin point latitude
+     * @param startLon origin point longitude
+     * @param endLat   destination point latitude
+     * @param endLon   destination point longitude
+     * @return distance in kilometers
      */
     public static double getLinearDistanceKm(double startLat, double startLon,
                                              double endLat, double endLon) {
@@ -43,6 +43,13 @@ public class GeoUtils {
     }
 
 
+    /**
+     * Checks whether two strings are valid coordinates when parsed as doubles
+     *
+     * @param lat latitude
+     * @param lon longitude
+     * @return validity
+     */
     public static boolean isValidCoordinate(String lat, String lon) {
 
         double latitude;
@@ -57,14 +64,14 @@ public class GeoUtils {
         return isValidCoordinate(latitude, longitude);
     }
 
+    /**
+     * Checks whether two doubles are geographically valid coordinates
+     *
+     * @param lat latitude
+     * @param lon longitude
+     * @return validity
+     */
     public static boolean isValidCoordinate(double lat, double lon) {
         return (Math.abs(lat) <= 90) && (Math.abs(lon) <= 180);
-    }
-
-    public enum CardinalPoint {
-        NORTH,
-        EAST,
-        SOUTH,
-        WEST
     }
 }

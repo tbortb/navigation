@@ -149,7 +149,7 @@ public class StationService {
      *
      * @param path      CoordinateLine containing at least two Coordinate objects
      * @param maxDistKm maximum distance in Km from the path
-     * @return          Station objects along the path
+     * @return Station objects along the path
      */
     public List<Station> getStationsAlongPath(CoordinateLine path, Double maxDistKm) {
 

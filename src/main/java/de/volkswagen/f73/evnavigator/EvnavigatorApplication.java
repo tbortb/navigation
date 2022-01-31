@@ -5,7 +5,7 @@ import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Utility class for generic actions within a controller that uses mapjfx.
+ * Spring boot starter class, main entry point of the application
  *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)

@@ -10,12 +10,14 @@ import org.springframework.stereotype.Component;
 import static de.volkswagen.f73.evnavigator.util.GuiUtils.setBackButtonNavigation;
 
 /**
+ * Controller for the intermediate SettingsMenu view
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
 @Component
 @FxmlView
-public class SettingsMenu implements IMenuController{
+public class SettingsMenu implements IMenuController {
 
     @FXML
     private HBox menuBox;

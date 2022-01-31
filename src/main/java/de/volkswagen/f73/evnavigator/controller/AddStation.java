@@ -70,7 +70,7 @@ public class AddStation {
 
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.stationBox, "Add Station");
-        setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, false);
+        setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, true);
     }
 
     private void setUpMapEventHandlers() {
