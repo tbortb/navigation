@@ -11,27 +11,28 @@
 <BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.MainWindow">
    <top>
       <HBox fx:id="topMenu" alignment="CENTER" prefHeight="40.0" prefWidth="1060.0" BorderPane.alignment="CENTER">
-         <Button fx:id="standbyButton" onAction="#toggleStandby" style="-fx-background-radius: 30px;" HBox.hgrow="SOMETIMES">
-            <graphic>
-               <FontAwesomeIconView glyphName="POWER_OFF" size="32" />
-            </graphic>
-            <HBox.margin>
-               <Insets left="30.0" right="30.0" />
-            </HBox.margin>
-         </Button>
-         <Button fx:id="backButton" style="-fx-background-radius: 10px;" visible="false">
-            <graphic>
-               <FontAwesomeIconView glyphName="ARROW_LEFT" size="32" textAlignment="CENTER" wrappingWidth="40.428571701049805" />
-            </graphic>
-         </Button>
-         <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="793.0" text="Menu Title" HBox.hgrow="ALWAYS">
+         <HBox prefHeight="41.0" prefWidth="156.0" spacing="50.0">
+            <children>
+               <Button fx:id="standbyButton" onAction="#toggleStandby" style="-fx-background-radius: 30px;">
+                  <graphic>
+                     <FontAwesomeIconView glyphName="POWER_OFF" size="32" />
+                  </graphic>
+               </Button>
+               <Button fx:id="backButton" style="-fx-background-radius: 10px;" visible="false">
+                  <graphic>
+                     <FontAwesomeIconView glyphName="ARROW_LEFT" size="32" textAlignment="CENTER" wrappingWidth="40.428571701049805" />
+                  </graphic>
+               </Button>
+            </children>
+         </HBox>
+         <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="700.0" text="Menu Title" HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets />
             </HBox.margin>
             <font>
                <Font name="System Bold" size="22.0" />
             </font></Label>
-         <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="125.0" text="Clock" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
+         <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="177.0" text="01.01.1970 00:00:00" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
             <font>
                <Font name="System Bold" size="17.0" />
             </font>
