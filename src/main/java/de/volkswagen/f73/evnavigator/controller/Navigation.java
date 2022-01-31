@@ -2,6 +2,7 @@ package de.volkswagen.f73.evnavigator.controller;
 
 import com.sothawo.mapjfx.*;
 import com.sothawo.mapjfx.event.MapViewEvent;
+import com.sothawo.mapjfx.event.MarkerEvent;
 import de.volkswagen.f73.evnavigator.model.Place;
 import de.volkswagen.f73.evnavigator.model.Route;
 import de.volkswagen.f73.evnavigator.model.Station;
@@ -140,6 +141,21 @@ public class Navigation {
             Double lat = event.getCoordinate().normalize().getLatitude();
             Double lon = event.getCoordinate().normalize().getLongitude();
             this.displayMarkerOnMap(lat, lon);
+        });
+
+        map.addEventHandler(MarkerEvent.MARKER_CLICKED, event -> {
+            event.consume();
+            Coordinate stationCoord = event.getMarker().getPosition();
+            Station thisstation = this.stationService.getStationAtCoordinate(stationCoord.getLatitude(),
+                    stationCoord.getLongitude());
+            if (thisstation != null) {
+                LOGGER.info("Station at this position: {}", thisstation);
+            } else {
+                LOGGER.info("That is not a station.");
+            }
+
+
+
         });
 
 

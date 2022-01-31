@@ -131,6 +131,17 @@ public class StationService {
     }
 
     /**
+     * Fetches a single station at a coordinate
+     *
+     * @param lat latitude as double
+     * @param lon longitude as double
+     * @return Station object at coordinate
+     */
+    public Station getStationAtCoordinate(Double lat, Double lon) {
+        return this.stationRepo.findStationByLatEqualsAndLonEquals(lat, lon);
+    }
+
+    /**
      * Fetches stations within a distance of a given path.
      * Checks radii around waypoints along the route within max/min latitude/longitude boundaries.
      * To fill the potential gap around the start and destination coordinate, it adds another radius

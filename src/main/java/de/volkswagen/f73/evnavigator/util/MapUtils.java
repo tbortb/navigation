@@ -16,9 +16,7 @@ public class MapUtils {
     }
 
     public static Marker buildMarker(double lat, double lon, MarkerImage image) {
-        return new Marker(MapUtils.class.getResource(String.format("/images/markers/%s", image.getFilename())), -20, -70)
-                .setPosition(new Coordinate(lat, lon))
-                .setVisible(true);
+        return buildMarker(lat, lon, image, true);
     }
 
     public static Marker buildMarker(double lat, double lon, MarkerImage image, boolean isVisible) {
