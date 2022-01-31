@@ -32,7 +32,7 @@ public class SettingsMenu implements IMenuController {
 
     @FXML
     private void openAddStationView() {
-        this.fxWeaver.load(ManageStation.class).getController().show();
+        this.fxWeaver.load(ManageStations.class).getController().show();
     }
 
     @FXML

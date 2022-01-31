@@ -10,16 +10,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.ManagePlaces">
+<AnchorPane fx:id="root" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.311" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.ManagePlaces">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="53.0" layoutY="527.0" text="Name">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="nameInput" layoutX="120.0" layoutY="524.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField fx:id="nameInput" layoutX="203.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" promptText="Name" />
       <MapView fx:id="map" layoutX="26.0" layoutY="37.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="400.0" minWidth="400.0" prefHeight="459.0" prefWidth="804.0" />
-      <Button graphicTextGap="15.0" layoutX="279.0" layoutY="586.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save">
+      <Button graphicTextGap="15.0" layoutX="822.0" layoutY="651.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save">
          <graphic>
             <FontAwesomeIconView glyphName="SAVE" size="32" />
          </graphic>
@@ -32,21 +27,11 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="latitudeInput" layoutX="416.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" />
-      <Label layoutX="629.0" layoutY="527.0" text="Longitude">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="longitudeInput" layoutX="714.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField fx:id="latitudeInput" layoutX="403.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" promptText="Latitude" />
+      <TextField fx:id="longitudeInput" layoutX="609.0" layoutY="525.0" prefHeight="25.0" prefWidth="184.0" promptText="Longitude" />
       <ListView fx:id="placesList" layoutX="844.0" layoutY="64.0" prefHeight="432.0" prefWidth="296.0" />
       <Separator layoutX="26.0" layoutY="508.0" prefWidth="1113.0" />
-      <Label layoutX="340.0" layoutY="527.0" text="Latitude">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Button graphicTextGap="15.0" layoutX="416.0" layoutY="586.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #ffbaba;" text="Delete">
+      <Button graphicTextGap="15.0" layoutX="1038.0" layoutY="651.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #ffbaba;" text="Delete">
          <graphic>
             <FontAwesomeIconView glyphName="TRASH" size="32" />
          </graphic>
@@ -54,5 +39,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
+      <Label layoutX="45.0" layoutY="529.0" text="Mandatory information" />
    </children>
 </AnchorPane>
