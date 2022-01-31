@@ -38,13 +38,6 @@ class StationServiceTests {
     private final Set<Station> sampleStations = new HashSet<>();
     private static final Set<Station> CSV_TEST_STATIONS = new HashSet<>();
 
-    @BeforeAll
-    static void firstSetUp() {
-        CSV_TEST_STATIONS.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
-        CSV_TEST_STATIONS.add(new Station("node/5549505721", "name1", true, false, "Tesla", 53.5167306, 12.6866268));
-        CSV_TEST_STATIONS.add(new Station("node/7848608385", "name2", false, false, "Thüringer Energie AG",51.0150151 ,11.0412338));
-    }
-
     @BeforeEach
     void setUp() {
         this.stationRepo.deleteAll();
@@ -53,6 +46,12 @@ class StationServiceTests {
                 "TestOperator", 52.42072813, 10.746537651));
         this.sampleStations.add(new Station("Kassel Station", false, false,
                 "TestOperator", 51.31567287, 9.4978098202));
+
+        CSV_TEST_STATIONS.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
+        CSV_TEST_STATIONS.add(new Station("node/5549505721", "name1", null, null, true, "3", false, null, null, "Tesla", null, null, null, 53.5167306, 12.6866268));
+        //TODO:lat and long must be reverset in Stations
+        CSV_TEST_STATIONS.add(new Station("node/7848608385", "name2", 36, 5, false,null, false,null, null, "Thüringer Energie AG",0,1,22,51.0150151 ,11.0412338));
+
     }
 
     /**
@@ -122,6 +121,7 @@ class StationServiceTests {
 
         for (Station readStation : readStations){
             Assertions.assertTrue(CSV_TEST_STATIONS.contains(readStation));
+
         }
     }
 
