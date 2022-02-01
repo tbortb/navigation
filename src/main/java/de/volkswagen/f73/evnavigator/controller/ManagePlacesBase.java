@@ -29,7 +29,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
-public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBase> implements IMenuController {
+public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBase> implements IController {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ManagePlacesBase.class);
     protected static final int ZOOM_DEFAULT = 14;
@@ -64,6 +64,7 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
      */
     @FXML
     public void initialize() {
+
         this.map.setZoom(ZOOM_DEFAULT);
         this.map.setCenter(LOCATION_DEFAULT);
         this.map.setAnimationDuration(500);

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView
-public class Menu implements IMenuController {
+public class Menu implements IController {
 
     @FXML
     private HBox menuBox;
@@ -29,7 +29,11 @@ public class Menu implements IMenuController {
 
     @FXML
     private void openNavigationView() {
-        this.fxWeaver.load(Navigation.class).getController().show();
+        if (!this.fxWeaver.getBean(Navigation.class).isLoaded) {
+            this.fxWeaver.load(Navigation.class);
+        }
+        this.fxWeaver.getBean(Navigation.class).show();
+
     }
 
     @FXML

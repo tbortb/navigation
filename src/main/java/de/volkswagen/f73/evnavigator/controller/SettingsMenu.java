@@ -17,7 +17,7 @@ import static de.volkswagen.f73.evnavigator.util.GuiUtils.setBackButtonNavigatio
  */
 @Component
 @FxmlView
-public class SettingsMenu implements IMenuController {
+public class SettingsMenu implements IController {
 
     @FXML
     private HBox menuBox;

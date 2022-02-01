@@ -46,7 +46,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
  */
 @Component
 @FxmlView
-public class Navigation implements IMenuController{
+public class Navigation implements IController {
 
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
@@ -114,6 +114,8 @@ public class Navigation implements IMenuController{
     @Autowired
     private PlaceService placeService;
 
+    public boolean isLoaded = false;
+
     /**
      * Sets up the MapView.
      */
@@ -149,6 +151,7 @@ public class Navigation implements IMenuController{
     public void show() {
         this.fxWeaver.getBean(MainWindow.class).setView(this.navigationPane, "Navigation");
         setBackButtonNavigation(this.fxWeaver, Menu.class);
+        this.isLoaded = true;
 
         this.routeList.setItems(FXCollections.observableArrayList(this.routeService.getSavedRoutes()));
         this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAll()));
@@ -346,7 +349,6 @@ public class Navigation implements IMenuController{
      */
     private void setRouteMarkers(Coordinate coord, boolean isDestination) {
 
-
         if (isDestination && this.destinationMarker != null) {
             this.map.removeMarker(this.destinationMarker);
         }
@@ -363,7 +365,6 @@ public class Navigation implements IMenuController{
             this.originMarker = buildMarker(coord.getLatitude(), coord.getLongitude(), MapUtils.MarkerImage.ORIGIN);
             this.map.addMarker(this.originMarker);
         }
-
     }
 
 

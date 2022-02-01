@@ -1,7 +1,8 @@
 package de.volkswagen.f73.evnavigator.util;
 
-import de.volkswagen.f73.evnavigator.controller.IMenuController;
+import de.volkswagen.f73.evnavigator.controller.IController;
 import de.volkswagen.f73.evnavigator.controller.MainWindow;
+import de.volkswagen.f73.evnavigator.controller.Navigation;
 import javafx.scene.control.Alert;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.stereotype.Component;
@@ -43,14 +44,14 @@ public class GuiUtils {
      * Sets the back button functionality and its visibility after being clicked
      *
      * @param fxWeaver           FxWeaver bean to load controller with
-     * @param clazz              controller Class (implementing IMenuController) that should be shown after click
+     * @param clazz              controller Class (implementing IController) that should be shown after click
      * @param isIntermediateMenu whether the controller to show is a root view or an intermediate view
      */
-    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz,
+    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IController> clazz,
                                                Boolean isIntermediateMenu) {
         fxWeaver.getBean(MainWindow.class).getBackButton().setVisible(true);
         fxWeaver.getBean(MainWindow.class).getBackButton().setOnAction(e -> {
-            fxWeaver.loadController(clazz).show();
+            fxWeaver.getBean(clazz).show();
             fxWeaver.getBean(MainWindow.class).getBackButton().setVisible(isIntermediateMenu);
         });
     }
@@ -59,9 +60,9 @@ public class GuiUtils {
      * Sets the back button functionality, defaulting its visibility after click to false
      *
      * @param fxWeaver FxWeaver bean to load controller with
-     * @param clazz    controller Class (implementing IMenuController) that should be shown after click
+     * @param clazz    controller Class (implementing IController) that should be shown after click
      */
-    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz) {
+    public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IController> clazz) {
         setBackButtonNavigation(fxWeaver, clazz, false);
     }
 
@@ -99,6 +100,10 @@ public class GuiUtils {
                 sb.append(minutesAfterHours);
                 sb.append(" minute");
             }
+        }
+
+        if (sb.length() == 0) {
+            sb.append("under 1 minute");
         }
 
         return sb.toString();
