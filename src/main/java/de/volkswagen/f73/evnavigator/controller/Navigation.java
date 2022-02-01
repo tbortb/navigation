@@ -48,6 +48,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
 @FxmlView
 public class Navigation {
 
+    private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
     private static final int ZOOM_DEFAULT = 14;
 
@@ -161,7 +162,9 @@ public class Navigation {
             event.consume();
             Double lat = event.getCoordinate().normalize().getLatitude();
             Double lon = event.getCoordinate().normalize().getLongitude();
-            this.displayMarkerOnMap(lat, lon);
+            if (isWithinGermany(lat, lon)) {
+                this.displayMarkerOnMap(lat, lon);
+            }
         });
 
         map.addEventHandler(MarkerEvent.MARKER_CLICKED, event -> {

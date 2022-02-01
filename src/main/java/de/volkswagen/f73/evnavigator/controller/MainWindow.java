@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
@@ -44,10 +43,6 @@ public class MainWindow {
     private Label menuTitle;
     @FXML
     private Label clock;
-    @FXML
-    private Button standbyButton;
-    @FXML
-    private Pane contentPane;
     @FXML
     private Button backButton;
 

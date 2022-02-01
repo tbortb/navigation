@@ -18,8 +18,6 @@ import java.util.Objects;
 @Entity
 public class Station {
 
-    //TODO: maybe add Socket_schuko, Socket_type2, Socket_type2_output
-
     @Id
     @GeneratedValue(generator = IDGenerator.GENERATOR_NAME)
     @GenericGenerator(name = IDGenerator.GENERATOR_NAME, strategy = "de.volkswagen.f73.evnavigator.util.IDGenerator")
@@ -57,7 +55,10 @@ public class Station {
     public Station() {
     }
 
-    public Station(String id, String name, Integer maxVoltage, Integer maxAmperage, Boolean hasMembership, String capacity, Boolean hasFee, String note, String openingHours, String operator, Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output, Double lat, Double lon) {
+    public Station(String id, String name, Integer maxVoltage, Integer maxAmperage, Boolean hasMembership,
+                   String capacity, Boolean hasFee, String note, String openingHours, String operator,
+                   Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output,
+                   Double lat, Double lon) {
         this.id = id;
         this.name = name;
         this.maxVoltage = maxVoltage;
@@ -75,7 +76,8 @@ public class Station {
         this.lat = lat;
     }
 
-    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator, Double lat, Double lon) {
+    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator,
+                   Double lat, Double lon) {
         this.id = id;
         this.name = name;
         this.hasMembership = hasMembership;

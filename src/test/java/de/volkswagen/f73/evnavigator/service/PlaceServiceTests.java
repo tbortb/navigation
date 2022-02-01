@@ -41,7 +41,7 @@ class PlaceServiceTests {
      * Check if a Place can be added to the PlaceRepository
      */
     @Test
-    void addPOITest(){
+    void addPlaceTest(){
         Place toSave = this.samplePlaces.get(0);
         Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(toSave));
 
@@ -54,7 +54,7 @@ class PlaceServiceTests {
      * Check if POIs can be fetched from the PlaceRepository
      */
     @Test
-    void getPOITest(){
+    void getPlaceTest(){
         for (Place place : this.samplePlaces){
             Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
         }
@@ -72,7 +72,7 @@ class PlaceServiceTests {
      * Check if the PlaceService correctly fetches pois close to a given point
      */
     @Test
-    void getClosePOIsTest(){
+    void getClosePlacesTest(){
         double closeToLat = 49.243858;
         double closeToLon = -121.887360;
         double maxDistKm = 1;
@@ -90,5 +90,18 @@ class PlaceServiceTests {
         fetched.forEach(f -> Assertions.assertNotNull(f.getId()));
     }
 
+    /**
+     * Check if a place gets deleted from DB
+     */
+    @Test
+    void deletePlaceTest() {
+        for (Place place : this.samplePlaces){
+            this.placeService.savePlace(place);
+        }
+
+        this.placeService.deletePlace(this.samplePlaces.get(0));
+        Assertions.assertFalse(this.placeService.getAllPlaces().contains(this.samplePlaces.get(0)));
+        Assertions.assertEquals(1, this.placeService.getAllPlaces().size());
+    }
 
 }

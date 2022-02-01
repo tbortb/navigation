@@ -35,7 +35,8 @@ class RouteServiceTests {
      */
     @Test
     void getRouteFromApiReturnsStatusCodeOk()  {
-        JSONObject result = this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON, DESTINATION_LAT, DESTINATION_LON);
+        JSONObject result = this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON,
+                DESTINATION_LAT, DESTINATION_LON);
         String responseCode = Assertions.assertDoesNotThrow(() -> result.getString("code"));
         Assertions.assertEquals("Ok", responseCode);
     }
@@ -47,8 +48,8 @@ class RouteServiceTests {
     @Test
     void longRouteJsonToCoordinatesReturnsManyWaypoints() {
         List<Coordinate> waypoints = this.routeService.getCoordinatesFromRoute(
-                this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON, DESTINATION_LAT_FAR, DESTINATION_LON_FAR)
-        );
+                this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON,
+                        DESTINATION_LAT_FAR, DESTINATION_LON_FAR));
 
         Assertions.assertTrue(waypoints.size() > 1000);
     }
@@ -59,16 +60,12 @@ class RouteServiceTests {
      */
     @Test
     void longRouteJsonToDistanceReturnsCorrectDistance() {
-        String distanceFull = this.routeService.getDistanceFromRoute(this.routeService.getRouteFromCoordinates(
+        double distance = this.routeService.getDistanceFromRoute(this.routeService.getRouteFromCoordinates(
                 ORIGIN_LAT,
                 ORIGIN_LON,
                 DESTINATION_LAT_FAR,
                 DESTINATION_LON_FAR)
-                );
-
-        String distanceTrimmed = distanceFull.replaceAll("[^\\d.,]", "").replace(",", ".");
-
-        double distance = Assertions.assertDoesNotThrow(() -> Double.parseDouble(distanceTrimmed));
+                ) / 1000;
         Assertions.assertTrue(distance > 250 && distance < 500);
     }
 }

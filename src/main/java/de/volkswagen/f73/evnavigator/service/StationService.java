@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -100,7 +97,8 @@ public class StationService {
 
         List<Station> station = new ArrayList<>();
         try (
-                Reader reader = Files.newBufferedReader(Paths.get(path))
+                Reader reader = new BufferedReader(new InputStreamReader(
+                        this.getClass().getResourceAsStream(path)))
         ) {
             CsvToBean<Station> csvToBean = new CsvToBeanBuilder<Station>(reader)
                     .withType(Station.class)
@@ -144,8 +142,6 @@ public class StationService {
     /**
      * Fetches stations within a distance of a given path.
      * Checks radii around waypoints along the route within max/min latitude/longitude boundaries.
-     * To fill the potential gap around the start and destination coordinate, it adds another radius
-     * around each of those.
      *
      * @param path      CoordinateLine containing at least two Coordinate objects
      * @param maxDistKm maximum distance in Km from the path
@@ -169,32 +165,17 @@ public class StationService {
         Coordinate firstCoord = path.getCoordinateStream().findFirst().orElse(null);
         Coordinate lastCoord = path.getCoordinateStream().reduce((first, second) -> second).orElse(null);
 
-        if (firstCoord != null) {
-            getStationsCloseTo(firstCoord.getLatitude(), firstCoord.getLongitude(), maxDistKm).forEach(st -> {
-                if (!filteredList.contains(st)) {
-                    filteredList.add(st);
-                }
-            });
-        }
 
-        if (lastCoord != null) {
-            getStationsCloseTo(lastCoord.getLatitude(), lastCoord.getLongitude(), maxDistKm).forEach(st -> {
-                if (!filteredList.contains(st)) {
-                    filteredList.add(st);
-                }
-            });
-        }
 
-        return filteredList;
+        return addStationsAroundBoundaries(filteredList, firstCoord, lastCoord, maxDistKm);
     }
 
     /**
      * Fetches stations within a distance of a line between two coordinates.
      * Checks radii around waypoints along the route within max/min latitude/longitude boundaries.
-     * To fill the potential gap around the start and destination coordinate, it adds another radius
-     * around each of those.
      *
-     * @param path      CoordinateLine containing at least two Coordinate objects
+     * @param origin    origin coordinate
+     * @param dest      destination coordinate
      * @param maxDistKm maximum distance in Km from the path
      * @return Station objects along the path
      */
@@ -204,7 +185,6 @@ public class StationService {
         double latMax = Math.max(origin.getLatitude(), dest.getLatitude());
         double lonMin = Math.min(origin.getLongitude(), dest.getLongitude());
         double lonMax = Math.max(origin.getLongitude(), dest.getLongitude());
-
 
         List<Station> stationsWithinBoundaries = this.stationRepo.
                 findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(latMin, lonMin, latMax, lonMax);
@@ -216,19 +196,35 @@ public class StationService {
                         new Coordinate(s.getLat(), s.getLon()))) <= maxDistKm)
                 .collect(Collectors.toList());
 
+        return addStationsAroundBoundaries(filteredList, origin, dest, maxDistKm);
+    }
 
-        getStationsCloseTo(origin.getLatitude(), origin.getLongitude(), maxDistKm).forEach(st -> {
-            if (!filteredList.contains(st)) {
-                filteredList.add(st);
-            }
-        });
+    /**
+     * Fill a list with stations with potentially missing stations around the extreme points.
+     *
+     * @param stations  the preexisting list of stations that got parsed along a route or line
+     * @param origin    first coordinate/origin point
+     * @param dest      last coordinate/destination point
+     * @param maxDistKm radius to look for stations in km
+     * @return the appended list of stations
+     */
+    public List<Station> addStationsAroundBoundaries(List<Station> stations, Coordinate origin, Coordinate dest, double maxDistKm) {
+        if (origin != null) {
+            getStationsCloseTo(origin.getLatitude(), origin.getLongitude(), maxDistKm).forEach(st -> {
+                if (!stations.contains(st)) {
+                    stations.add(st);
+                }
+            });
+        }
 
-        getStationsCloseTo(dest.getLatitude(), dest.getLongitude(), maxDistKm).forEach(st -> {
-            if (!filteredList.contains(st)) {
-                filteredList.add(st);
-            }
-        });
+        if (dest != null) {
+            getStationsCloseTo(dest.getLatitude(), dest.getLongitude(), maxDistKm).forEach(st -> {
+                if (!stations.contains(st)) {
+                    stations.add(st);
+                }
+            });
+        }
 
-        return filteredList;
+        return stations;
     }
 }

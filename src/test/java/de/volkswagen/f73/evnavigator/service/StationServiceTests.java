@@ -5,7 +5,6 @@ import com.sothawo.mapjfx.CoordinateLine;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.repository.StationRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import java.util.Set;
  * @author Bücker, Thies (SE-A/34)
  */
 @SpringBootTest
-@TestPropertySource(locations= "classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 class StationServiceTests {
 
     @Autowired
@@ -36,24 +35,23 @@ class StationServiceTests {
     private StationRepository stationRepo;
 
     private final Set<Station> sampleStations = new HashSet<>();
-    private static final Set<Station> CSV_TEST_STATIONS = new HashSet<>();
+    private final Set<Station> csvTestStaions = new HashSet<>();
 
     @BeforeEach
     void setUp() {
         this.stationRepo.deleteAll();
         this.sampleStations.clear();
+        this.csvTestStaions.clear();
+        this.csvTestStaions.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
+        this.csvTestStaions.add(new Station("node/5549505721", "name1", null, null, true, "3", false, null, null, "Tesla", null, null, null, 53.5167306, 12.6866268));
+        //TODO:lat and long must be reverset in Stations
+        this.csvTestStaions.add(new Station("node/7848608385", "name2", 36, 5, false, null, false, null, null, "Thüringer Energie AG", 0, 1, 22, 51.0150151, 11.0412338));
         this.sampleStations.add(new Station("MLC Station", false, false,
                 "TestOperator", 52.42072813, 10.746537651));
         this.sampleStations.add(new Station("Kassel Station", false, false,
                 "TestOperator", 51.31567287, 9.4978098202));
         this.sampleStations.add(new Station("Hannover Station", false, false,
                 "TestOperator", 52.374206, 9.736088));
-
-        CSV_TEST_STATIONS.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
-        CSV_TEST_STATIONS.add(new Station("node/5549505721", "name1", null, null, true, "3", false, null, null, "Tesla", null, null, null, 53.5167306, 12.6866268));
-        //TODO:lat and long must be reverset in Stations
-        CSV_TEST_STATIONS.add(new Station("node/7848608385", "name2", 36, 5, false,null, false,null, null, "Thüringer Energie AG",0,1,22,51.0150151 ,11.0412338));
-
     }
 
     /**
@@ -113,9 +111,9 @@ class StationServiceTests {
         Coordinate wittenberge = new Coordinate(52.994915, 11.741919);
         Coordinate badKarlshafen = new Coordinate(51.643994, 9.438850);
 
-        List<Station> actual = stationService.getStationsAlongLine(wittenberge, badKarlshafen, 3.0);
+        List<Station> actual = this.stationService.getStationsAlongLine(wittenberge, badKarlshafen, 3.0);
 
-        Assertions.assertTrue(actual.size() == 1);
+        Assertions.assertEquals(1, actual.size());
         Assertions.assertEquals("MLC Station", actual.get(0).getName());
 
     }
@@ -132,9 +130,9 @@ class StationServiceTests {
         Coordinate kassel = new Coordinate(51.317938, 9.500416);
         Coordinate wolfsburg = new Coordinate(52.413913, 10.738788);
 
-        List<Station> actual = stationService.getStationsAlongLine(kassel, wolfsburg, 5.0);
+        List<Station> actual = this.stationService.getStationsAlongLine(kassel, wolfsburg, 5.0);
 
-        Assertions.assertTrue(actual.size() == 2);
+        Assertions.assertEquals(2, actual.size());
     }
 
     @Test
@@ -150,9 +148,9 @@ class StationServiceTests {
      * Tests whether the application is able to connect to provided Csv file
      */
     @Test
-    void loadDefaultStationsCsvOkTest(){
+    void loadDefaultStationsCsvOkTest() {
         Assertions.assertNotNull(this.stationsCsvLocation);
-        File file = new File(this.stationsCsvLocation);
+        File file = new File(this.getClass().getResource(this.stationsCsvLocation).getFile());
         Assertions.assertTrue(file.exists());
     }
 
@@ -160,28 +158,24 @@ class StationServiceTests {
      * Tests if the conversion from csv to java beans works as expected
      */
     @Test
-    void parseCsvToStationsTest(){
+    void parseCsvToStationsTest() {
         List<Station> readStations = Assertions.assertDoesNotThrow(() -> this.stationService.csvToStations(this.stationsCsvLocation));
 
-        Assertions.assertEquals(CSV_TEST_STATIONS.size(), readStations.size());
-
-        for (Station readStation : readStations){
-            Assertions.assertTrue(CSV_TEST_STATIONS.contains(readStation));
-
-        }
+        Assertions.assertEquals(this.csvTestStaions.size(), readStations.size());
+        readStations.forEach(st -> this.csvTestStaions.contains(st));
     }
 
     /**
      * Tests whether the parsed stations are correctly inserted into the database
      */
     @Test
-    void insertStationsIntoDBTest(){
-        List<Station> returnedStations = Assertions.assertDoesNotThrow(() -> this.stationService.saveStations(CSV_TEST_STATIONS));
+    void insertStationsIntoDBTest() {
+        List<Station> returnedStations = Assertions.assertDoesNotThrow(() -> this.stationService.saveStations(this.csvTestStaions));
         List<Station> insertedStations = this.stationRepo.findAll();
 
         //Compare returnedStations with sampleStations and compare insertedStations with sampleStations
-        returnedStations.forEach(s -> Assertions.assertTrue(CSV_TEST_STATIONS.contains(s)));
-        insertedStations.forEach(s -> Assertions.assertTrue(CSV_TEST_STATIONS.contains(s)));
+        returnedStations.forEach(s -> Assertions.assertTrue(this.csvTestStaions.contains(s)));
+        insertedStations.forEach(s -> Assertions.assertTrue(this.csvTestStaions.contains(s)));
     }
 
 }

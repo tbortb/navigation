@@ -14,7 +14,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -62,7 +61,6 @@ public class RouteService {
                      "Please check your requested route.");
             LOGGER.error("RestTemplate error: {}", br.getMessage());
         } catch (ResourceAccessException | HttpClientErrorException ra) {
-            // TODO: show dialog on API error
             showError("Connection error", "API could not be reached. " +
                     "Are you offline or behind firewall?");
             LOGGER.error("RestTemplate error: {}", ra.getMessage());
@@ -115,29 +113,23 @@ public class RouteService {
      * @param json the complete JSON response from OSRM API
      * @return a List of Coordinates to be used with mapjfx
      */
-    public String getDistanceFromRoute(JSONObject json) {
+    public double getDistanceFromRoute(JSONObject json) {
 
         LOGGER.debug("Parsing distance from JSON...");
 
         try {
             if (!json.getString("code").equals("Ok")) {
                 LOGGER.error("OSRM API Error: {}", json.getString("code"));
-                return "";
+                return -1;
             }
             JSONArray routes = json.getJSONArray("routes");
             JSONObject routeObject = routes.getJSONObject(0);
             JSONArray legs = routeObject.getJSONArray("legs");
             JSONObject leg = legs.getJSONObject(0);
-            double distance = leg.getDouble("distance");
-            DecimalFormat formatter = new DecimalFormat("##.00");
-            if (distance < 1000) {
-                return String.format("%s meters", formatter.format(distance));
-            } else {
-                return String.format("%s kilometers", formatter.format(distance / 1000));
-            }
+            return leg.getDouble("distance");
         } catch (Exception e) {
             LOGGER.error("Error parsing distance from JSON: {}", e.getMessage());
-            return "";
+            return -1;
         }
     }
 
