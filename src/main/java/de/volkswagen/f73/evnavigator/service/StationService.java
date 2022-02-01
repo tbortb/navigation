@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @author Bücker, Thies (SE-A/34)
  */
 @Service
-public class StationService {
+public class StationService implements ServiceBase<Station>{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StationService.class);
 
@@ -37,8 +37,17 @@ public class StationService {
      *
      * @return a List of Station objects
      */
-    public List<Station> getAllStations() {
+    public List<Station> getAll() {
         return this.stationRepo.findAll();
+    }
+
+    /**
+     * Deletes a station from the repository
+     *
+     * @param station to be deleted
+     */
+    public void delete(Station station){
+        this.stationRepo.delete(station);
     }
 
     /**
@@ -57,7 +66,7 @@ public class StationService {
      * @param station a Station object to save
      * @return the saved Station object
      */
-    public Station saveStation(Station station) {
+    public Station save(Station station) {
         return this.stationRepo.save(station);
     }
 

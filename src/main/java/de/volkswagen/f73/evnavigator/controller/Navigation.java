@@ -3,7 +3,7 @@ package de.volkswagen.f73.evnavigator.controller;
 import com.sothawo.mapjfx.*;
 import com.sothawo.mapjfx.event.MapViewEvent;
 import com.sothawo.mapjfx.event.MarkerEvent;
-import de.volkswagen.f73.evnavigator.model.Place;
+import de.volkswagen.f73.evnavigator.model.IPlace;
 import de.volkswagen.f73.evnavigator.model.Route;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.service.PlaceService;
@@ -46,7 +46,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
  */
 @Component
 @FxmlView
-public class Navigation {
+public class Navigation implements IMenuController{
 
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
@@ -75,7 +75,7 @@ public class Navigation {
     @FXML
     private Slider zoomSlider;
     @FXML
-    private ListView<Place> placeList;
+    private ListView<IPlace> placeList;
     @FXML
     private ListView<Route> routeList;
     @FXML
@@ -151,7 +151,7 @@ public class Navigation {
         setBackButtonNavigation(this.fxWeaver, Menu.class);
 
         this.routeList.setItems(FXCollections.observableArrayList(this.routeService.getSavedRoutes()));
-        this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAllPlaces()));
+        this.placeList.setItems(FXCollections.observableArrayList(this.placeService.getAll()));
     }
 
     /**
@@ -173,7 +173,8 @@ public class Navigation {
             Station thisstation = this.stationService.getStationAtCoordinate(stationCoord.getLatitude(),
                     stationCoord.getLongitude());
             if (thisstation != null) {
-                LOGGER.info("Station at this position: {}", thisstation);
+                LOGGER.info("Show details for Station at this position: {}", thisstation);
+                this.fxWeaver.load(ManageStations.class).getController().show(Navigation.class, thisstation);
             } else {
                 LOGGER.info("That is not a station.");
             }
@@ -200,7 +201,7 @@ public class Navigation {
 
         this.placeList.setOnMouseClicked(e -> {
             if (this.placeList.getSelectionModel().getSelectedItem() != null) {
-                Place currentPlace = this.placeList.getSelectionModel().getSelectedItem();
+                IPlace currentPlace = this.placeList.getSelectionModel().getSelectedItem();
                 this.displayMarkerOnMap(currentPlace.getLat(), currentPlace.getLon());
                 this.map.setCenter(new Coordinate(currentPlace.getLat(), currentPlace.getLon()));
             }

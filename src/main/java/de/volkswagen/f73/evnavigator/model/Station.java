@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class Station {
+public class Station implements IPlaceBase {
 
     @Id
     @GeneratedValue(generator = IDGenerator.GENERATOR_NAME)
@@ -60,6 +60,22 @@ public class Station {
                    Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output,
                    Double lat, Double lon) {
         this.id = id;
+        this.name = name;
+        this.maxVoltage = maxVoltage;
+        this.maxAmperage = maxAmperage;
+        this.hasMembership = hasMembership;
+        this.capacity = capacity;
+        this.hasFee = hasFee;
+        this.note = note;
+        this.openingHours = openingHours;
+        this.operator = operator;
+        this.socketSchukoAmount = socketSchukoAmount;
+        this.socketType2Amount = socketType2Amount;
+        this.socketType2Output = socketType2Output;
+        this.lon = lon;
+        this.lat = lat;
+    }
+    public Station(String name, Integer maxVoltage, Integer maxAmperage, Boolean hasMembership, String capacity, Boolean hasFee, String note, String openingHours, String operator, Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output, Double lat, Double lon) {
         this.name = name;
         this.maxVoltage = maxVoltage;
         this.maxAmperage = maxAmperage;
@@ -218,23 +234,7 @@ public class Station {
 
     @Override
     public String toString() {
-        return "Station{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", maxVoltage=" + maxVoltage +
-                ", maxAmperage=" + maxAmperage +
-                ", hasMembership=" + hasMembership +
-                ", capacity='" + capacity + '\'' +
-                ", hasFee=" + hasFee +
-                ", note='" + note + '\'' +
-                ", openingHours='" + openingHours + '\'' +
-                ", operator='" + operator + '\'' +
-                ", socketSchukoAmount=" + socketSchukoAmount +
-                ", socketType2Amount=" + socketType2Amount +
-                ", socketType2Output=" + socketType2Output +
-                ", lon=" + lon +
-                ", lat=" + lat +
-                '}';
+        return name == null ? id : name;
     }
 
     @Override

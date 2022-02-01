@@ -2,7 +2,6 @@ package de.volkswagen.f73.evnavigator.service;
 
 import de.volkswagen.f73.evnavigator.model.Place;
 import de.volkswagen.f73.evnavigator.repository.PlaceRepository;
-import de.volkswagen.f73.evnavigator.service.PlaceService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
