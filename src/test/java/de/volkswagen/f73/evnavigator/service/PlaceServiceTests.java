@@ -42,7 +42,7 @@ class PlaceServiceTests {
     @Test
     void addPlaceTest(){
         Place toSave = this.samplePlaces.get(0);
-        Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(toSave));
+        Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.save(toSave));
 
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(toSave.getName(), saved.getName());
@@ -55,10 +55,10 @@ class PlaceServiceTests {
     @Test
     void getPlaceTest(){
         for (Place place : this.samplePlaces){
-            Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
+            Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
-        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAllPlaces());
+        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAll());
 
         Assertions.assertNotNull(fetched);
         Assertions.assertEquals(this.samplePlaces.size(), fetched.size());
@@ -78,7 +78,7 @@ class PlaceServiceTests {
         int expectedSize = 1;
 
         for (Place place : this.samplePlaces){
-            Assertions.assertDoesNotThrow(() -> this.placeService.savePlace(place));
+            Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
         List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getPlacesCloseTo(closeToLat, closeToLon, maxDistKm));
@@ -95,12 +95,12 @@ class PlaceServiceTests {
     @Test
     void deletePlaceTest() {
         for (Place place : this.samplePlaces){
-            this.placeService.savePlace(place);
+            this.placeService.save(place);
         }
 
-        this.placeService.deletePlace(this.samplePlaces.get(0));
-        Assertions.assertFalse(this.placeService.getAllPlaces().contains(this.samplePlaces.get(0)));
-        Assertions.assertEquals(1, this.placeService.getAllPlaces().size());
+        this.placeService.delete(this.samplePlaces.get(0));
+        Assertions.assertFalse(this.placeService.getAll().contains(this.samplePlaces.get(0)));
+        Assertions.assertEquals(1, this.placeService.getAll().size());
     }
 
 }
