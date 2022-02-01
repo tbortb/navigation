@@ -6,8 +6,11 @@ import javafx.scene.control.Alert;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
+import java.time.Duration;
+
 /**
- * Utility class for commonly used JavaFX functions
+ * Utility class for commonly used user interface functions
  *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
@@ -60,5 +63,67 @@ public class GuiUtils {
      */
     public static void setBackButtonNavigation(FxWeaver fxWeaver, Class<? extends IMenuController> clazz) {
         setBackButtonNavigation(fxWeaver, clazz, false);
+    }
+
+    /**
+     * Returns a human readable String of a Duration value. Parses hours and minutes and only returns relevant
+     * values.
+     *
+     * @param duration Duration object
+     * @return String with minutes and, optionally, hours
+     */
+    public static String formatDurationToTimeString(Duration duration) {
+
+        StringBuilder sb = new StringBuilder();
+
+        if (duration.toHours() > 0) {
+            sb.append(duration.toHours());
+            if (duration.toHours() > 1) {
+                sb.append(" hours");
+            } else {
+                sb.append(" hour");
+            }
+        }
+
+        int minutesAfterHours = (int) duration.toMinutes() - ((int) duration.toHours() * 60);
+
+        if (duration.toHours() > 0 && minutesAfterHours > 0) {
+            sb.append(", ");
+        }
+
+        if (minutesAfterHours > 0) {
+            if (minutesAfterHours > 1) {
+                sb.append(minutesAfterHours);
+                sb.append(" minutes");
+            } else {
+                sb.append(minutesAfterHours);
+                sb.append(" minute");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Returns a human readable String of a distance. Outputs meters for values under 1000 meters and
+     * kilometers for values above.
+     *
+     * @param distance distance
+     * @param isKm     if unit is in kilometers (meters if false)
+     * @return formatted String
+     */
+    public static String distanceToString(double distance, boolean isKm) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        if (!isKm && distance < 1000) {
+            return df.format(distance) + " meters";
+        } else if (!isKm && distance >= 1000) {
+            return df.format(distance / 1000) + " km";
+        } else if (isKm && distance < 1) {
+            return df.format(distance * 1000) + " meters";
+        } else if (isKm && distance >= 1) {
+            return df.format(distance) + " km";
+        }
+
+        return "";
     }
 }

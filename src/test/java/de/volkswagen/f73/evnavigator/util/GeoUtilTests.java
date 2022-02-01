@@ -74,4 +74,15 @@ class GeoUtilTests {
         Assertions.assertTrue(actual < expected * (1 + errorMarginPct ));
         Assertions.assertTrue(actual > expected * (1 - errorMarginPct ));
     }
+
+    /**
+     * Tests the predefined values of 110, 88.8 and 55.5 km/h
+     */
+    @Test
+    void calculateDurationShouldReturnCorrectValue() {
+        Assertions.assertEquals(60, GeoUtils.calculateRouteTimes(111000)[0].toMinutes());
+        Assertions.assertEquals(60, GeoUtils.calculateRouteTimes(88800)[1].toMinutes());
+        Assertions.assertEquals(60, GeoUtils.calculateRouteTimes(55500)[2].toMinutes());
+    }
+
 }

@@ -2,6 +2,8 @@ package de.volkswagen.f73.evnavigator.util;
 
 import com.sothawo.mapjfx.Coordinate;
 
+import java.time.Duration;
+
 /**
  * Utility class for several calculations around geolocal coordinates.
  *
@@ -10,6 +12,10 @@ import com.sothawo.mapjfx.Coordinate;
  */
 public class GeoUtils {
 
+    private static final double GERMANY_WEST_LONGITUDE = 5.866292;
+    private static final double GERMANY_NORTH_LATITUDE = 55.095231;
+    private static final double GERMANY_EAST_LONGITUDE = 15.041918;
+    private static final double GERMANY_SOUTH_LATITUDE = 47.270113;
     private static final int EARTH_RADIUS_KM = 6371;
 
     private GeoUtils() {
@@ -122,5 +128,34 @@ public class GeoUtils {
      */
     public static boolean isValidCoordinate(double lat, double lon) {
         return (Math.abs(lat) <= 90) && (Math.abs(lon) <= 180);
+    }
+
+    /**
+     * Checks whether a coordinate is approximately within the latitude and longitude boundaries of Germany
+     *
+     * @param lat latitude
+     * @param lon longitude
+     * @return validity
+     */
+    public static boolean isWithinGermany(double lat, double lon) {
+        return !(lat > GERMANY_NORTH_LATITUDE || lat < GERMANY_SOUTH_LATITUDE
+                || lon > GERMANY_EAST_LONGITUDE || lon < GERMANY_WEST_LONGITUDE);
+    }
+
+    /**
+     * Returns three different route times for a distance in meters.
+     *
+     * @param meters distance in meters
+     * @return three Duration values, first one fastest, second one without motorways and third one an eco route
+     */
+    public static Duration[] calculateRouteTimes(double meters) {
+
+        Duration[] timeArr = new Duration[3];
+
+        timeArr[0] = Duration.ofSeconds(Math.round(meters / 30.8333));
+        timeArr[1] = Duration.ofSeconds(Math.round(meters / 24.6667));
+        timeArr[2] = Duration.ofSeconds(Math.round(meters / 15.4167));
+
+        return timeArr;
     }
 }

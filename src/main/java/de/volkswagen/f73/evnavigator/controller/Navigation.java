@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -25,6 +26,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.NumberFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +50,6 @@ public class Navigation {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
     private static final int ZOOM_DEFAULT = 14;
-    private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
 
     private Marker currentMarker;
     private final List<Marker> stationMarkers = new ArrayList<>();
@@ -85,6 +87,22 @@ public class Navigation {
     private Button stationsAlongRouteBtn;
     @FXML
     private Button closeStationsBtn;
+    @FXML
+    private Button stationsAlongLineBtn;
+    @FXML
+    private TextField radiusInput;
+    @FXML
+    private Label routeDistanceLbl;
+    @FXML
+    private Label airDistanceLbl;
+    @FXML
+    private Label fastestTimeLbl;
+    @FXML
+    private Label noMotorwaysLbl;
+    @FXML
+    private Label ecoLbl;
+    @FXML
+    private GridPane routeInfoGrid;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -107,15 +125,18 @@ public class Navigation {
         // don't block the view when initializing map
         Platform.runLater(() -> {
             LOGGER.debug("Initializing MapJFX map...");
-            this.map.initialize();
+            this.map.initialize(Configuration.builder()
+                    .projection(Projection.WEB_MERCATOR).build());
         });
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.currentCoordinate = LOCATION_DEFAULT;
-                this.currentMarker = buildMarker(LOCATION_DEFAULT.getLatitude(), LOCATION_DEFAULT.getLongitude(), MapUtils.MarkerImage.PLACE, false);
+                this.currentMarker = buildMarker(LOCATION_DEFAULT.getLatitude(), LOCATION_DEFAULT.getLongitude(),
+                        MapUtils.MarkerImage.PLACE, false);
                 this.map.addMarker(this.currentMarker);
                 this.setUpMapEvents();
+                this.initComponents();
             }
         });
     }
@@ -153,12 +174,10 @@ public class Navigation {
             } else {
                 LOGGER.info("That is not a station.");
             }
-
-
-
         });
+    }
 
-
+    private void initComponents() {
         this.zoomSlider.valueProperty().bindBidirectional(this.map.zoomProperty());
 
         this.calcRouteBtn.disableProperty().bind(this.originLatInput.textProperty().isEmpty().or(
@@ -168,6 +187,9 @@ public class Navigation {
                         )
                 )
         ));
+
+        this.radiusInput.textProperty().bindBidirectional(this.distanceSlider.valueProperty(),
+                NumberFormat.getNumberInstance());
 
         this.closeStationsBtn.disableProperty().bind(this.currentMarker.visibleProperty().not());
 
@@ -189,10 +211,8 @@ public class Navigation {
                 this.destLatInput.setText(currentRoute.getEndLat().toString());
                 this.destLonInput.setText(currentRoute.getEndLon().toString());
                 this.calculateRoute();
-                //TODO: calculate zoom level and map position to display entire route
             }
         });
-
     }
 
     /**
@@ -250,6 +270,9 @@ public class Navigation {
      */
     @FXML
     private void calculateRoute() {
+
+        this.stationMarkers.forEach(st -> this.map.removeMarker(st));
+
         if (this.currentPath != null) {
             this.map.removeCoordinateLine(this.currentPath);
         }
@@ -276,9 +299,18 @@ public class Navigation {
             return;
         }
 
+        double routeDistance = this.routeService.getDistanceFromRoute(json);
+        double linearDistance = GeoUtils.getLinearDistanceKm(originLat, originLon, destLat, destLon);
+
+        Duration[] durations = calculateRouteTimes(routeDistance);
+        this.routeInfoGrid.setVisible(true);
+        this.routeDistanceLbl.setText(distanceToString(routeDistance, false));
+        this.airDistanceLbl.setText(distanceToString(linearDistance, true));
+        this.fastestTimeLbl.setText(formatDurationToTimeString(durations[0]));
+        this.noMotorwaysLbl.setText(formatDurationToTimeString(durations[1]));
+        this.ecoLbl.setText(formatDurationToTimeString(durations[2]));
+
         List<Coordinate> waypoints = this.routeService.getCoordinatesFromRoute(json);
-        LOGGER.info("Route distance is: {}", this.routeService.getDistanceFromRoute(json));
-        LOGGER.info("Linear distance is: {}", GeoUtils.getLinearDistanceKm(originLat, originLon, destLat, destLon));
 
         this.map.setExtent(Extent.forCoordinates(waypoints));
 
@@ -294,12 +326,8 @@ public class Navigation {
         this.currentPath.setWidth(6);
         this.map.addCoordinateLine(this.linearPath);
 
-//        LOGGER.info("bearing in degrees: {}", bearingInDegrees(this.originMarker.getPosition(), this.destinationMarker.getPosition()));
-//        LOGGER.info("bearing in radians: {}", bearingInRadians(this.originMarker.getPosition(), this.destinationMarker.getPosition()));
-//
-//        LOGGER.info("Cross-track distance from line to point: {}", crossTrackDistanceFromLinearPathInKm(origin, dest, this.currentMarker.getPosition()));
-
         this.stationsAlongRouteBtn.setDisable(false);
+        this.stationsAlongLineBtn.setDisable(false);
         this.setRouteMarkers(origin, false);
         this.setRouteMarkers(dest, true);
 
