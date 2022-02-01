@@ -1,6 +1,6 @@
 package de.volkswagen.f73.evnavigator.service;
 
-import de.volkswagen.f73.evnavigator.model.Place;
+import de.volkswagen.f73.evnavigator.model.IPlace;
 import de.volkswagen.f73.evnavigator.repository.PlaceRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,14 +26,14 @@ class PlaceServiceTests {
     @Autowired
     private PlaceRepository placeRepo;
 
-    private final List<Place> samplePlaces = new ArrayList<>();
+    private final List<IPlace> samplePlaces = new ArrayList<>();
 
     @BeforeEach
     void setUp(){
         this.placeRepo.deleteAll();
         this.samplePlaces.clear();
-        this.samplePlaces.add(new Place(null, "first", 49.243824, -121.887340));
-        this.samplePlaces.add(new Place(null, "second", 49.235347, -121.92532));
+        this.samplePlaces.add(new IPlace(null, "first", 49.243824, -121.887340));
+        this.samplePlaces.add(new IPlace(null, "second", 49.235347, -121.92532));
     }
 
     /**
@@ -41,8 +41,8 @@ class PlaceServiceTests {
      */
     @Test
     void addPOITest(){
-        Place toSave = this.samplePlaces.get(0);
-        Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.save(toSave));
+        IPlace toSave = this.samplePlaces.get(0);
+        IPlace saved = Assertions.assertDoesNotThrow(() -> this.placeService.save(toSave));
 
         Assertions.assertNotNull(saved);
         Assertions.assertEquals(toSave.getName(), saved.getName());
@@ -54,11 +54,11 @@ class PlaceServiceTests {
      */
     @Test
     void getPOITest(){
-        for (Place place : this.samplePlaces){
+        for (IPlace place : this.samplePlaces){
             Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
-        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAll());
+        List<IPlace> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getAll());
 
         Assertions.assertNotNull(fetched);
         Assertions.assertEquals(this.samplePlaces.size(), fetched.size());
@@ -77,11 +77,11 @@ class PlaceServiceTests {
         double maxDistKm = 1;
         int expectedSize = 1;
 
-        for (Place place : this.samplePlaces){
+        for (IPlace place : this.samplePlaces){
             Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
-        List<Place> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getPlacesCloseTo(closeToLat, closeToLon, maxDistKm));
+        List<IPlace> fetched = Assertions.assertDoesNotThrow(() -> this.placeService.getPlacesCloseTo(closeToLat, closeToLon, maxDistKm));
 
         Assertions.assertNotNull(fetched);
         Assertions.assertEquals(expectedSize, fetched.size());

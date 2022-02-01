@@ -3,7 +3,7 @@ package de.volkswagen.f73.evnavigator.controller;
 import com.sothawo.mapjfx.*;
 import com.sothawo.mapjfx.event.MapViewEvent;
 import com.sothawo.mapjfx.event.MarkerEvent;
-import de.volkswagen.f73.evnavigator.model.Place;
+import de.volkswagen.f73.evnavigator.model.IPlace;
 import de.volkswagen.f73.evnavigator.model.Route;
 import de.volkswagen.f73.evnavigator.model.Station;
 import de.volkswagen.f73.evnavigator.service.PlaceService;
@@ -72,7 +72,7 @@ public class Navigation {
     @FXML
     private Slider zoomSlider;
     @FXML
-    private ListView<Place> placeList;
+    private ListView<IPlace> placeList;
     @FXML
     private ListView<Route> routeList;
     @FXML
@@ -175,7 +175,7 @@ public class Navigation {
 
         this.placeList.setOnMouseClicked(e -> {
             if (this.placeList.getSelectionModel().getSelectedItem() != null) {
-                Place currentPlace = this.placeList.getSelectionModel().getSelectedItem();
+                IPlace currentPlace = this.placeList.getSelectionModel().getSelectedItem();
                 this.displayMarkerOnMap(currentPlace.getLat(), currentPlace.getLon());
                 this.map.setCenter(new Coordinate(currentPlace.getLat(), currentPlace.getLon()));
             }

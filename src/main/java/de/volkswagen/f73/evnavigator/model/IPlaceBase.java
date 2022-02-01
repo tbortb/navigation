@@ -12,7 +12,7 @@ import javax.persistence.Id;
  * @author Bücker, Thies (SE-A/34)
  */
 @Component
-public interface PlaceBase {
+public interface IPlaceBase {
 
     public String getName();
 

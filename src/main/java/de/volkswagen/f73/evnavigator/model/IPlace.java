@@ -10,7 +10,7 @@ import javax.persistence.Id;
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class Place implements PlaceBase {
+public class IPlace implements IPlaceBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +19,17 @@ public class Place implements PlaceBase {
     private Double lat;
     private Double lon;
 
-    public Place() {
+    public IPlace() {
     }
 
-    public Place(Integer id, String name, Double lat, Double lon) {
+    public IPlace(Integer id, String name, Double lat, Double lon) {
         this.id = id;
         this.name = name;
         this.lat = lat;
         this.lon = lon;
     }
 
-    public Place(String name, Double lat, Double lon) {
+    public IPlace(String name, Double lat, Double lon) {
         this.name = name;
         this.lat = lat;
         this.lon = lon;
