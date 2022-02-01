@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class Station implements PlaceBase{
+public class Station implements IPlaceBase {
 
     @Id
     @GeneratedValue(generator = IDGenerator.GENERATOR_NAME)
@@ -230,7 +230,7 @@ public class Station implements PlaceBase{
 
     @Override
     public String toString() {
-        return name;
+        return name == null ? id : name;
     }
 
     @Override
