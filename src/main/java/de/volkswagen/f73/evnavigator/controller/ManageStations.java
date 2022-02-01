@@ -60,14 +60,39 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
 
     @Override
     protected Station createNewPlace() {
-        //TODO: Continue here wiring up text fields
-        return null;
+        return new Station(this.nameInput.getText(),
+                Integer.parseInt(this.voltageInput.getText()),
+                Integer.parseInt(this.amperageInput.getText()),
+                this.membershipNeededCb.isSelected(),
+                this.capacityInput.getText(),
+                this.hasFeeCb.isSelected(),
+                this.notesInput.getText(),
+                this.openingHoursInput.getText(),
+                this.operatorInput.getText(),
+                Integer.parseInt(this.socketSchukoInput.getText()),
+                Integer.parseInt(this.socketType2Input.getText()),
+                Integer.parseInt(this.socketType2OutputInput.getText()),
+                Double.parseDouble(this.latitudeInput.getText()),
+                Double.parseDouble(this.longitudeInput.getText()));
     }
 
     @Override
     protected Station updatePlace() {
-        //TODO: Continue here wiring up text fields
-        return null;
+        this.selectedPlace.setName(this.nameInput.getText());
+        this.selectedPlace.setMaxVoltage(Integer.parseInt(this.voltageInput.getText()));
+        this.selectedPlace.setMaxAmperage(Integer.parseInt(this.amperageInput.getText()));
+        this.selectedPlace.setHasMembership(this.membershipNeededCb.isSelected());
+        this.selectedPlace.setCapacity(this.capacityInput.getText());
+        this.selectedPlace.setHasFee(this.hasFeeCb.isSelected());
+        this.selectedPlace.setNote(this.notesInput.getText());
+        this.selectedPlace.setOpeningHours(this.openingHoursInput.getText());
+        this.selectedPlace.setOperator(this.operatorInput.getText());
+        this.selectedPlace.setSocketSchukoAmount(Integer.parseInt(this.socketSchukoInput.getText()));
+        this.selectedPlace.setSocketType2Amount(Integer.parseInt(this.socketType2Input.getText()));
+        this.selectedPlace.setSocketType2Output(Integer.parseInt(this.socketType2OutputInput.getText()));
+        this.selectedPlace.setLat(Double.parseDouble(this.latitudeInput.getText()));
+        this.selectedPlace.setLon(Double.parseDouble(this.longitudeInput.getText()));
+        return this.selectedPlace;
     }
 
 }

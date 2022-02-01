@@ -28,12 +28,11 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.buildMarker;
 import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate;
 
 /**
- * Controller for the ManagePlaces view.
+ * Parent controller for the ManagePlaces and ManageStations views.
  *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
-
 public abstract class ManagePlacesBase<T extends PlaceBase, S extends ServiceBase> implements IMenuController {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ManagePlacesBase.class);
@@ -67,7 +66,7 @@ public abstract class ManagePlacesBase<T extends PlaceBase, S extends ServiceBas
      * Sets up the MapView.
      */
     @FXML
-    protected void initialize() {
+    public void initialize() {
         this.map.setZoom(ZOOM_DEFAULT);
         this.map.setCenter(LOCATION_DEFAULT);
         this.map.setAnimationDuration(500);
