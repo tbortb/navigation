@@ -238,7 +238,7 @@ public class Station implements IPlaceBase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Station station = (Station) o;
-        return Objects.equals(id, station.id) && Objects.equals(name, station.name) && Objects.equals(maxVoltage, station.maxVoltage) && Objects.equals(maxAmperage, station.maxAmperage) && Objects.equals(hasMembership, station.hasMembership) && Objects.equals(capacity, station.capacity) && Objects.equals(hasFee, station.hasFee) && Objects.equals(note, station.note) && Objects.equals(openingHours, station.openingHours) && Objects.equals(operator, station.operator) && Objects.equals(socketSchukoAmount, station.socketSchukoAmount) && Objects.equals(socketType2Amount, station.socketType2Amount) && Objects.equals(socketType2Output, station.socketType2Output) && Objects.equals(lon, station.lon) && Objects.equals(lat, station.lat);
+        return Objects.equals(id, station.id);
     }
 
     @Override

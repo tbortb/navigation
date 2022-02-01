@@ -28,6 +28,7 @@ public class MapUtils {
         return new Marker(MapUtils.class.getResource(String.format("/images/markers/%s", image.getFilename())), -20, -70)
                 .setPosition(new Coordinate(lat, lon))
                 .setVisible(isVisible);
+
     }
 
     /**

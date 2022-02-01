@@ -57,6 +57,7 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
     @Autowired
     protected FxWeaver fxWeaver;
 
+    //TODO: Update does not work for stations
 
     /**
      * Sets up the MapView.
@@ -81,23 +82,29 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
         this.placesList.setOnMouseClicked(e -> {
             if (this.placesList.getSelectionModel().getSelectedItem() != null) {
                 this.selectedPlace = this.placesList.getSelectionModel().getSelectedItem();
-                this.map.setCenter(new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon()));
-                Coordinate selectedCoord = new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon());
-                this.nameInput.setText(this.selectedPlace.getName());
-                this.currentMarker.setPosition(selectedCoord);
-                this.currentMarker.setVisible(true);
-                setInputFromCoordinate(this.latitudeInput, this.longitudeInput, selectedCoord);
+                this.updateMapWithSelectedItem();
             }
         });
+    }
+
+    protected void updateMapWithSelectedItem(){
+        if (this.selectedPlace != null) {
+            this.map.setCenter(new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon()));
+            Coordinate selectedCoord = new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon());
+            this.nameInput.setText(this.selectedPlace.getName());
+            this.currentMarker.setPosition(selectedCoord);
+            this.currentMarker.setVisible(true);
+            setInputFromCoordinate(this.latitudeInput, this.longitudeInput, selectedCoord);
+        }
     }
 
     /**
      * Sets this view as the center of the MainWindow stage.
      */
     public void show() {
-        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Add Favorite Place");
-        setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, true);
         this.fetchPlaces();
+        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Places");
+        setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, true);
     }
 
     /**

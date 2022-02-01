@@ -43,7 +43,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
  */
 @Component
 @FxmlView
-public class Navigation {
+public class Navigation implements IMenuController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
     private static final int ZOOM_DEFAULT = 14;
@@ -149,7 +149,8 @@ public class Navigation {
             Station thisstation = this.stationService.getStationAtCoordinate(stationCoord.getLatitude(),
                     stationCoord.getLongitude());
             if (thisstation != null) {
-                LOGGER.info("Station at this position: {}", thisstation);
+                LOGGER.info("Show details for Station at this position: {}", thisstation);
+                this.fxWeaver.load(ManageStations.class).getController().show(Navigation.class, thisstation);
             } else {
                 LOGGER.info("That is not a station.");
             }

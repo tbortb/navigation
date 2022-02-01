@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 import static de.volkswagen.f73.evnavigator.util.GuiUtils.setBackButtonNavigation;
 
 /**
@@ -56,6 +58,9 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
     private CheckBox membershipNeededCb;
     @FXML
     private CheckBox hasFeeCb;
+
+
+
 
 
     @Override
@@ -95,12 +100,64 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
         return this.selectedPlace;
     }
 
-    private Integer tfToIntegerOrNull(TextField intTf){
-        return intTf.getText() == null ? null : Integer.parseInt(intTf.getText());
+    /**
+     * Sets this view as the center of the MainWindow stage and selects a defined place
+     */
+    public void show(Class<? extends IMenuController> backClass, Station selectedPlace) {
+        this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) {
+                this.fetchPlaces();
+                this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Stations");
+                setBackButtonNavigation(this.fxWeaver, backClass, true);
+                Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
+                if (optStation.isPresent()) {
+                    this.placesList.getSelectionModel().select(selectedPlace);
+                    this.selectedPlace = selectedPlace;
+                    this.updateMapWithSelectedItem();
+                } else {
+                    LOGGER.info("Place could not be found in database: {}", selectedPlace);
+                }
+            }
+        });
     }
 
-    private Double tfToDoubleOrNull(TextField intTf){
-        return intTf.getText() == null ? null : Double.parseDouble(intTf.getText());
+    @Override
+    public void updateMapWithSelectedItem(){
+        super.updateMapWithSelectedItem();
+        this.voltageInput.setText(String.valueOf(this.selectedPlace.getMaxVoltage()));
+        this.amperageInput.setText(String.valueOf(this.selectedPlace.getMaxAmperage()));
+        this.membershipNeededCb.setSelected(nullToFalse(this.selectedPlace.getHasMembership()));
+        this.capacityInput.setText(this.selectedPlace.getCapacity());
+        this.hasFeeCb.setSelected(nullToFalse(this.selectedPlace.getHasFee()));
+        this.notesInput.setText(this.selectedPlace.getNote());
+        this.openingHoursInput.setText(this.selectedPlace.getOpeningHours());
+        this.operatorInput.setText(this.selectedPlace.getOperator());
+        this.socketSchukoInput.setText(String.valueOf(this.selectedPlace.getSocketSchukoAmount()));
+        this.socketType2Input.setText(String.valueOf(this.selectedPlace.getSocketType2Amount()));
+        this.socketType2OutputInput.setText(String.valueOf(this.selectedPlace.getSocketType2Output()));
+
+    }
+
+    private Integer tfToIntegerOrNull(TextField intTf){
+        try {
+            return Integer.parseInt(intTf.getText());
+        } catch (NumberFormatException e){
+            LOGGER.info("Could not parse {} ", intTf.getText());
+            return null;
+        }
+    }
+
+    private Double tfToDoubleOrNull(TextField doubleTf){
+        try {
+            return Double.parseDouble(doubleTf.getText());
+        } catch (NumberFormatException e){
+            LOGGER.info("Could not parse {} ", doubleTf.getText());
+            return null;
+        }
+    }
+
+    private Boolean nullToFalse(Boolean checkBool){
+        return checkBool == null ? false : checkBool;
     }
 
 }
