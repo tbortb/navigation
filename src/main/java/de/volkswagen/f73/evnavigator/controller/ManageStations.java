@@ -61,38 +61,46 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
     @Override
     protected Station createNewPlace() {
         return new Station(this.nameInput.getText(),
-                Integer.parseInt(this.voltageInput.getText()),
-                Integer.parseInt(this.amperageInput.getText()),
+                tfToIntegerOrNull(this.voltageInput),
+                tfToIntegerOrNull(this.amperageInput),
                 this.membershipNeededCb.isSelected(),
                 this.capacityInput.getText(),
                 this.hasFeeCb.isSelected(),
                 this.notesInput.getText(),
                 this.openingHoursInput.getText(),
                 this.operatorInput.getText(),
-                Integer.parseInt(this.socketSchukoInput.getText()),
-                Integer.parseInt(this.socketType2Input.getText()),
-                Integer.parseInt(this.socketType2OutputInput.getText()),
-                Double.parseDouble(this.latitudeInput.getText()),
-                Double.parseDouble(this.longitudeInput.getText()));
+                tfToIntegerOrNull(this.socketSchukoInput),
+                tfToIntegerOrNull(this.socketType2Input),
+                tfToIntegerOrNull(this.socketType2OutputInput),
+                tfToDoubleOrNull(this.latitudeInput),
+                tfToDoubleOrNull(this.longitudeInput));
     }
 
     @Override
     protected Station updatePlace() {
         this.selectedPlace.setName(this.nameInput.getText());
-        this.selectedPlace.setMaxVoltage(Integer.parseInt(this.voltageInput.getText()));
-        this.selectedPlace.setMaxAmperage(Integer.parseInt(this.amperageInput.getText()));
+        this.selectedPlace.setMaxVoltage(tfToIntegerOrNull(this.voltageInput));
+        this.selectedPlace.setMaxAmperage(tfToIntegerOrNull(this.amperageInput));
         this.selectedPlace.setHasMembership(this.membershipNeededCb.isSelected());
         this.selectedPlace.setCapacity(this.capacityInput.getText());
         this.selectedPlace.setHasFee(this.hasFeeCb.isSelected());
         this.selectedPlace.setNote(this.notesInput.getText());
         this.selectedPlace.setOpeningHours(this.openingHoursInput.getText());
         this.selectedPlace.setOperator(this.operatorInput.getText());
-        this.selectedPlace.setSocketSchukoAmount(Integer.parseInt(this.socketSchukoInput.getText()));
-        this.selectedPlace.setSocketType2Amount(Integer.parseInt(this.socketType2Input.getText()));
-        this.selectedPlace.setSocketType2Output(Integer.parseInt(this.socketType2OutputInput.getText()));
-        this.selectedPlace.setLat(Double.parseDouble(this.latitudeInput.getText()));
-        this.selectedPlace.setLon(Double.parseDouble(this.longitudeInput.getText()));
+        this.selectedPlace.setSocketSchukoAmount(tfToIntegerOrNull(this.socketSchukoInput));
+        this.selectedPlace.setSocketType2Amount(tfToIntegerOrNull(this.socketType2Input));
+        this.selectedPlace.setSocketType2Output(tfToIntegerOrNull(this.socketType2OutputInput));
+        this.selectedPlace.setLat(tfToDoubleOrNull(this.latitudeInput));
+        this.selectedPlace.setLon(tfToDoubleOrNull(this.longitudeInput));
         return this.selectedPlace;
+    }
+
+    private Integer tfToIntegerOrNull(TextField intTf){
+        return intTf.getText() == null ? null : Integer.parseInt(intTf.getText());
+    }
+
+    private Double tfToDoubleOrNull(TextField intTf){
+        return intTf.getText() == null ? null : Double.parseDouble(intTf.getText());
     }
 
 }
