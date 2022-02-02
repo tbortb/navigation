@@ -128,8 +128,7 @@ public class Navigation implements IController {
         // don't block the view when initializing map
         Platform.runLater(() -> {
             LOGGER.debug("Initializing MapJFX map...");
-            this.map.initialize(Configuration.builder()
-                    .projection(Projection.WEB_MERCATOR).build());
+            this.map.initialize();
         });
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
@@ -310,6 +309,7 @@ public class Navigation implements IController {
         double linearDistance = GeoUtils.getLinearDistanceKm(originLat, originLon, destLat, destLon);
 
         Duration[] durations = calculateRouteTimes(routeDistance);
+        this.usageHint.setVisible(false);
         this.routeInfoGrid.setVisible(true);
         this.routeDistanceLbl.setText(distanceToString(routeDistance, false));
         this.airDistanceLbl.setText(distanceToString(linearDistance, true));
