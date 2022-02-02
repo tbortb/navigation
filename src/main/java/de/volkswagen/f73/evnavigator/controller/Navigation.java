@@ -104,6 +104,8 @@ public class Navigation implements IController {
     private Label ecoLbl;
     @FXML
     private GridPane routeInfoGrid;
+    @FXML
+    private Label usageHint;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -114,7 +116,7 @@ public class Navigation implements IController {
     @Autowired
     private PlaceService placeService;
 
-    public boolean isLoaded = false;
+    private boolean isLoaded;
 
     /**
      * Sets up the MapView.
@@ -169,7 +171,7 @@ public class Navigation implements IController {
             }
         });
 
-        map.addEventHandler(MarkerEvent.MARKER_CLICKED, event -> {
+        this.map.addEventHandler(MarkerEvent.MARKER_CLICKED, event -> {
             event.consume();
             Coordinate stationCoord = event.getMarker().getPosition();
             Station thisstation = this.stationService.getStationAtCoordinate(stationCoord.getLatitude(),
@@ -446,5 +448,9 @@ public class Navigation implements IController {
 
         this.stationMarkers.addAll(markers);
         this.stationMarkers.forEach(this.map::addMarker);
+    }
+
+    public boolean isLoaded() {
+        return this.isLoaded;
     }
 }

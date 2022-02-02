@@ -5,9 +5,6 @@ import de.volkswagen.f73.evnavigator.service.PlaceService;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
-import static de.volkswagen.f73.evnavigator.util.GeoUtils.isValidCoordinate;
-import static de.volkswagen.f73.evnavigator.util.MapUtils.buildMarker;
-
 /**
  * Controller for the ManagePlaces view.
  *

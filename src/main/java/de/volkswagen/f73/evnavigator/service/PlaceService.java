@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author Bücker, Thies (SE-A/34)
  */
 @Service
-public class PlaceService implements ServiceBase<Place>{
+public class PlaceService implements IService<Place> {
 
     @Autowired
     private PlaceRepository placeRepo;

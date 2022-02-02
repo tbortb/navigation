@@ -44,7 +44,7 @@ public class MapUtils {
     }
 
     /**
-     * Fills two textfields with coordinates
+     * Fills two text fields with coordinates
      *
      * @param lat   TextField of the latitude value
      * @param lon   TextField of the longitude value

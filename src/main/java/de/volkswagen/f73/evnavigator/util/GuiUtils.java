@@ -71,7 +71,7 @@ public class GuiUtils {
     }
 
     /**
-     * Returns a human readable String of a Duration value. Parses hours and minutes and only returns relevant
+     * Returns a human-readable String of a Duration value. Parses hours and minutes and only returns relevant
      * values.
      *
      * @param duration Duration object

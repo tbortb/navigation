@@ -10,13 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
 @Entity
-public class Station implements IPlaceBase {
+public class Station implements IPlace {
 
     @Id
     @GeneratedValue(generator = IDGenerator.GENERATOR_NAME)
@@ -75,6 +76,7 @@ public class Station implements IPlaceBase {
         this.lon = lon;
         this.lat = lat;
     }
+
     public Station(String name, Integer maxVoltage, Integer maxAmperage, Boolean hasMembership, String capacity, Boolean hasFee, String note, String openingHours, String operator, Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output, Double lat, Double lon) {
         this.name = name;
         this.maxVoltage = maxVoltage;
@@ -169,7 +171,7 @@ public class Station implements IPlaceBase {
     }
 
     public Integer getMaxVoltage() {
-        return maxVoltage;
+        return this.maxVoltage;
     }
 
     public void setMaxVoltage(Integer maxVoltage) {
@@ -177,7 +179,7 @@ public class Station implements IPlaceBase {
     }
 
     public Integer getMaxAmperage() {
-        return maxAmperage;
+        return this.maxAmperage;
     }
 
     public void setMaxAmperage(Integer maxAmperage) {
@@ -185,7 +187,7 @@ public class Station implements IPlaceBase {
     }
 
     public String getCapacity() {
-        return capacity;
+        return this.capacity;
     }
 
     public void setCapacity(String capacity) {
@@ -193,7 +195,7 @@ public class Station implements IPlaceBase {
     }
 
     public String getNote() {
-        return note;
+        return this.note;
     }
 
     public void setNote(String note) {
@@ -201,7 +203,7 @@ public class Station implements IPlaceBase {
     }
 
     public String getOpeningHours() {
-        return openingHours;
+        return this.openingHours;
     }
 
     public void setOpeningHours(String openingHours) {
@@ -209,7 +211,7 @@ public class Station implements IPlaceBase {
     }
 
     public Integer getSocketSchukoAmount() {
-        return socketSchukoAmount;
+        return this.socketSchukoAmount;
     }
 
     public void setSocketSchukoAmount(Integer socketSchukoAmount) {
@@ -217,7 +219,7 @@ public class Station implements IPlaceBase {
     }
 
     public Integer getSocketType2Amount() {
-        return socketType2Amount;
+        return this.socketType2Amount;
     }
 
     public void setSocketType2Amount(Integer socketType2Amount) {
@@ -225,7 +227,7 @@ public class Station implements IPlaceBase {
     }
 
     public Integer getSocketType2Output() {
-        return socketType2Output;
+        return this.socketType2Output;
     }
 
     public void setSocketType2Output(Integer socketType2Output) {
@@ -249,13 +251,13 @@ public class Station implements IPlaceBase {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || this.getClass() != o.getClass()) return false;
         Station station = (Station) o;
-        return Objects.equals(id, station.id) && Objects.equals(name, station.name) && Objects.equals(maxVoltage, station.maxVoltage) && Objects.equals(maxAmperage, station.maxAmperage) && Objects.equals(hasMembership, station.hasMembership) && Objects.equals(capacity, station.capacity) && Objects.equals(hasFee, station.hasFee) && Objects.equals(note, station.note) && Objects.equals(openingHours, station.openingHours) && Objects.equals(operator, station.operator) && Objects.equals(socketSchukoAmount, station.socketSchukoAmount) && Objects.equals(socketType2Amount, station.socketType2Amount) && Objects.equals(socketType2Output, station.socketType2Output) && Objects.equals(lon, station.lon) && Objects.equals(lat, station.lat);
+        return Objects.equals(this.id, station.id) && Objects.equals(this.name, station.name) && Objects.equals(this.maxVoltage, station.maxVoltage) && Objects.equals(this.maxAmperage, station.maxAmperage) && Objects.equals(this.hasMembership, station.hasMembership) && Objects.equals(this.capacity, station.capacity) && Objects.equals(this.hasFee, station.hasFee) && Objects.equals(this.note, station.note) && Objects.equals(this.openingHours, station.openingHours) && Objects.equals(this.operator, station.operator) && Objects.equals(this.socketSchukoAmount, station.socketSchukoAmount) && Objects.equals(this.socketType2Amount, station.socketType2Amount) && Objects.equals(this.socketType2Output, station.socketType2Output) && Objects.equals(this.lon, station.lon) && Objects.equals(this.lat, station.lat);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, maxVoltage, maxAmperage, hasMembership, capacity, hasFee, note, openingHours, operator, socketSchukoAmount, socketType2Amount, socketType2Output, lon, lat);
+        return Objects.hash(this.id, this.name, this.maxVoltage, this.maxAmperage, this.hasMembership, this.capacity, this.hasFee, this.note, this.openingHours, this.operator, this.socketSchukoAmount, this.socketType2Amount, this.socketType2Output, this.lon, this.lat);
     }
 }

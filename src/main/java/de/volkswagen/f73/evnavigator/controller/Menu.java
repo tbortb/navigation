@@ -29,7 +29,7 @@ public class Menu implements IController {
 
     @FXML
     private void openNavigationView() {
-        if (!this.fxWeaver.getBean(Navigation.class).isLoaded) {
+        if (!this.fxWeaver.getBean(Navigation.class).isLoaded()) {
             this.fxWeaver.load(Navigation.class);
         }
         this.fxWeaver.getBean(Navigation.class).show();

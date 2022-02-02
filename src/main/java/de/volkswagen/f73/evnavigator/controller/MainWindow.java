@@ -69,7 +69,7 @@ public class MainWindow {
     private void startClock() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Runnable updateTime = () -> {
-            while(true) {
+            while (true) {
                 Date date = new Date();
                 Platform.runLater(() -> this.clock.textProperty().set(dateFormat.format(date)));
                 try {

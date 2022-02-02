@@ -1,6 +1,6 @@
 package de.volkswagen.f73.evnavigator.service;
 
-import de.volkswagen.f73.evnavigator.model.IPlaceBase;
+import de.volkswagen.f73.evnavigator.model.IPlace;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.List;
  * @author Bücker, Thies (SE-A/34)
  */
 @Component
-public interface ServiceBase<T extends IPlaceBase> {
-    public List<T> getAll();
-    public T save(T obj);
-    public void delete(T obj);
+public interface IService<T extends IPlace> {
+    List<T> getAll();
+    T save(T obj);
+    void delete(T obj);
 }

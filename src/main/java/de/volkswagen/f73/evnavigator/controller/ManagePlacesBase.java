@@ -4,8 +4,8 @@ import com.sothawo.mapjfx.Coordinate;
 import com.sothawo.mapjfx.MapView;
 import com.sothawo.mapjfx.Marker;
 import com.sothawo.mapjfx.event.MapViewEvent;
-import de.volkswagen.f73.evnavigator.model.IPlaceBase;
-import de.volkswagen.f73.evnavigator.service.ServiceBase;
+import de.volkswagen.f73.evnavigator.model.IPlace;
+import de.volkswagen.f73.evnavigator.service.IService;
 import de.volkswagen.f73.evnavigator.util.MapUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -29,7 +29,7 @@ import static de.volkswagen.f73.evnavigator.util.MapUtils.setInputFromCoordinate
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
-public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBase> implements IController {
+public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(ManagePlacesBase.class);
     protected static final int ZOOM_DEFAULT = 14;
@@ -56,8 +56,6 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
 
     @Autowired
     protected FxWeaver fxWeaver;
-
-    //TODO: Update does not work for stations
 
     /**
      * Sets up the MapView.
@@ -87,7 +85,7 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
         });
     }
 
-    protected void updateMapWithSelectedItem(){
+    protected void updateMapWithSelectedItem() {
         if (this.selectedPlace != null) {
             this.map.setCenter(new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon()));
             Coordinate selectedCoord = new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon());
@@ -149,13 +147,13 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
         }
 
         if (this.selectedPlace == null) {
-            this.placeService.save(createNewPlace());
+            this.placeService.save(this.createNewPlace());
         } else {
             this.updatePlace();
             this.placeService.save(this.updatePlace());
         }
 
-        fetchPlaces();
+        this.fetchPlaces();
 
     }
 
@@ -171,18 +169,20 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
             this.placeService.delete(this.selectedPlace);
         }
 
-        fetchPlaces();
+        this.fetchPlaces();
 
     }
 
     /**
      * Method that creates a new place from the given input field
+     *
      * @return a newly created place
      */
     protected abstract T createNewPlace();
 
     /**
      * Method that updates the selected place from the given input field
+     *
      * @return the updated selected place
      */
     protected abstract T updatePlace();

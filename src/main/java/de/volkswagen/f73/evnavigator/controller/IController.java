@@ -7,5 +7,5 @@ package de.volkswagen.f73.evnavigator.controller;
  * @author Bücker, Thies (SE-A/34)
  */
 public interface IController {
-    public void show();
+    void show();
 }

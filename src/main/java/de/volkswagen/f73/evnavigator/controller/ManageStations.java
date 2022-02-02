@@ -21,7 +21,7 @@ import static de.volkswagen.f73.evnavigator.util.GuiUtils.*;
  */
 @Component
 @FxmlView
-public class ManageStations extends ManagePlacesBase<Station, StationService>{
+public class ManageStations extends ManagePlacesBase<Station, StationService> {
 
     @FXML
     private TextField voltageInput;
@@ -88,7 +88,7 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
      */
     public void show(Class<? extends IController> backClass, Station selectedPlace) {
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue) {
+            if (newValue) {
                 this.fetchPlaces();
                 this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Stations");
                 setBackButtonNavigation(this.fxWeaver, backClass, true);
@@ -105,7 +105,7 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
     }
 
     @Override
-    public void updateMapWithSelectedItem(){
+    public void updateMapWithSelectedItem() {
         super.updateMapWithSelectedItem();
         numberOrEmptyToTextField(this.voltageInput, this.selectedPlace.getMaxVoltage());
         numberOrEmptyToTextField(this.amperageInput, this.selectedPlace.getMaxAmperage());

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @author Bücker, Thies (SE-A/34)
  */
 @Service
-public class StationService implements ServiceBase<Station>{
+public class StationService implements IService<Station> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StationService.class);
 
@@ -176,7 +176,7 @@ public class StationService implements ServiceBase<Station>{
 
 
 
-        return addStationsAroundBoundaries(filteredList, firstCoord, lastCoord, maxDistKm);
+        return this.addStationsAroundBoundaries(filteredList, firstCoord, lastCoord, maxDistKm);
     }
 
     /**
@@ -205,7 +205,7 @@ public class StationService implements ServiceBase<Station>{
                         new Coordinate(s.getLat(), s.getLon()))) <= maxDistKm)
                 .collect(Collectors.toList());
 
-        return addStationsAroundBoundaries(filteredList, origin, dest, maxDistKm);
+        return this.addStationsAroundBoundaries(filteredList, origin, dest, maxDistKm);
     }
 
     /**
@@ -219,7 +219,7 @@ public class StationService implements ServiceBase<Station>{
      */
     public List<Station> addStationsAroundBoundaries(List<Station> stations, Coordinate origin, Coordinate dest, double maxDistKm) {
         if (origin != null) {
-            getStationsCloseTo(origin.getLatitude(), origin.getLongitude(), maxDistKm).forEach(st -> {
+            this.getStationsCloseTo(origin.getLatitude(), origin.getLongitude(), maxDistKm).forEach(st -> {
                 if (!stations.contains(st)) {
                     stations.add(st);
                 }
@@ -227,7 +227,7 @@ public class StationService implements ServiceBase<Station>{
         }
 
         if (dest != null) {
-            getStationsCloseTo(dest.getLatitude(), dest.getLongitude(), maxDistKm).forEach(st -> {
+            this.getStationsCloseTo(dest.getLatitude(), dest.getLongitude(), maxDistKm).forEach(st -> {
                 if (!stations.contains(st)) {
                     stations.add(st);
                 }
