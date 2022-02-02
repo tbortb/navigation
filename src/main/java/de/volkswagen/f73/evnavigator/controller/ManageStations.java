@@ -104,8 +104,24 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
         });
     }
 
+    protected void clearFields() {
+        super.clearFields();
+
+        this.root.getChildren().forEach(child -> {
+            if (child instanceof TextField) {
+                ((TextField) child).clear();
+            }
+        });
+
+        this.membershipNeededCb.setSelected(false);
+        this.membershipNeededCb.setIndeterminate(true);
+        this.hasFeeCb.setSelected(false);
+        this.hasFeeCb.setIndeterminate(true);
+
+    }
+
     @Override
-    public void updateMapWithSelectedItem() {
+    protected void updateMapWithSelectedItem() {
         super.updateMapWithSelectedItem();
         numberOrEmptyToTextField(this.voltageInput, this.selectedPlace.getMaxVoltage());
         numberOrEmptyToTextField(this.amperageInput, this.selectedPlace.getMaxAmperage());

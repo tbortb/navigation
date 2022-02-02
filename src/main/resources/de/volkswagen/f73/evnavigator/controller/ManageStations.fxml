@@ -51,8 +51,8 @@
       <TextField fx:id="socketType2Input" layoutX="484.0" layoutY="569.0" prefHeight="25.0" prefWidth="63.0" promptText="No Data" />
       <TextField fx:id="socketType2OutputInput" layoutX="673.0" layoutY="569.0" prefHeight="25.0" prefWidth="63.0" promptText="No Data" />
       <Separator layoutX="34.0" layoutY="513.0" prefHeight="3.0" prefWidth="1133.0" />
-      <CheckBox fx:id="membershipNeededCb" layoutX="851.0" layoutY="573.0" mnemonicParsing="false" text="Membership needed" />
-      <CheckBox fx:id="hasFeeCb" allowIndeterminate="true" layoutX="770.0" layoutY="573.0" mnemonicParsing="false" text="Has Fee" />
+      <CheckBox fx:id="membershipNeededCb" indeterminate="true" layoutX="851.0" layoutY="573.0" mnemonicParsing="false" text="Membership needed" />
+      <CheckBox fx:id="hasFeeCb" allowIndeterminate="true" indeterminate="true" layoutX="770.0" layoutY="573.0" mnemonicParsing="false" text="Has Fee" />
       <TextArea fx:id="notesInput" layoutX="674.0" layoutY="607.0" prefHeight="45.0" prefWidth="307.0" promptText="No Data" wrapText="true">
          <font>
             <Font size="11.0" />

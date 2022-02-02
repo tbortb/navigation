@@ -96,6 +96,12 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
         }
     }
 
+    protected void clearFields() {
+        this.nameInput.clear();
+        this.latitudeInput.clear();
+        this.longitudeInput.clear();
+    }
+
     /**
      * Sets this view as the center of the MainWindow stage.
      */
@@ -169,6 +175,7 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
             this.placeService.delete(this.selectedPlace);
         }
 
+        this.clearFields();
         this.fetchPlaces();
 
     }
