@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-import static de.volkswagen.f73.evnavigator.util.GuiUtils.setBackButtonNavigation;
+import static de.volkswagen.f73.evnavigator.util.GuiUtils.*;
 
 /**
  * Controller for the AddStation view.
@@ -51,9 +51,9 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
         return new Station(this.nameInput.getText(),
                 tfToIntegerOrNull(this.voltageInput),
                 tfToIntegerOrNull(this.amperageInput),
-                this.membershipNeededCb.isSelected(),
+                this.membershipNeededCb.isIndeterminate() ? null : this.membershipNeededCb.isSelected(),
                 this.capacityInput.getText(),
-                this.hasFeeCb.isSelected(),
+                this.hasFeeCb.isIndeterminate() ? null : this.hasFeeCb.isSelected(),
                 this.notesInput.getText(),
                 this.openingHoursInput.getText(),
                 this.operatorInput.getText(),
@@ -107,40 +107,32 @@ public class ManageStations extends ManagePlacesBase<Station, StationService>{
     @Override
     public void updateMapWithSelectedItem(){
         super.updateMapWithSelectedItem();
-        this.voltageInput.setText(String.valueOf(this.selectedPlace.getMaxVoltage()));
-        this.amperageInput.setText(String.valueOf(this.selectedPlace.getMaxAmperage()));
-        this.membershipNeededCb.setSelected(nullToFalse(this.selectedPlace.getHasMembership()));
+        numberOrEmptyToTextField(this.voltageInput, this.selectedPlace.getMaxVoltage());
+        numberOrEmptyToTextField(this.amperageInput, this.selectedPlace.getMaxAmperage());
         this.capacityInput.setText(this.selectedPlace.getCapacity());
-        this.hasFeeCb.setSelected(nullToFalse(this.selectedPlace.getHasFee()));
+
+        if (this.selectedPlace.getHasFee() == null) {
+            this.hasFeeCb.setIndeterminate(true);
+        } else {
+            this.hasFeeCb.setIndeterminate(false);
+            this.hasFeeCb.setSelected(this.selectedPlace.getHasFee());
+        }
+
+        if (this.selectedPlace.getHasMembership() == null) {
+            this.membershipNeededCb.setIndeterminate(true);
+        } else {
+            this.membershipNeededCb.setIndeterminate(false);
+            this.membershipNeededCb.setSelected(this.selectedPlace.getHasMembership());
+        }
+
         this.notesInput.setText(this.selectedPlace.getNote());
         this.openingHoursInput.setText(this.selectedPlace.getOpeningHours());
         this.operatorInput.setText(this.selectedPlace.getOperator());
-        this.socketSchukoInput.setText(String.valueOf(this.selectedPlace.getSocketSchukoAmount()));
-        this.socketType2Input.setText(String.valueOf(this.selectedPlace.getSocketType2Amount()));
-        this.socketType2OutputInput.setText(String.valueOf(this.selectedPlace.getSocketType2Output()));
 
-    }
+        numberOrEmptyToTextField(this.socketSchukoInput, this.selectedPlace.getSocketSchukoAmount());
+        numberOrEmptyToTextField(this.socketType2Input, this.selectedPlace.getSocketType2Amount());
+        numberOrEmptyToTextField(this.socketType2OutputInput, this.selectedPlace.getSocketType2Output());
 
-    private Integer tfToIntegerOrNull(TextField intTf){
-        try {
-            return Integer.parseInt(intTf.getText());
-        } catch (NumberFormatException e){
-            LOGGER.info("Could not parse {} ", intTf.getText());
-            return null;
-        }
-    }
-
-    private Double tfToDoubleOrNull(TextField doubleTf){
-        try {
-            return Double.parseDouble(doubleTf.getText());
-        } catch (NumberFormatException e){
-            LOGGER.info("Could not parse {} ", doubleTf.getText());
-            return null;
-        }
-    }
-
-    private Boolean nullToFalse(Boolean checkBool){
-        return checkBool == null ? false : checkBool;
     }
 
 }

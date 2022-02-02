@@ -234,7 +234,16 @@ public class Station implements IPlaceBase {
 
     @Override
     public String toString() {
-        return name == null ? id : name;
+        String output =  Stream.of(this.name, this.operator)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse(this.id);
+
+        if (output.equals(this.operator)) {
+            return output + " " + this.id.substring(5);
+        }
+
+        return output;
     }
 
     @Override

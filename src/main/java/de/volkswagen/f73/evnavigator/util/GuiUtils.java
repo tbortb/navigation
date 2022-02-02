@@ -2,13 +2,16 @@ package de.volkswagen.f73.evnavigator.util;
 
 import de.volkswagen.f73.evnavigator.controller.IController;
 import de.volkswagen.f73.evnavigator.controller.MainWindow;
-import de.volkswagen.f73.evnavigator.controller.Navigation;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxWeaver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
+
 
 /**
  * Utility class for commonly used user interface functions
@@ -19,6 +22,7 @@ import java.time.Duration;
 @Component
 public class GuiUtils {
 
+    protected static final Logger LOGGER = LoggerFactory.getLogger(GuiUtils.class);
     public static final String COORD_ERROR_TITLE = "Invalid coordinates";
     public static final String COORD_ERROR_BODY = "Please enter valid coordinates in the \"Decimal Degrees\" format.";
 
@@ -130,5 +134,31 @@ public class GuiUtils {
         }
 
         return "";
+    }
+
+    public static Integer tfToIntegerOrNull(TextField intTf) {
+        try {
+            return Integer.parseInt(intTf.getText());
+        } catch (NumberFormatException e) {
+            LOGGER.info("Could not parse {} ", intTf.getText());
+            return null;
+        }
+    }
+
+    public static Double tfToDoubleOrNull(TextField doubleTf) {
+        try {
+            return Double.parseDouble(doubleTf.getText());
+        } catch (NumberFormatException e) {
+            LOGGER.info("Could not parse {} ", doubleTf.getText());
+            return null;
+        }
+    }
+
+    public static void numberOrEmptyToTextField(TextField tf, Number number) {
+        tf.setText(number == null ? "" : String.valueOf(number));
+    }
+
+    public static Boolean nullToFalse(Boolean checkBool) {
+        return checkBool != null && checkBool;
     }
 }

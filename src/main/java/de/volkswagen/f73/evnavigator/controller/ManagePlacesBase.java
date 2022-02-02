@@ -64,10 +64,9 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
      */
     @FXML
     public void initialize() {
-
-        this.map.setZoom(ZOOM_DEFAULT);
         this.map.setCenter(LOCATION_DEFAULT);
-        this.map.setAnimationDuration(500);
+        this.map.setZoom(ZOOM_DEFAULT);
+        this.map.setAnimationDuration(200);
         LOGGER.debug("Initializing MapJFX map...");
         this.setUpMapEventHandlers();
         // don't block the view when initializing map
@@ -113,6 +112,7 @@ public abstract class ManagePlacesBase<T extends IPlaceBase, S extends ServiceBa
      */
     public void fetchPlaces() {
         this.placesList.setItems(FXCollections.observableArrayList(this.placeService.getAll()));
+        this.placesList.refresh();
     }
 
     /**
