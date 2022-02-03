@@ -118,7 +118,7 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
 
         this.fetchPlaces();
         this.isLoaded = true;
-        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Stations");
+        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Data Management");
         setBackButtonNavigation(this.fxWeaver, backClass, true);
 
     }

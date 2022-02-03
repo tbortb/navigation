@@ -17,7 +17,7 @@
             <Insets bottom="50.0" left="25.0" right="25.0" />
         </HBox.margin>
         <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Roboto" size="14.0" />
         </font>
     </JFXButton>
     <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" onAction="#openAddPlaceView" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PLACES" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
@@ -28,7 +28,7 @@
             <Insets bottom="50.0" left="25.0" right="25.0" />
         </HBox.margin>
         <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Roboto" size="14.0" />
         </font>
     </JFXButton>
    <opaqueInsets>

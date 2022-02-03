@@ -7,7 +7,6 @@
 }
 
 .text-field {
-    -fx-background-color:  #697190;
     -fx-text-fill:  white;
 }
 
@@ -20,7 +19,6 @@
     -fx-text-fill: white;
 }
 
-.text-area .content {
-    -fx-background-color: #697190;
+.jfx-text-area {
     -fx-text-fill: white;
 }

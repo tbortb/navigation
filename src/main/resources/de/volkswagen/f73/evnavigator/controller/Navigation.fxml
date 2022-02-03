@@ -19,16 +19,15 @@
    <children>
       <MapView fx:id="map" layoutX="28.0" layoutY="40.0" minHeight="396.0" minWidth="400.0" prefHeight="406.0" prefWidth="847.0" />
       <Separator layoutX="28.0" layoutY="550.0" prefHeight="6.0" prefWidth="847.0" />
-      <DoubleTextField fx:id="originLatInput" layoutX="207.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #697190; -fx-text-fill: white;" />
+      <DoubleTextField fx:id="originLatInput" layoutX="207.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
       <JFXListView fx:id="routeList" layoutX="913.0" layoutY="72.0" prefHeight="269.0" prefWidth="257.0" />
-      <Label layoutX="32.0" layoutY="478.0" text="Origin:" textFill="WHITE" />
       <Label layoutX="32.0" layoutY="478.0" text="Origin:">
          <font>
             <Font name="Roboto Bold" size="14.0" />
          </font>
       </Label>
       <Label layoutX="142.0" layoutY="479.0" text="Latitude" textFill="WHITE" />
-      <DoubleTextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #697190; -fx-text-fill: white;" />
+      <DoubleTextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
       <Label layoutX="32.0" layoutY="519.0" text="Destination:" textFill="WHITE">
          <font>
             <Font name="Roboto Bold" size="14.0" />
@@ -75,7 +74,7 @@
       <JFXSlider fx:id="distanceSlider" blockIncrement="1.0" layoutX="176.0" layoutY="564.0" min="1.0" minorTickCount="5" prefHeight="52.0" prefWidth="210.0" value="20.0" />
       <JFXButton fx:id="stationsAlongRouteBtn" disable="true" layoutX="414.0" layoutY="596.0" mnemonicParsing="false" onAction="#showStationsAlongRoute" prefHeight="20.0" prefWidth="151.0" text="Stations along Route" />
       <JFXButton fx:id="stationsAlongLineBtn" disable="true" layoutX="414.0" layoutY="626.0" mnemonicParsing="false" onAction="#showStationsAlongLine" prefHeight="20.0" prefWidth="151.0" text="Stations along Line" />
-      <TextField fx:id="radiusInput" layoutX="263.0" layoutY="604.0" prefHeight="25.0" prefWidth="122.0" />
+      <DoubleTextField fx:id="radiusInput" layoutX="263.0" layoutY="604.0" prefHeight="25.0" prefWidth="122.0" />
       <Label layoutX="177.0" layoutY="608.0" prefHeight="17.0" prefWidth="89.0" text="Radius in km" textFill="WHITE" />
       <GridPane fx:id="routeInfoGrid" alignment="CENTER" layoutX="606.0" layoutY="564.0" prefHeight="89.0" prefWidth="269.0" visible="false">
         <columnConstraints>
@@ -122,6 +121,6 @@
             </Label>
          </children>
       </GridPane>
-      <Label fx:id="usageHint" layoutX="606.0" layoutY="568.0" prefHeight="82.0" prefWidth="244.0" text="Please click on the map to select a location.&#10;To set a location as origin or destination, use the &quot;From Map&quot; JFXButtons above." textFill="WHITE" wrapText="true" />
+      <Label fx:id="usageHint" layoutX="606.0" layoutY="568.0" prefHeight="82.0" prefWidth="244.0" text="Please click on the map to select a location.&#10;To set a location as origin or destination, use the &quot;From Map&quot; Buttons above." textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>

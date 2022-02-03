@@ -110,7 +110,7 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
      */
     public void show() {
         this.fetchPlaces();
-        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Places");
+        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Data Management");
         setBackButtonNavigation(this.fxWeaver, SettingsMenu.class, true);
     }
 

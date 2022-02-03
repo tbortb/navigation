@@ -1,12 +1,12 @@
 package de.volkswagen.f73.evnavigator.view;
 
-import javafx.scene.control.TextField;
+import com.jfoenix.controls.JFXTextField;
 
 /**
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
-public abstract class RestrictedNumberTextField extends TextField {
+public abstract class RestrictedNumberTextField extends JFXTextField {
 
 
 

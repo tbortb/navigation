@@ -2,6 +2,9 @@ package de.volkswagen.f73.evnavigator.application;
 
 import com.sun.javafx.application.PlatformImpl;
 import de.volkswagen.f73.evnavigator.controller.*;
+import de.volkswagen.f73.evnavigator.view.DoubleTextField;
+import de.volkswagen.f73.evnavigator.view.IntegerTextField;
+import javafx.scene.control.TextField;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,24 @@ class JavaFxTests {
 	FxWeaver fxWeaver;
 
 	private static final List<Class> classes = new ArrayList<>();
+	private TextField doubleTestField = new DoubleTextField();
+	private TextField integerTestField = new IntegerTextField();
+	private String integerInp = "25";
+	private String integerOut = "25";
+	private String doubleCaseInp = "25.378";
+	private String doubleCaseOut = "25.378";
+	private String containsDInp = "25.3d";
+	private String containsDOut = "25.3";
+	private String lettersInp = "2A5.2ö5d";
+	private String lettersOut = "25.25";
+	private String commaAndPointInp = "25,25.38";
+	private String commaAndPointOut = "25.2538";
+	private String startPointInp = ".38";
+	private String startPointOut = "38";
+	private String twoPointsInp = "38.25.2";
+	private String twoPointsOut = "38.252";
+	private String commaInp = "25,25";
+	private String commaOut = "25.25";
 
 	/**
 	 * Loads the JavaFX environment without actually launching the UI
@@ -45,6 +66,15 @@ class JavaFxTests {
 	@BeforeEach
 	void init() {
 		classes.forEach(clazz -> this.fxWeaver.load(clazz));
+	}
+
+	/**
+	 * Clear the field before each test, so there is a commun ground to start from for each test
+	 */
+	@BeforeEach
+	private void clearTextField() {
+		this.doubleTestField.clear();
+		this.integerTestField.clear();
 	}
 
 
@@ -88,11 +118,150 @@ class JavaFxTests {
 	}
 
 	/**
+	 * Check if a regular integer can be entered into the DoubleTextField
+	 */
+	@Test
+	void testDoubleInsertInt() {
+		Assertions.assertEquals(this.integerOut, this.typeStringToTf(this.integerInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check if a regular double can be entered into the field
+	 */
+	@Test
+	void testDoubleInsertDouble() {
+		Assertions.assertEquals(this.doubleCaseOut, this.typeStringToTf(this.doubleCaseInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check that the character d can also not be entered into the field
+	 */
+	@Test
+	void testDoubleInsertD() {
+		Assertions.assertEquals(this.containsDOut, this.typeStringToTf(this.containsDInp, this.doubleTestField));
+	}
+
+	/**
+	 * check that letters can not be entered into the field
+	 */
+	@Test
+	void testDoubleInsertLetters() {
+		Assertions.assertEquals(this.lettersOut, this.typeStringToTf(this.lettersInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check if a point can be entered into the field
+	 */
+	@Test
+	void testDoubleInsertPoint() {
+		Assertions.assertEquals(this.startPointOut, this.typeStringToTf(this.startPointInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check if two points can not be entered into the field
+	 */
+	@Test
+	void testDoubleInsertTwoPoints() {
+		Assertions.assertEquals(this.twoPointsOut, this.typeStringToTf(this.twoPointsInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check if a comma can be entered into the field
+	 */
+	@Test
+	void testDoubleInsertComma() {
+		Assertions.assertEquals(this.commaOut, this.typeStringToTf(this.commaInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check if a combination of comma and point can not be entered into the field
+	 * Only the first of these characters should be recognized
+	 */
+	@Test
+	void testDoubleInsertCommaAndPoint() {
+		Assertions.assertEquals(this.commaAndPointOut, this.typeStringToTf(this.commaAndPointInp, this.doubleTestField));
+	}
+
+	/**
+	 * Check if a combination of comma and point can not be entered into the field when pasted all together
+	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
+	 */
+	@Test
+	void testDoublePointAndCommaPaste() {
+		String unallowedString = this.commaAndPointInp;
+		this.doubleTestField.insertText(0, unallowedString);
+		Assertions.assertEquals("", this.doubleTestField.getText());
+	}
+
+	/**
+	 * Test that strings containing letters can not be pasted into the field.
+	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
+	 */
+	@Test
+	void testDoubleLetterPaste() {
+		String unallowedString = this.lettersInp;
+		this.doubleTestField.insertText(0, unallowedString);
+		Assertions.assertEquals("", this.doubleTestField.getText());
+	}
+
+	/**
+	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an allowed string
+	 */
+	@Test
+	void testDoubleAllowedPaste() {
+		String allowedString = this.doubleCaseInp;
+		this.doubleTestField.insertText(0, allowedString);
+		Assertions.assertEquals(allowedString, this.doubleTestField.getText());
+	}
+
+	/**
+	 * Check if a regular integer can be entered into the IntegerTextField
+	 */
+	@Test
+	void testIntegerInsertInt() {
+		Assertions.assertEquals(this.integerOut, this.typeStringToTf(this.integerInp, this.integerTestField));
+	}
+
+
+	/**
+	 * Check if a combination of comma and point can not be entered into the field when pasted all together
+	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
+	 */
+	@Test
+	void testIntegerPointAndCommaPaste() {
+		String unallowedString = this.commaAndPointInp;
+		this.integerTestField.insertText(0, unallowedString);
+		Assertions.assertEquals("", this.integerTestField.getText());
+	}
+
+	/**
+	 * Test that strings containing letters can not be pasted into the field.
+	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
+	 */
+	@Test
+	void testIntegerLetterPaste() {
+		String unallowedString = this.lettersInp;
+		this.integerTestField.insertText(0, unallowedString);
+		Assertions.assertEquals("", this.integerTestField.getText());
+	}
+
+	/**
 	 * Shuts down the JavaFX thread after tests finished.
 	 */
 	@AfterAll
 	static void cleanUp() {
 		PlatformImpl.exit();
+	}
+
+	/**
+	 * This method simulates typing a string via the keyboard, so it inserts the characters one by one
+	 */
+	private String typeStringToTf(String testString, TextField field) {
+		for(int i = 0; i < testString.length(); i++) {
+			int insertPos = field.getText().length();
+			field.insertText(insertPos, testString.substring(i, i + 1));
+		}
+		return field.getText();
 	}
 
 }
