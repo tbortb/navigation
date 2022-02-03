@@ -145,16 +145,6 @@ class StationServiceTests {
     }
 
     /**
-     * Tests whether the application is able to connect to provided Csv file
-     */
-    @Test
-    void loadDefaultStationsCsvOkTest() {
-        Assertions.assertNotNull(this.stationsCsvLocation);
-        File file = new File(this.getClass().getResource(this.stationsCsvLocation).getFile());
-        Assertions.assertTrue(file.exists());
-    }
-
-    /**
      * Tests if the conversion from csv to java beans works as expected
      */
     @Test
