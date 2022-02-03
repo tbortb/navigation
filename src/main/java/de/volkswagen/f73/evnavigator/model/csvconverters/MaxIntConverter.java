@@ -25,7 +25,7 @@ public class MaxIntConverter extends AbstractBeanField<Station, Integer> {
     public Integer convert(String checkString) throws CsvDataTypeMismatchException, CsvConstraintViolationException {
 
         String[] parts = checkString.split("[^\\d]");
-        OptionalInt parsedInt = Stream.of(parts).filter(p -> p.length() > 0).mapToInt(p -> Integer.parseInt(p)).max();
+        OptionalInt parsedInt = Stream.of(parts).filter(p -> p.length() > 0).mapToInt(Integer::parseInt).max();
         if (parsedInt.isPresent()) {
             return parsedInt.getAsInt();
         }

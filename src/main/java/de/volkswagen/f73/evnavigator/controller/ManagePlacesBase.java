@@ -63,18 +63,20 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
      */
     @FXML
     public void initialize() {
-        this.map.setCenter(LOCATION_DEFAULT);
-        this.map.setZoom(ZOOM_DEFAULT);
-        this.map.setAnimationDuration(200);
         LOGGER.debug("Initializing MapJFX map...");
-        this.setUpMapEventHandlers();
+
         // don't block the view when initializing map
         Platform.runLater(() -> this.map.initialize());
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if (Boolean.TRUE.equals(newValue)) {
+                LOGGER.debug("Map in ManagePlacesBase initialized.");
+                this.map.setCenter(LOCATION_DEFAULT);
+                this.map.setZoom(ZOOM_DEFAULT);
+                this.map.setAnimationDuration(200);
                 this.currentMarker = buildMarker(LOCATION_DEFAULT.getLatitude(), LOCATION_DEFAULT.getLongitude(), MapUtils.MarkerImage.PLACE, false);
                 this.map.addMarker(this.currentMarker);
+                this.setUpMapEventHandlers();
             }
         });
 

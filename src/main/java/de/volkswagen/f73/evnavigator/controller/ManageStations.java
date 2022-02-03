@@ -46,6 +46,8 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
     @FXML
     private CheckBox hasFeeCb;
 
+    private boolean isLoaded = false;
+
     @Override
     protected Station createNewPlace() {
         return new Station(this.nameInput.getText(),
@@ -87,23 +89,41 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
      * Sets this view as the center of the MainWindow stage and selects a defined place
      */
     public void show(Class<? extends IController> backClass, Station selectedPlace) {
-        this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                this.fetchPlaces();
-                this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Stations");
-                setBackButtonNavigation(this.fxWeaver, backClass, true);
-                Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
-                if (optStation.isPresent()) {
-                    this.placesList.getSelectionModel().select(selectedPlace);
-                    this.selectedPlace = selectedPlace;
-                    this.updateMapWithSelectedItem();
-                } else {
-                    LOGGER.info("Place could not be found in database: {}", selectedPlace);
+
+        if (!this.isLoaded) {
+            map.initializedProperty().addListener((observable, oldValue, newValue) -> {
+                if (Boolean.TRUE.equals(newValue)) {
+                    LOGGER.debug("Map in ManageStations initialized.");
+                    Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
+                    if (optStation.isPresent()) {
+                        this.placesList.getSelectionModel().select(selectedPlace);
+                        this.selectedPlace = selectedPlace;
+                        this.updateMapWithSelectedItem();
+                    } else {
+                        LOGGER.info("Place could not be found in database: {}", selectedPlace);
+                    }
                 }
+            });
+        } else {
+            LOGGER.debug("ManageStations map already loaded, go on...");
+            Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
+            if (optStation.isPresent()) {
+                this.placesList.getSelectionModel().select(selectedPlace);
+                this.selectedPlace = selectedPlace;
+                this.updateMapWithSelectedItem();
+            } else {
+                LOGGER.info("Place could not be found in database: {}", selectedPlace);
             }
-        });
+        }
+
+        this.fetchPlaces();
+        this.isLoaded = true;
+        this.fxWeaver.getBean(MainWindow.class).setView(this.root, "Manage Stations");
+        setBackButtonNavigation(this.fxWeaver, backClass, true);
+
     }
 
+    @Override
     protected void clearFields() {
         super.clearFields();
 
@@ -151,4 +171,7 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
 
     }
 
+    public boolean isLoaded() {
+        return this.isLoaded;
+    }
 }

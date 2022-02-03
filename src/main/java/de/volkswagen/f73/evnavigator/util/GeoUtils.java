@@ -143,18 +143,18 @@ public class GeoUtils {
     }
 
     /**
-     * Returns three different route times for a distance in meters.
+     * Returns three different durations in seconds for a distance in meters.
+     * Baseline 111 kph, no motorways 88.8 kph, eco 61.05 kph
      *
      * @param meters distance in meters
      * @return three Duration values, first one fastest, second one without motorways and third one an eco route
      */
     public static Duration[] calculateRouteTimes(double meters) {
-
         Duration[] timeArr = new Duration[3];
-
-        timeArr[0] = Duration.ofSeconds(Math.round(meters / 30.8333));
-        timeArr[1] = Duration.ofSeconds(Math.round(meters / 24.6667));
-        timeArr[2] = Duration.ofSeconds(Math.round(meters / 15.4167));
+        double kphToMpsFactor = 1000.0 / 3600.0;
+        timeArr[0] = Duration.ofSeconds(Math.round(meters / (110.0 * kphToMpsFactor)));
+        timeArr[1] = Duration.ofSeconds(Math.round(meters / (88.8 * kphToMpsFactor)));
+        timeArr[2] = Duration.ofSeconds(Math.round(meters / (61.05 * kphToMpsFactor)));
 
         return timeArr;
     }
