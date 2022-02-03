@@ -179,7 +179,10 @@ public class Navigation implements IController {
                     stationCoord.getLongitude());
             if (thisstation != null) {
                 LOGGER.info("Show details for Station at this position: {}", thisstation);
-                this.fxWeaver.load(ManageStations.class).getController().show(Navigation.class, thisstation);
+                if (!this.fxWeaver.getBean(ManageStations.class).isLoaded()) {
+                    this.fxWeaver.load(ManageStations.class);
+                }
+                this.fxWeaver.getBean(ManageStations.class).show(Navigation.class, thisstation);
             } else {
                 LOGGER.info("That is not a station.");
             }

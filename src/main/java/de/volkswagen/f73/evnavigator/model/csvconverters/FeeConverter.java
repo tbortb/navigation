@@ -28,8 +28,6 @@ public class FeeConverter extends AbstractBeanField<Station, Boolean> {
             return false;
         }
 
-        //return null (undefined) if no keyword is met
-        // TODO error handling
         return null;
     }
 }

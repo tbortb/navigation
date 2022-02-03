@@ -26,7 +26,7 @@
       </Label>
       <Label layoutX="142.0" layoutY="479.0" text="Latitude" />
       <TextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="28.0" layoutY="519.0" text="Destination:">
+      <Label layoutX="32.0" layoutY="519.0" text="Destination:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -69,7 +69,7 @@
          </font>
       </Button>
       <Button fx:id="closeStationsBtn" layoutX="414.0" layoutY="567.0" mnemonicParsing="false" onAction="#onShowCloseStations" prefHeight="20.0" prefWidth="151.0" text="Stations around Marker" />
-      <Slider fx:id="distanceSlider" blockIncrement="1.0" layoutX="176.0" layoutY="567.0" max="200.0" minorTickCount="5" prefHeight="52.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="50.0" />
+      <Slider fx:id="distanceSlider" blockIncrement="1.0" layoutX="176.0" layoutY="567.0" majorTickUnit="16.0" min="2.0" minorTickCount="16" prefHeight="52.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="10.0" />
       <Button fx:id="stationsAlongRouteBtn" disable="true" layoutX="414.0" layoutY="596.0" mnemonicParsing="false" onAction="#showStationsAlongRoute" prefHeight="20.0" prefWidth="151.0" text="Stations along Route" />
       <Button fx:id="stationsAlongLineBtn" disable="true" layoutX="414.0" layoutY="626.0" mnemonicParsing="false" onAction="#showStationsAlongLine" prefHeight="20.0" prefWidth="151.0" text="Stations along Line" />
       <Separator layoutX="28.0" layoutY="550.0" prefHeight="6.0" prefWidth="847.0" />
