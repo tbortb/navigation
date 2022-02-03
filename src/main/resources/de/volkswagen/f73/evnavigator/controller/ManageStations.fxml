@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.sothawo.mapjfx.MapView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -16,14 +16,14 @@
    <children>
       <TextField fx:id="nameInput" layoutX="253.0" layoutY="474.0" prefHeight="25.0" prefWidth="158.0" promptText="Name" />
       <MapView fx:id="map" layoutX="28.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="406.0" minWidth="847.0" prefHeight="406.0" prefWidth="847.0" />
-      <Button graphicTextGap="15.0" layoutX="1030.0" layoutY="538.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save">
+      <JFXButton buttonType="RAISED" graphicTextGap="30.0" layoutX="1030.0" layoutY="538.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save" textFill="WHITE">
          <graphic>
-            <FontAwesomeIconView glyphName="SAVE" size="32" />
+            <MaterialDesignIconView fill="#fff" glyphName="CHECKBOX_MARKED_CIRCLE_OUTLINE" size="32" />
          </graphic>
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
-      </Button>
+      </JFXButton>
       <Label layoutX="1002.0" layoutY="40.0" text="Stations">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -31,16 +31,16 @@
       </Label>
       <TextField fx:id="latitudeInput" layoutX="546.0" layoutY="474.0" prefHeight="25.0" prefWidth="150.0" promptText="Latitude" />
       <TextField fx:id="longitudeInput" layoutX="832.0" layoutY="474.0" prefHeight="25.0" prefWidth="150.0" promptText="Longitude" />
-      <ListView fx:id="placesList" layoutX="892.0" layoutY="64.0" prefHeight="382.0" prefWidth="274.0" />
+      <JFXListView fx:id="placesList" layoutX="892.0" layoutY="64.0" prefHeight="382.0" prefWidth="274.0" />
       <Separator layoutX="32.0" layoutY="457.0" prefHeight="3.0" prefWidth="1133.0" />
-      <Button graphicTextGap="15.0" layoutX="1030.0" layoutY="597.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #ffbaba;" text="Delete">
+      <JFXButton buttonType="RAISED" graphicTextGap="0.0" layoutX="1030.0" layoutY="597.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #62343F;" text="     Delete" textFill="WHITE">
          <graphic>
-            <FontAwesomeIconView glyphName="TRASH" size="32" />
+            <MaterialDesignIconView fill="#fff" glyphName="DELETE" size="32" />
          </graphic>
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
-      </Button>
+      </JFXButton>
       <Label layoutX="51.0" layoutY="478.0" text="Mandatory information" />
       <TextField fx:id="voltageInput" layoutX="301.0" layoutY="527.0" prefHeight="25.0" prefWidth="63.0" promptText="No Data" />
       <TextField fx:id="amperageInput" layoutX="300.0" layoutY="569.0" prefHeight="25.0" prefWidth="63.0" promptText="No Data" />
@@ -51,12 +51,13 @@
       <TextField fx:id="socketType2Input" layoutX="484.0" layoutY="569.0" prefHeight="25.0" prefWidth="63.0" promptText="No Data" />
       <TextField fx:id="socketType2OutputInput" layoutX="673.0" layoutY="569.0" prefHeight="25.0" prefWidth="63.0" promptText="No Data" />
       <Separator layoutX="34.0" layoutY="513.0" prefHeight="3.0" prefWidth="1133.0" />
-      <CheckBox fx:id="membershipNeededCb" indeterminate="true" layoutX="851.0" layoutY="573.0" mnemonicParsing="false" text="Membership needed" />
-      <CheckBox fx:id="hasFeeCb" allowIndeterminate="true" indeterminate="true" layoutX="770.0" layoutY="573.0" mnemonicParsing="false" text="Has Fee" />
+      <JFXCheckBox fx:id="membershipNeededCb" indeterminate="true" layoutX="851.0" layoutY="573.0" mnemonicParsing="false" text="Membership needed" textFill="WHITE" />
+      <JFXCheckBox fx:id="hasFeeCb" allowIndeterminate="true" indeterminate="true" layoutX="770.0" layoutY="573.0" mnemonicParsing="false" text="Has Fee" textFill="WHITE" />
       <TextArea fx:id="notesInput" layoutX="674.0" layoutY="607.0" prefHeight="45.0" prefWidth="307.0" promptText="No Data" wrapText="true">
          <font>
             <Font size="11.0" />
-         </font></TextArea>
+         </font>
+      </TextArea>
       <Label layoutX="203.0" layoutY="478.0" text="Name" />
       <Label layoutX="483.0" layoutY="478.0" text="Latitude" />
       <Label layoutX="756.0" layoutY="478.0" text="Longitude" />

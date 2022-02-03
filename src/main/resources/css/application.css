@@ -1,0 +1,26 @@
+.root {
+    -fx-background-color: #17223B;
+}
+
+.text-field, .label {
+    -fx-font-family: "Roboto";
+}
+
+.text-field {
+    -fx-background-color:  #697190;
+    -fx-text-fill:  white;
+}
+
+.label {
+    -fx-text-fill:  white;
+}
+
+.button {
+    -fx-background-color: #2D4263;
+    -fx-text-fill: white;
+}
+
+.text-area .content {
+    -fx-background-color: #697190;
+    -fx-text-fill: white;
+}
