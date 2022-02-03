@@ -14,7 +14,7 @@ class GeoUtilTests {
      * Test if the earth surface distance calculation gives results close to the ones drawn from google
      */
     @Test
-    void distanceCalculationTestShouldReturnApproximateResult(){
+    void distanceCalculationTestShouldReturnApproximateResultTest(){
         //Test values from http://www.movable-type.co.uk/scripts/latlong.html?from=49.243824,-121.887340&to=49.235347,-121.92532
         double lon1 = -121.887340;
         double lat1 = 49.243824;
@@ -33,7 +33,7 @@ class GeoUtilTests {
      * Tests if either an invalid decimal separator or impossible coordinates fail the check method
      */
     @Test
-    void coordinateValidationShouldDetectWrongInput() {
+    void coordinateValidationShouldDetectWrongInputTest() {
         String wrongLat = "51,2382";
         String correctLon = "9.82147";
         double wrongLat2 = 210.282853;
@@ -47,7 +47,7 @@ class GeoUtilTests {
      * Tests whether geographically and formally correct coordinates get validated correctly
      */
     @Test
-    void coordinateValidationShouldPassValidInput() {
+    void coordinateValidationShouldPassValidInputTest() {
         String lat = "52.421150";
         String lon = "10.744060";
         double lat2 = 52.421150;
@@ -63,7 +63,7 @@ class GeoUtilTests {
      * The start bearing from Baghdad to Osaka is approximately 60°.
      */
     @Test
-    void bearingInDegreesShouldReturnKnownValue() {
+    void bearingInDegreesShouldReturnKnownValueTest() {
         Coordinate baghdad = new Coordinate(35.0, 45.0);
         Coordinate osaka = new Coordinate(35.0, 135.0);
 
@@ -79,7 +79,7 @@ class GeoUtilTests {
      * Tests the predefined values of 110, 88.8 and 61.05 km/h
      */
     @Test
-    void calculateDurationShouldReturnCorrectValue() {
+    void calculateDurationShouldReturnCorrectValueTest() {
         Assertions.assertEquals(60, GeoUtils.calculateRouteTimes(111000)[0].toMinutes());
         Assertions.assertEquals(60, GeoUtils.calculateRouteTimes(88800)[1].toMinutes());
         Assertions.assertEquals(60, GeoUtils.calculateRouteTimes(61050)[2].toMinutes());

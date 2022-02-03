@@ -82,7 +82,7 @@ class JavaFxTests {
 	 * Asserts that loading a controller initializes its Bean
 	 */
 	@Test
-	void loadingControllersCreatesBeanWithCorrectClass() {
+	void loadingControllersCreatesBeanWithCorrectClassTest() {
 		classes.forEach(clazz -> {
 			Assertions.assertDoesNotThrow(() -> this.fxWeaver.load(clazz));
 			Assertions.assertEquals(clazz, this.fxWeaver.getBean(clazz).getClass());
@@ -93,7 +93,7 @@ class JavaFxTests {
 	 * Asserts that switching scenes sets the correct Object on the MainWindow
 	 */
 	@Test
-	void settingViewInMainWindowChangesView() {
+	void settingViewInMainWindowChangesViewTest() {
 		this.fxWeaver.load(SettingsMenu.class).getController().show();
 		Assertions.assertEquals("menuBox", this.fxWeaver.getBean(MainWindow.class).getRootPane().getCenter().getId());
 		Assertions.assertEquals("Settings", this.fxWeaver.getBean(MainWindow.class).getTitle().getText());
@@ -111,7 +111,7 @@ class JavaFxTests {
 	 * Asserts that the navigation button reacts to changes of the view
 	 */
 	@Test
-	void backButtonVisibilityIsDependentOnView() {
+	void backButtonVisibilityIsDependentOnViewTest() {
 		Assertions.assertFalse(this.fxWeaver.load(MainWindow.class).getController().getBackButton().isVisible());
 		this.fxWeaver.load(Navigation.class).getController().show();
 		Assertions.assertTrue(this.fxWeaver.getBean(MainWindow.class).getBackButton().isVisible());
@@ -121,7 +121,7 @@ class JavaFxTests {
 	 * Check if a regular integer can be entered into the DoubleTextField
 	 */
 	@Test
-	void testDoubleInsertInt() {
+	void doubleInsertIntTest() {
 		Assertions.assertEquals(this.integerOut, this.typeStringToTf(this.integerInp, this.doubleTestField));
 	}
 
@@ -129,7 +129,7 @@ class JavaFxTests {
 	 * Check if a regular double can be entered into the field
 	 */
 	@Test
-	void testDoubleInsertDouble() {
+	void doubleInsertDoubleTest() {
 		Assertions.assertEquals(this.doubleCaseOut, this.typeStringToTf(this.doubleCaseInp, this.doubleTestField));
 	}
 
@@ -137,7 +137,7 @@ class JavaFxTests {
 	 * Check that the character d can also not be entered into the field
 	 */
 	@Test
-	void testDoubleInsertD() {
+	void doubleInsertDTest() {
 		Assertions.assertEquals(this.containsDOut, this.typeStringToTf(this.containsDInp, this.doubleTestField));
 	}
 
@@ -145,7 +145,7 @@ class JavaFxTests {
 	 * check that letters can not be entered into the field
 	 */
 	@Test
-	void testDoubleInsertLetters() {
+	void doubleInsertLettersTest() {
 		Assertions.assertEquals(this.lettersOut, this.typeStringToTf(this.lettersInp, this.doubleTestField));
 	}
 
@@ -153,7 +153,7 @@ class JavaFxTests {
 	 * Check if a point can be entered into the field
 	 */
 	@Test
-	void testDoubleInsertPoint() {
+	void doubleInsertPointTest() {
 		Assertions.assertEquals(this.startPointOut, this.typeStringToTf(this.startPointInp, this.doubleTestField));
 	}
 
@@ -161,7 +161,7 @@ class JavaFxTests {
 	 * Check if two points can not be entered into the field
 	 */
 	@Test
-	void testDoubleInsertTwoPoints() {
+	void doubleInsertTwoPointsTest() {
 		Assertions.assertEquals(this.twoPointsOut, this.typeStringToTf(this.twoPointsInp, this.doubleTestField));
 	}
 
@@ -169,7 +169,7 @@ class JavaFxTests {
 	 * Check if a comma can be entered into the field
 	 */
 	@Test
-	void testDoubleInsertComma() {
+	void doubleInsertCommaTest() {
 		Assertions.assertEquals(this.commaOut, this.typeStringToTf(this.commaInp, this.doubleTestField));
 	}
 
@@ -178,7 +178,7 @@ class JavaFxTests {
 	 * Only the first of these characters should be recognized
 	 */
 	@Test
-	void testDoubleInsertCommaAndPoint() {
+	void doubleInsertCommaAndPointTest() {
 		Assertions.assertEquals(this.commaAndPointOut, this.typeStringToTf(this.commaAndPointInp, this.doubleTestField));
 	}
 
@@ -187,7 +187,7 @@ class JavaFxTests {
 	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
 	 */
 	@Test
-	void testDoublePointAndCommaPaste() {
+	void doublePointAndCommaPasteTest() {
 		String unallowedString = this.commaAndPointInp;
 		this.doubleTestField.insertText(0, unallowedString);
 		Assertions.assertEquals("", this.doubleTestField.getText());
@@ -198,7 +198,7 @@ class JavaFxTests {
 	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
 	 */
 	@Test
-	void testDoubleLetterPaste() {
+	void doubleLetterPasteTest() {
 		String unallowedString = this.lettersInp;
 		this.doubleTestField.insertText(0, unallowedString);
 		Assertions.assertEquals("", this.doubleTestField.getText());
@@ -208,7 +208,7 @@ class JavaFxTests {
 	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an allowed string
 	 */
 	@Test
-	void testDoubleAllowedPaste() {
+	void doubleAllowedPasteTest() {
 		String allowedString = this.doubleCaseInp;
 		this.doubleTestField.insertText(0, allowedString);
 		Assertions.assertEquals(allowedString, this.doubleTestField.getText());
@@ -218,7 +218,7 @@ class JavaFxTests {
 	 * Check if a regular integer can be entered into the IntegerTextField
 	 */
 	@Test
-	void testIntegerInsertInt() {
+	void integerInsertIntTest() {
 		Assertions.assertEquals(this.integerOut, this.typeStringToTf(this.integerInp, this.integerTestField));
 	}
 
@@ -228,7 +228,7 @@ class JavaFxTests {
 	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
 	 */
 	@Test
-	void testIntegerPointAndCommaPaste() {
+	void integerPointAndCommaPasteTest() {
 		String unallowedString = this.commaAndPointInp;
 		this.integerTestField.insertText(0, unallowedString);
 		Assertions.assertEquals("", this.integerTestField.getText());
@@ -239,7 +239,7 @@ class JavaFxTests {
 	 * This test does not simmulate the typeing of a keyboar, but a copy paste action of an unallowed string
 	 */
 	@Test
-	void testIntegerLetterPaste() {
+	void integerLetterPasteTest() {
 		String unallowedString = this.lettersInp;
 		this.integerTestField.insertText(0, unallowedString);
 		Assertions.assertEquals("", this.integerTestField.getText());

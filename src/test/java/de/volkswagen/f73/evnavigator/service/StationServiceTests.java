@@ -58,7 +58,7 @@ class StationServiceTests {
      * Tests if a station that is close to a route gets returned
      */
     @Test
-    void getStationsAlongPathShouldReturnCloseStation() {
+    void getStationsAlongPathShouldReturnCloseStationTest() {
         this.stationService.saveStations(this.sampleStations);
 
         Coordinate wolfsburg = new Coordinate(52.4245294, 10.7528508);
@@ -74,7 +74,7 @@ class StationServiceTests {
      * Tests if a path with no stations in proximity returns no stations
      */
     @Test
-    void getStationsAlongPathShouldReturnNoStations() {
+    void getStationsAlongPathShouldReturnNoStationsTest() {
         this.stationService.saveStations(this.sampleStations);
 
         Coordinate salzgitter = new Coordinate(52.15314926, 10.324741450);
@@ -89,7 +89,7 @@ class StationServiceTests {
      * Tests if a big radius returns all qualified stations
      */
     @Test
-    void getStationsAlongPathShouldReturnAllStations() {
+    void getStationsAlongPathShouldReturnAllStationsTest() {
         this.stationService.saveStations(this.sampleStations);
 
         Coordinate wolfsburg = new Coordinate(52.4204788, 10.74645087);
@@ -105,7 +105,7 @@ class StationServiceTests {
      * Wittenberge and Bad Karlshafen are connected with a line that crosses closely the MLC charging station.
      */
     @Test
-    void getStationsAlongLineShouldReturnCloseStation() {
+    void getStationsAlongLineShouldReturnCloseStationTest() {
         this.stationService.saveStations(this.sampleStations);
 
         Coordinate wittenberge = new Coordinate(52.994915, 11.741919);
@@ -124,7 +124,7 @@ class StationServiceTests {
      * but it is still close enough.
      */
     @Test
-    void getStationsAlongLineShouldReturnStationsCloseToOriginAndDestination() {
+    void getStationsAlongLineShouldReturnStationsCloseToOriginAndDestinationTest() {
         this.stationService.saveStations(this.sampleStations);
 
         Coordinate kassel = new Coordinate(51.317938, 9.500416);
@@ -136,7 +136,7 @@ class StationServiceTests {
     }
 
     @Test
-    void getStationAtCoordinateShouldReturnKnownStation() {
+    void getStationAtCoordinateShouldReturnKnownStationTest() {
         this.stationService.saveStations(this.sampleStations);
 
         Station actual = this.stationService.getStationAtCoordinate(51.31567287, 9.4978098202);

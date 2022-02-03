@@ -12,7 +12,7 @@ import java.time.Duration;
 class GuiUtilTests {
 
     @Test
-    void distanceShouldBeFormattedHumanReadable() {
+    void distanceShouldBeFormattedHumanReadableTest() {
         Assertions.assertEquals("800 meters", GuiUtils.distanceToString(800, false));
         Assertions.assertEquals("800 meters", GuiUtils.distanceToString(0.8, true));
         Assertions.assertEquals("1.25 km", GuiUtils.distanceToString(1.25, true));
@@ -20,7 +20,7 @@ class GuiUtilTests {
     }
 
     @Test
-    void timeShouldBeFormattedHumanReadable() {
+    void timeShouldBeFormattedHumanReadableTest() {
         Duration oneHourThirtyMinutes = Duration.ofMinutes(90);
         Duration tenMinutes = Duration.ofMinutes(10);
         Duration twoHours = Duration.ofMinutes(120);

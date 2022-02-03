@@ -34,7 +34,7 @@ class RouteServiceTests {
      * Tests whether calling OSRM API returns a response that signals a correct request.
      */
     @Test
-    void getRouteFromApiReturnsStatusCodeOk()  {
+    void getRouteFromApiReturnsStatusCodeOkTest()  {
         JSONObject result = this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON,
                 DESTINATION_LAT, DESTINATION_LON);
         String responseCode = Assertions.assertDoesNotThrow(() -> result.getString("code"));
@@ -46,7 +46,7 @@ class RouteServiceTests {
      * waypoints.
      */
     @Test
-    void longRouteJsonToCoordinatesReturnsManyWaypoints() {
+    void longRouteJsonToCoordinatesReturnsManyWaypointsTest() {
         List<Coordinate> waypoints = this.routeService.getCoordinatesFromRoute(
                 this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON,
                         DESTINATION_LAT_FAR, DESTINATION_LON_FAR));
@@ -59,7 +59,7 @@ class RouteServiceTests {
      * distance.
      */
     @Test
-    void longRouteJsonToDistanceReturnsCorrectDistance() {
+    void longRouteJsonToDistanceReturnsCorrectDistanceTest() {
         double distance = this.routeService.getDistanceFromRoute(this.routeService.getRouteFromCoordinates(
                 ORIGIN_LAT,
                 ORIGIN_LON,

@@ -10,7 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.Duration;
+import java.util.Locale;
 
 
 /**
@@ -122,7 +124,8 @@ public class GuiUtils {
      * @return formatted String
      */
     public static String distanceToString(double distance, boolean isKm) {
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+        DecimalFormat df = new DecimalFormat("#.##", dfs);
         if (!isKm && distance < 1000) {
             return df.format(distance) + " meters";
         } else if (!isKm && distance >= 1000) {
