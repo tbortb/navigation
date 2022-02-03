@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.text.NumberFormat;
@@ -123,10 +124,6 @@ public class Navigation implements IController {
      */
     @FXML
     private void initialize() {
-        this.map.setZoom(ZOOM_DEFAULT);
-        this.map.setCenter(LOCATION_DEFAULT);
-        this.map.setAnimationDuration(500);
-
         // don't block the view when initializing map
         Platform.runLater(() -> {
             LOGGER.debug("Initializing MapJFX map...");
@@ -135,6 +132,10 @@ public class Navigation implements IController {
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
+                LOGGER.debug("Map is initialized");
+                this.map.setZoom(ZOOM_DEFAULT);
+                this.map.setCenter(LOCATION_DEFAULT);
+                this.map.setAnimationDuration(500);
                 this.currentCoordinate = LOCATION_DEFAULT;
                 this.currentMarker = buildMarker(LOCATION_DEFAULT.getLatitude(), LOCATION_DEFAULT.getLongitude(),
                         MapUtils.MarkerImage.PLACE, false);
@@ -280,6 +281,7 @@ public class Navigation implements IController {
     private void calculateRoute() {
 
         this.stationMarkers.forEach(st -> this.map.removeMarker(st));
+        this.stationMarkers.clear();
 
         if (this.currentPath != null) {
             this.map.removeCoordinateLine(this.currentPath);

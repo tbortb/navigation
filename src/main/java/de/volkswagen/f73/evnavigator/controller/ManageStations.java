@@ -104,6 +104,7 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
         });
     }
 
+    @Override
     protected void clearFields() {
         super.clearFields();
 
@@ -151,4 +152,7 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
 
     }
 
+    public boolean isLoaded() {
+        return this.isLoaded;
+    }
 }
