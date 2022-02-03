@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
 <?import com.sothawo.mapjfx.MapView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.control.Button?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,29 +13,29 @@
 <AnchorPane fx:id="root" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.ManagePlaces">
    <children>
       <MapView fx:id="map" layoutX="28.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="406.0" minWidth="847.0" prefHeight="469.0" prefWidth="847.0" />
-      <Button graphicTextGap="15.0" layoutX="1038.0" layoutY="554.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save">
+      <JFXButton buttonType="RAISED" graphicTextGap="30.0" layoutX="1030.0" layoutY="538.0" mnemonicParsing="false" onAction="#savePlace" prefHeight="45.0" prefWidth="122.0" text="Save" textFill="WHITE">
          <graphic>
-            <FontAwesomeIconView glyphName="SAVE" size="32" />
+            <MaterialDesignIconView fill="#fff" glyphName="CHECKBOX_MARKED_CIRCLE_OUTLINE" size="32" />
          </graphic>
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
-      </Button>
+      </JFXButton>
       <Label layoutX="1002.0" layoutY="40.0" text="Places">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="placesList" layoutX="892.0" layoutY="64.0" prefHeight="445.0" prefWidth="274.0" />
+      <JFXListView fx:id="placesList" layoutX="892.0" layoutY="64.0" prefHeight="445.0" prefWidth="274.0" />
       <Separator layoutX="37.0" layoutY="525.0" prefWidth="1113.0" />
-      <Button graphicTextGap="15.0" layoutX="1038.0" layoutY="615.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #ffbaba;" text="Delete">
+      <JFXButton buttonType="RAISED" graphicTextGap="0.0" layoutX="1030.0" layoutY="597.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #62343F;" text="     Delete" textFill="WHITE">
          <graphic>
-            <FontAwesomeIconView glyphName="TRASH" size="32" />
+            <MaterialDesignIconView fill="#fff" glyphName="DELETE" size="32" />
          </graphic>
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
-      </Button>
+      </JFXButton>
       <TextField fx:id="nameInput" layoutX="251.0" layoutY="551.0" prefHeight="25.0" prefWidth="158.0" promptText="Name" />
       <DoubleTextField fx:id="latitudeInput" layoutX="544.0" layoutY="551.0" prefHeight="25.0" prefWidth="150.0" promptText="Latitude" />
       <DoubleTextField fx:id="longitudeInput" layoutX="830.0" layoutY="551.0" prefHeight="25.0" prefWidth="150.0" promptText="Longitude" />

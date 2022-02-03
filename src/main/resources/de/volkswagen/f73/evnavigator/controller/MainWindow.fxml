@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -13,26 +14,27 @@
       <HBox fx:id="topMenu" alignment="CENTER" prefHeight="40.0" prefWidth="1060.0" BorderPane.alignment="CENTER">
          <HBox prefHeight="41.0" prefWidth="156.0" spacing="50.0">
             <children>
-               <Button fx:id="standbyButton" onAction="#toggleStandby" style="-fx-background-radius: 30px;">
+               <JFXButton fx:id="standbyButton" buttonType="RAISED" onAction="#toggleStandby" style="-fx-background-radius: 30px; -fx-background-color: #2D4263;">
                   <graphic>
-                     <FontAwesomeIconView glyphName="POWER_OFF" size="32" />
+                     <MaterialDesignIconView fill="#94bdff" glyphName="POWER" size="32" />
                   </graphic>
-               </Button>
-               <Button fx:id="backButton" style="-fx-background-radius: 10px;" visible="false">
+               </JFXButton>
+               <JFXButton fx:id="backButton" style="-fx-background-radius: 10px; -fx-background-color: #2D4263;" visible="false">
                   <graphic>
-                     <FontAwesomeIconView glyphName="ARROW_LEFT" size="32" textAlignment="CENTER" wrappingWidth="40.428571701049805" />
+                     <MaterialDesignIconView fill="#94bdff" glyphName="ARROW_LEFT" size="32" textAlignment="CENTER" wrappingWidth="40.428571701049805" />
                   </graphic>
-               </Button>
+               </JFXButton>
             </children>
          </HBox>
-         <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="700.0" text="Menu Title" HBox.hgrow="ALWAYS">
+         <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="700.0" text="Menu Title" style="-fx-text-fill: #94bdff;" HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets />
             </HBox.margin>
             <font>
                <Font name="System Bold" size="22.0" />
-            </font></Label>
-         <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="177.0" text="01.01.1970 00:00:00" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
+            </font>
+         </Label>
+         <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="177.0" text="01.01.1970 00:00:00" textAlignment="CENTER" style="-fx-text-fill: #94bdff;" HBox.hgrow="SOMETIMES">
             <font>
                <Font name="System Bold" size="17.0" />
             </font>

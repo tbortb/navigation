@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.sothawo.mapjfx.MapView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.scene.control.Button?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,68 +14,68 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import de.volkswagen.f73.evnavigator.view.DoubleTextField?>
 <AnchorPane fx:id="navigationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Navigation">
    <children>
       <MapView fx:id="map" layoutX="28.0" layoutY="40.0" minHeight="396.0" minWidth="400.0" prefHeight="406.0" prefWidth="847.0" />
-      <DoubleTextField fx:id="originLatInput" layoutX="207.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
-      <ListView fx:id="routeList" layoutX="897.0" layoutY="72.0" prefHeight="269.0" prefWidth="257.0" />
+      <Separator layoutX="28.0" layoutY="550.0" prefHeight="6.0" prefWidth="847.0" />
+      <DoubleTextField fx:id="originLatInput" layoutX="207.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #697190; -fx-text-fill: white;" />
+      <JFXListView fx:id="routeList" layoutX="913.0" layoutY="72.0" prefHeight="269.0" prefWidth="257.0" />
+      <Label layoutX="32.0" layoutY="478.0" text="Origin:" textFill="WHITE">
       <Label layoutX="32.0" layoutY="478.0" text="Origin:">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Roboto Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="142.0" layoutY="479.0" text="Latitude" />
-      <DoubleTextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="28.0" layoutY="519.0" text="Destination:">
+      <Label layoutX="142.0" layoutY="479.0" text="Latitude" textFill="WHITE" />
+      <DoubleTextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" style="-fx-background-color: #697190; -fx-text-fill: white;" />
+      <Label layoutX="32.0" layoutY="519.0" text="Destination:" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Roboto Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="142.0" layoutY="520.0" text="Latitude" />
-      <Label layoutX="981.0" layoutY="40.0" text="Saved Routes">
+      <Label layoutX="142.0" layoutY="520.0" text="Latitude" textFill="WHITE" />
+      <Label layoutX="997.0" layoutY="40.0" text="Saved Routes" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Roboto Bold" size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="placeList" layoutX="899.0" layoutY="382.0" prefHeight="269.0" prefWidth="257.0" />
-      <Label layoutX="1013.0" layoutY="350.0" text="Places">
+      <JFXListView fx:id="placeList" layoutX="915.0" layoutY="382.0" prefHeight="269.0" prefWidth="257.0" />
+      <Label layoutX="1020.0" layoutY="350.0" text="Places" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Roboto Bold" size="14.0" />
          </font>
       </Label>
       <DoubleTextField fx:id="originLonInput" layoutX="479.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="414.0" layoutY="479.0" text="Longitude" />
+      <Label layoutX="414.0" layoutY="479.0" text="Longitude" textFill="WHITE" />
       <DoubleTextField fx:id="destLonInput" layoutX="479.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
-      <Label layoutX="414.0" layoutY="520.0" text="Longitude" />
-      <Button graphicTextGap="20.0" layoutX="681.0" layoutY="475.0" mnemonicParsing="false" onAction="#loadOriginFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map">
+      <Label layoutX="414.0" layoutY="520.0" text="Longitude" textFill="WHITE" />
+      <JFXButton buttonType="RAISED" graphicTextGap="20.0" layoutX="681.0" layoutY="475.0" mnemonicParsing="false" onAction="#loadOriginFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map" >
          <graphic>
-            <FontAwesomeIconView glyphName="MAP_MARKER" size="16" />
+            <MaterialDesignIconView fill="#fff" glyphName="MAP_MARKER" size="16" />
          </graphic>
-      </Button>
-      <Button graphicTextGap="20.0" layoutX="681.0" layoutY="516.0" mnemonicParsing="false" onAction="#loadDestinationFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map">
+      </JFXButton>
+      <JFXButton buttonType="RAISED" graphicTextGap="20.0" layoutX="681.0" layoutY="516.0" mnemonicParsing="false" onAction="#loadDestinationFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map" textFill="WHITE">
          <graphic>
-            <FontAwesomeIconView glyphName="MAP_MARKER" size="16" />
+            <MaterialDesignIconView fill="#fff" glyphName="MAP_MARKER" size="16" />
          </graphic>
-      </Button>
-      <Button fx:id="calcRouteBtn" layoutX="32.0" layoutY="567.0" mnemonicParsing="false" onAction="#calculateRoute" prefHeight="38.0" prefWidth="122.0" text="Calculate Route">
+      </JFXButton>
+      <JFXButton fx:id="calcRouteBtn" buttonType="RAISED" layoutX="32.0" layoutY="567.0" mnemonicParsing="false" onAction="#calculateRoute" prefHeight="38.0" prefWidth="122.0" text="Calculate Route" >
          <font>
             <Font size="14.0" />
          </font>
-      </Button>
-      <Slider fx:id="zoomSlider" layoutX="28.0" layoutY="452.0" majorTickUnit="4.0" max="28.0" minorTickCount="1" prefHeight="14.0" prefWidth="847.0" value="14.0" />
-      <Button fx:id="saveRouteBtn" disable="true" layoutX="32.0" layoutY="614.0" mnemonicParsing="false" onAction="#saveRoute" prefHeight="38.0" prefWidth="122.0" text="Save Route">
+      </JFXButton>
+      <JFXSlider fx:id="zoomSlider" layoutX="28.0" layoutY="452.0" majorTickUnit="4.0" max="28.0" minorTickCount="1" prefHeight="14.0" prefWidth="847.0" value="14.0" />
+      <JFXButton fx:id="saveRouteBtn" buttonType="RAISED" disable="true" layoutX="32.0" layoutY="614.0" mnemonicParsing="false" onAction="#saveRoute" prefHeight="38.0" prefWidth="122.0" text="Save Route" >
          <font>
             <Font size="14.0" />
          </font>
-      </Button>
-      <Button fx:id="closeStationsBtn" layoutX="414.0" layoutY="567.0" mnemonicParsing="false" onAction="#onShowCloseStations" prefHeight="20.0" prefWidth="151.0" text="Stations around Marker" />
-      <Slider fx:id="distanceSlider" blockIncrement="1.0" layoutX="176.0" layoutY="567.0" max="200.0" minorTickCount="5" prefHeight="52.0" prefWidth="210.0" showTickLabels="true" showTickMarks="true" value="50.0" />
-      <Button fx:id="stationsAlongRouteBtn" disable="true" layoutX="414.0" layoutY="596.0" mnemonicParsing="false" onAction="#showStationsAlongRoute" prefHeight="20.0" prefWidth="151.0" text="Stations along Route" />
-      <Button fx:id="stationsAlongLineBtn" disable="true" layoutX="414.0" layoutY="626.0" mnemonicParsing="false" onAction="#showStationsAlongLine" prefHeight="20.0" prefWidth="151.0" text="Stations along Line" />
-      <Separator layoutX="28.0" layoutY="550.0" prefHeight="6.0" prefWidth="847.0" />
-      <TextField fx:id="radiusInput" layoutX="263.0" layoutY="626.0" prefHeight="25.0" prefWidth="122.0" />
-      <Label layoutX="177.0" layoutY="630.0" prefHeight="17.0" prefWidth="89.0" text="Radius in km" />
+      </JFXButton>
+      <JFXButton fx:id="closeStationsBtn" layoutX="414.0" layoutY="567.0" mnemonicParsing="false" onAction="#onShowCloseStations" prefHeight="20.0" prefWidth="151.0" text="Stations around Marker" />
+      <JFXSlider fx:id="distanceSlider" blockIncrement="1.0" layoutX="176.0" layoutY="564.0" min="1.0" minorTickCount="5" prefHeight="52.0" prefWidth="210.0" value="20.0" />
+      <JFXButton fx:id="stationsAlongRouteBtn" disable="true" layoutX="414.0" layoutY="596.0" mnemonicParsing="false" onAction="#showStationsAlongRoute" prefHeight="20.0" prefWidth="151.0" text="Stations along Route" />
+      <JFXButton fx:id="stationsAlongLineBtn" disable="true" layoutX="414.0" layoutY="626.0" mnemonicParsing="false" onAction="#showStationsAlongLine" prefHeight="20.0" prefWidth="151.0" text="Stations along Line" />
+      <TextField fx:id="radiusInput" layoutX="263.0" layoutY="604.0" prefHeight="25.0" prefWidth="122.0" />
+      <Label layoutX="177.0" layoutY="608.0" prefHeight="17.0" prefWidth="89.0" text="Radius in km" textFill="WHITE" />
       <GridPane fx:id="routeInfoGrid" alignment="CENTER" layoutX="606.0" layoutY="564.0" prefHeight="89.0" prefWidth="269.0" visible="false">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="132.0" />
@@ -89,38 +89,38 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="83.0" text="Route Distance" textAlignment="CENTER" />
-            <Label text="Air-Line Distance" GridPane.rowIndex="1" />
-            <Label text="Time (Fastest)" GridPane.rowIndex="2" />
-            <Label text="Time (No Motorways)" GridPane.rowIndex="3" />
-            <Label text="Time (Eco)" GridPane.rowIndex="4" />
-            <Label fx:id="routeDistanceLbl" text="RouteDistance" GridPane.columnIndex="1">
+            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="83.0" text="Route Distance" textAlignment="CENTER" textFill="WHITE" />
+            <Label text="Air-Line Distance" textFill="WHITE" GridPane.rowIndex="1" />
+            <Label text="Time (Fastest)" textFill="WHITE" GridPane.rowIndex="2" />
+            <Label text="Time (No Motorways)" textFill="WHITE" GridPane.rowIndex="3" />
+            <Label text="Time (Eco)" textFill="WHITE" GridPane.rowIndex="4" />
+            <Label fx:id="routeDistanceLbl" text="RouteDistance" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Roboto Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="airDistanceLbl" text="AirDistance" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Roboto Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="fastestTimeLbl" text="FastestTime" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="airDistanceLbl" text="AirDistance" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="noMotorwaysLbl" text="NoMotorwaysTime" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="fastestTimeLbl" text="FastestTime" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="noMotorwaysLbl" text="NoMotorwaysTime" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="ecoLbl" text="EcoTime" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Label fx:id="ecoLbl" text="EcoTime" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>
       </GridPane>
-      <Label fx:id="usageHint" layoutX="606.0" layoutY="568.0" prefHeight="82.0" prefWidth="244.0" text="Please click on the map to select a location.&#10;To set a location as origin or destination, use the &quot;From Map&quot; buttons above." wrapText="true" />
+      <Label fx:id="usageHint" layoutX="606.0" layoutY="568.0" prefHeight="82.0" prefWidth="244.0" text="Please click on the map to select a location.&#10;To set a location as origin or destination, use the &quot;From Map&quot; JFXButtons above." textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>

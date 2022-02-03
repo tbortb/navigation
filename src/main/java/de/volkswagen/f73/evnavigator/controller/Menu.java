@@ -1,7 +1,7 @@
 package de.volkswagen.f73.evnavigator.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class Menu implements IController {
 
     @FXML
-    private HBox menuBox;
+    private VBox menuBox;
 
     @Autowired
     private FxWeaver fxWeaver;
@@ -33,7 +33,6 @@ public class Menu implements IController {
             this.fxWeaver.load(Navigation.class);
         }
         this.fxWeaver.getBean(Navigation.class).show();
-
     }
 
     @FXML
@@ -41,4 +40,8 @@ public class Menu implements IController {
         this.fxWeaver.load(SettingsMenu.class).getController().show();
     }
 
+    @FXML
+    private void openLicenses() {
+        this.fxWeaver.load(Licenses.class).getController().show();
+    }
 }

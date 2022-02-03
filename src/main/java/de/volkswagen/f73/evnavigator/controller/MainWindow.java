@@ -111,14 +111,16 @@ public class MainWindow {
             this.clock.setStyle("-fx-font-size: 24px;-fx-text-fill: white;-fx-pref-width: 250px");
             this.rootPane.setCenter(this.clock);
             this.menuTitle.setVisible(false);
+            this.topMenu.setStyle("-fx-background-color: #000;");
             this.standByActive = true;
         } else {
-            this.rootPane.setStyle("");
+            this.rootPane.setStyle("-fx-text-fill:  #94bdff;");
             this.menuTitle.setVisible(true);
             this.backButton.setVisible(this.backButtonVisibleBeforeStandby);
             this.rootPane.setCenter(this.viewBeforeStandby);
             this.clock.setStyle("");
             this.topMenu.getChildren().add(this.clock);
+            this.topMenu.setStyle("-fx-background-color: #17223B;");
             this.standByActive = false;
         }
 
