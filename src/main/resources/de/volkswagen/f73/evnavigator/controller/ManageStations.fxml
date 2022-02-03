@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import de.volkswagen.f73.evnavigator.view.DoubleTextField?>
 <AnchorPane fx:id="root" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.ManageStations">
    <children>
       <TextField fx:id="nameInput" layoutX="253.0" layoutY="474.0" prefHeight="25.0" prefWidth="158.0" promptText="Name" />
@@ -29,8 +30,8 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="latitudeInput" layoutX="546.0" layoutY="474.0" prefHeight="25.0" prefWidth="150.0" promptText="Latitude" />
-      <TextField fx:id="longitudeInput" layoutX="832.0" layoutY="474.0" prefHeight="25.0" prefWidth="150.0" promptText="Longitude" />
+      <DoubleTextField fx:id="latitudeInput" layoutX="546.0" layoutY="474.0" prefHeight="25.0" prefWidth="150.0" promptText="Latitude" />
+      <DoubleTextField fx:id="longitudeInput" layoutX="832.0" layoutY="474.0" prefHeight="25.0" prefWidth="150.0" promptText="Longitude" />
       <ListView fx:id="placesList" layoutX="892.0" layoutY="64.0" prefHeight="382.0" prefWidth="274.0" />
       <Separator layoutX="32.0" layoutY="457.0" prefHeight="3.0" prefWidth="1133.0" />
       <Button graphicTextGap="15.0" layoutX="1030.0" layoutY="597.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="45.0" prefWidth="122.0" style="-fx-background-color: #ffbaba;" text="Delete">

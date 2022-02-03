@@ -11,6 +11,7 @@ import de.volkswagen.f73.evnavigator.service.RouteService;
 import de.volkswagen.f73.evnavigator.service.StationService;
 import de.volkswagen.f73.evnavigator.util.GeoUtils;
 import de.volkswagen.f73.evnavigator.util.MapUtils;
+import de.volkswagen.f73.evnavigator.view.DoubleTextField;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -65,13 +66,13 @@ public class Navigation implements IController {
     @FXML
     private MapView map;
     @FXML
-    private TextField originLatInput;
+    private DoubleTextField originLatInput;
     @FXML
-    private TextField originLonInput;
+    private DoubleTextField originLonInput;
     @FXML
-    private TextField destLatInput;
+    private DoubleTextField destLatInput;
     @FXML
-    private TextField destLonInput;
+    private DoubleTextField destLonInput;
     @FXML
     private Slider zoomSlider;
     @FXML

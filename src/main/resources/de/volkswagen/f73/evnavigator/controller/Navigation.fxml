@@ -14,10 +14,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
+<?import de.volkswagen.f73.evnavigator.view.DoubleTextField?>
 <AnchorPane fx:id="navigationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Navigation">
    <children>
       <MapView fx:id="map" layoutX="28.0" layoutY="40.0" minHeight="396.0" minWidth="400.0" prefHeight="406.0" prefWidth="847.0" />
-      <TextField fx:id="originLatInput" layoutX="207.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
+      <DoubleTextField fx:id="originLatInput" layoutX="207.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
       <ListView fx:id="routeList" layoutX="897.0" layoutY="72.0" prefHeight="269.0" prefWidth="257.0" />
       <Label layoutX="32.0" layoutY="478.0" text="Origin:">
          <font>
@@ -25,7 +26,7 @@
          </font>
       </Label>
       <Label layoutX="142.0" layoutY="479.0" text="Latitude" />
-      <TextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
+      <DoubleTextField fx:id="destLatInput" layoutX="207.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
       <Label layoutX="28.0" layoutY="519.0" text="Destination:">
          <font>
             <Font name="System Bold" size="14.0" />
@@ -43,9 +44,9 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="originLonInput" layoutX="479.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
+      <DoubleTextField fx:id="originLonInput" layoutX="479.0" layoutY="475.0" prefHeight="25.0" prefWidth="179.0" />
       <Label layoutX="414.0" layoutY="479.0" text="Longitude" />
-      <TextField fx:id="destLonInput" layoutX="479.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
+      <DoubleTextField fx:id="destLonInput" layoutX="479.0" layoutY="516.0" prefHeight="25.0" prefWidth="179.0" />
       <Label layoutX="414.0" layoutY="520.0" text="Longitude" />
       <Button graphicTextGap="20.0" layoutX="681.0" layoutY="475.0" mnemonicParsing="false" onAction="#loadOriginFromMap" prefHeight="25.0" prefWidth="185.0" text="From Map">
          <graphic>

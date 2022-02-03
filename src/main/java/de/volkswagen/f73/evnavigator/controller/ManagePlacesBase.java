@@ -7,6 +7,7 @@ import com.sothawo.mapjfx.event.MapViewEvent;
 import de.volkswagen.f73.evnavigator.model.IPlace;
 import de.volkswagen.f73.evnavigator.service.IService;
 import de.volkswagen.f73.evnavigator.util.MapUtils;
+import de.volkswagen.f73.evnavigator.view.DoubleTextField;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -45,9 +46,9 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
     @FXML
     protected TextField nameInput;
     @FXML
-    protected TextField latitudeInput;
+    protected DoubleTextField latitudeInput;
     @FXML
-    protected TextField longitudeInput;
+    protected DoubleTextField longitudeInput;
     @FXML
     protected ListView<T> placesList;
 
