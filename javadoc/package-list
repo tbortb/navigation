@@ -1,0 +1,9 @@
+de.volkswagen.f73.evnavigator
+de.volkswagen.f73.evnavigator.application
+de.volkswagen.f73.evnavigator.controller
+de.volkswagen.f73.evnavigator.model
+de.volkswagen.f73.evnavigator.model.csvconverters
+de.volkswagen.f73.evnavigator.repository
+de.volkswagen.f73.evnavigator.service
+de.volkswagen.f73.evnavigator.util
+de.volkswagen.f73.evnavigator.view

@@ -3,6 +3,7 @@ Dieses Projekt wurde im Rahmen der Abschlussprüfung des Java-Backend Pathways i
 Es handelt sich um eine JavaFX-Applikation, die ein modernes Infotainmentsystem nachbildet und Routenplanungsfunktionen
 mit Fokus auf Ladestationen für E-Fahrzeuge bietet.
 
+![Screenshot der Applikation](doc/screenshot.png)
 
 ## Anforderungen
 
@@ -15,7 +16,7 @@ Für die Entwicklung wurde Java™ SE Development Kit 8, Update 241 (JDK 8u241) 
 Um die Applikation zu starten, gibt es folgende Möglichkeiten:
 
 ### JAR-Datei
-Unter dem Verzeichnis `/dist` ist eine ausführbare `jar`-Datei abgelegt. Diese kann mittels `java -jar dateiname.jar`
+Unter dem Verzeichnis `./dist` ist eine ausführbare `jar`-Datei abgelegt. Diese kann mittels `java -jar dateiname.jar`
 gestartet werden. Hierbei sei darauf zu achten, dass in der Kommandozeile eine geeignete JRE/JDK 8 geladen ist. Dies kann 
 mit dem Befehl `java -version` geprüft werden.
 
@@ -38,6 +39,10 @@ Ist Maven nicht auf dem System installiert, kann der mitgelieferte Wrapper verwe
 .\mvnw clean compile exec:java
 ```
 
+Bei der Ausführung via Maven muss ebenso darauf geachtet, dass die korrekte Java-Version verwendet wird. 
+Dies ist kann mit `mvn -version` bzw `.\mvnw -version` überprüft werden und ggf. über die Umgebungsvariablen
+angepasst werden.
+
 ### Manuell
 
 Die Applikation kann auch als Maven-Projekt in einer IDE wie IntelliJ IDEA oder Eclipse importiert werden.
@@ -47,6 +52,10 @@ Hier kann die Applikation manuell, nach Installation der Maven-Abhängigkeiten �
 Die Applikation generiert bei ihrem ersten Start eine H2-Datenbank, welche auf der Wurzelebene des Projekts bzw. 
 im Ordner der gestarteten `jar`-Datei erstellt wird.
 
+
+## Dokumentation
+Die PDF-Dokumentation ist im Verzeichnis `./doc` zu finden.
+Die JavaDocs sind im Verzeichnis `./javadoc` zu finden und lassen sich über die Datei `index.html` aufrufen.
 
 ## Tests
 

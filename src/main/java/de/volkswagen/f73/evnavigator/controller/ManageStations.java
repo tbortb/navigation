@@ -87,8 +87,12 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
         return this.selectedPlace;
     }
 
+
     /**
      * Sets this view as the center of the MainWindow stage and selects a defined place
+     *
+     * @param backClass     the previous view controller class
+     * @param selectedPlace the Place to be shown within this view
      */
     public void show(Class<? extends IController> backClass, Station selectedPlace) {
 

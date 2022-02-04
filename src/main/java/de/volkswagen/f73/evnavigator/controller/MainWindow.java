@@ -1,13 +1,16 @@
 package de.volkswagen.f73.evnavigator.controller;
 
 import de.volkswagen.f73.evnavigator.service.StationService;
-import javafx.application.Platform;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.slf4j.Logger;
@@ -18,7 +21,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Controller for the MainWindow view - the root view of this application.
@@ -67,26 +70,17 @@ public class MainWindow {
     }
 
     /**
-     * Starts a thread that updates the clock label on the top menu
+     * Starts an animation that updates the clock label on the top menu
      */
     private void startClock() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        Runnable updateTime = () -> {
-            while (true) {
-                Date date = new Date();
-                Platform.runLater(() -> this.clock.textProperty().set(dateFormat.format(date)));
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    LOGGER.error("Clock thread sleep interrupted.");
-                    Thread.currentThread().interrupt();
-                }
-            }
-        };
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+                    Calendar cal = Calendar.getInstance();
+                    clock.setText(dateFormat.format(cal.getTime()));
+                }));
 
-        Thread clockThread = new Thread(updateTime);
-        clockThread.setDaemon(true);
-        clockThread.start();
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     /**
