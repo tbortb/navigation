@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @FxmlView
-public class ManagePlaces extends ManagePlacesBase<Place, PlaceService>{
+public class ManagePlaces extends ManagePlacesBase<Place, PlaceService> {
 
 
     @Override
     protected Place createNewPlace() {
         return new Place(this.nameInput.getText(),
-                    Double.valueOf(this.latitudeInput.getText()),
-                    Double.valueOf(this.longitudeInput.getText()));
+                Double.valueOf(this.latitudeInput.getText()),
+                Double.valueOf(this.longitudeInput.getText()));
     }
 
     @Override

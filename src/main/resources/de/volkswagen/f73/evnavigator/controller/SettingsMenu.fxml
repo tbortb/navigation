@@ -3,36 +3,42 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<HBox fx:id="menuBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.SettingsMenu">
 
-
-<HBox fx:id="menuBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.SettingsMenu">
-
-          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" onAction="#openAddStationView" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="STATIONS" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
+    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0"
+               minWidth="128.0" onAction="#openAddStationView" prefHeight="128.0" prefWidth="128.0"
+               style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="STATIONS" textFill="#c5cdef"
+               HBox.hgrow="SOMETIMES">
         <graphic>
-            <MaterialDesignIconView fill="#c5cdef" glyphName="GAS_STATION" size="80" />
+            <MaterialDesignIconView fill="#c5cdef" glyphName="GAS_STATION" size="80"/>
         </graphic>
         <HBox.margin>
-            <Insets bottom="50.0" left="25.0" right="25.0" />
+            <Insets bottom="50.0" left="25.0" right="25.0"/>
         </HBox.margin>
         <font>
-            <Font name="Roboto" size="14.0" />
+            <Font name="Roboto" size="14.0"/>
         </font>
     </JFXButton>
-    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" onAction="#openAddPlaceView" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PLACES" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
+    <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0"
+               minWidth="128.0" onAction="#openAddPlaceView" prefHeight="128.0" prefWidth="128.0"
+               style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PLACES" textFill="#c5cdef"
+               HBox.hgrow="SOMETIMES">
         <graphic>
-            <MaterialDesignIconView fill="#c5cdef" glyphName="MAP_MARKER" size="80" />
+            <MaterialDesignIconView fill="#c5cdef" glyphName="MAP_MARKER" size="80"/>
         </graphic>
         <HBox.margin>
-            <Insets bottom="50.0" left="25.0" right="25.0" />
+            <Insets bottom="50.0" left="25.0" right="25.0"/>
         </HBox.margin>
         <font>
-            <Font name="Roboto" size="14.0" />
+            <Font name="Roboto" size="14.0"/>
         </font>
     </JFXButton>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
+    <opaqueInsets>
+        <Insets/>
+    </opaqueInsets>
 
-      </HBox>
+</HBox>

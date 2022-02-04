@@ -66,6 +66,9 @@ public class MainWindow {
         this.startClock();
     }
 
+    /**
+     * Starts a thread that updates the clock label on the top menu
+     */
     private void startClock() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Runnable updateTime = () -> {

@@ -17,19 +17,17 @@ import java.util.List;
  * @author Bücker, Thies (SE-A/34)
  */
 @SpringBootTest
-@TestPropertySource(locations= "classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 class PlaceServiceTests {
 
+    private final List<Place> samplePlaces = new ArrayList<>();
     @Autowired
     private PlaceService placeService;
-
     @Autowired
     private PlaceRepository placeRepo;
 
-    private final List<Place> samplePlaces = new ArrayList<>();
-
     @BeforeEach
-    void setUp(){
+    void setUp() {
         this.placeRepo.deleteAll();
         this.samplePlaces.clear();
         this.samplePlaces.add(new Place(null, "first", 49.243824, -121.887340));
@@ -40,7 +38,7 @@ class PlaceServiceTests {
      * Check if a Place can be added to the PlaceRepository
      */
     @Test
-    void addPlaceTest(){
+    void addPlaceTest() {
         Place toSave = this.samplePlaces.get(0);
         Place saved = Assertions.assertDoesNotThrow(() -> this.placeService.save(toSave));
 
@@ -53,8 +51,8 @@ class PlaceServiceTests {
      * Check if POIs can be fetched from the PlaceRepository
      */
     @Test
-    void getPlaceTest(){
-        for (Place place : this.samplePlaces){
+    void getPlaceTest() {
+        for (Place place : this.samplePlaces) {
             Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
@@ -71,13 +69,13 @@ class PlaceServiceTests {
      * Check if the PlaceService correctly fetches pois close to a given point
      */
     @Test
-    void getClosePlacesTest(){
+    void getClosePlacesTest() {
         double closeToLat = 49.243858;
         double closeToLon = -121.887360;
         double maxDistKm = 1;
         int expectedSize = 1;
 
-        for (Place place : this.samplePlaces){
+        for (Place place : this.samplePlaces) {
             Assertions.assertDoesNotThrow(() -> this.placeService.save(place));
         }
 
@@ -94,7 +92,7 @@ class PlaceServiceTests {
      */
     @Test
     void deletePlaceTest() {
-        for (Place place : this.samplePlaces){
+        for (Place place : this.samplePlaces) {
             this.placeService.save(place);
         }
 

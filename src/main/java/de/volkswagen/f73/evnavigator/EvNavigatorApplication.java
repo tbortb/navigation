@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Bücker, Thies (SE-A/34)
  */
 @SpringBootApplication
-public class EvnavigatorApplication {
+public class EvNavigatorApplication {
 
-	public static void main(String[] args) {
-		Application.launch(JavaFxApplication.class, args);
-	}
+    public static void main(String[] args) {
+        Application.launch(JavaFxApplication.class, args);
+    }
 
 }

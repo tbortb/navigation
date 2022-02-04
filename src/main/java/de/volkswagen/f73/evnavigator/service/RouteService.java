@@ -58,7 +58,7 @@ public class RouteService {
             result = new JSONObject(response);
         } catch (HttpClientErrorException.BadRequest br) {
             showError("Bad request", "The navigation API reported a bad request. " +
-                     "Please check your requested route.");
+                    "Please check your requested route.");
             LOGGER.error("RestTemplate error: {}", br.getMessage());
         } catch (ResourceAccessException | HttpClientErrorException ra) {
             showError("Connection error", "API could not be reached. " +
@@ -144,6 +144,7 @@ public class RouteService {
 
     /**
      * Saves a route to Database
+     *
      * @param route Route object to save
      * @return the saved route object
      */

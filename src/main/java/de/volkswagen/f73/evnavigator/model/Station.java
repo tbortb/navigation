@@ -13,6 +13,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
+ * Model for station objects
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */
@@ -56,62 +58,22 @@ public class Station implements IPlace {
     public Station() {
     }
 
-    public Station(String id, String name, Integer maxVoltage, Integer maxAmperage, Boolean hasMembership,
-                   String capacity, Boolean hasFee, String note, String openingHours, String operator,
-                   Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output,
-                   Double lat, Double lon) {
-        this.id = id;
-        this.name = name;
-        this.maxVoltage = maxVoltage;
-        this.maxAmperage = maxAmperage;
-        this.hasMembership = hasMembership;
-        this.capacity = capacity;
-        this.hasFee = hasFee;
-        this.note = note;
-        this.openingHours = openingHours;
-        this.operator = operator;
-        this.socketSchukoAmount = socketSchukoAmount;
-        this.socketType2Amount = socketType2Amount;
-        this.socketType2Output = socketType2Output;
-        this.lon = lon;
-        this.lat = lat;
-    }
-
-    public Station(String name, Integer maxVoltage, Integer maxAmperage, Boolean hasMembership, String capacity, Boolean hasFee, String note, String openingHours, String operator, Integer socketSchukoAmount, Integer socketType2Amount, Integer socketType2Output, Double lat, Double lon) {
-        this.name = name;
-        this.maxVoltage = maxVoltage;
-        this.maxAmperage = maxAmperage;
-        this.hasMembership = hasMembership;
-        this.capacity = capacity;
-        this.hasFee = hasFee;
-        this.note = note;
-        this.openingHours = openingHours;
-        this.operator = operator;
-        this.socketSchukoAmount = socketSchukoAmount;
-        this.socketType2Amount = socketType2Amount;
-        this.socketType2Output = socketType2Output;
-        this.lon = lon;
-        this.lat = lat;
-    }
-
-    public Station(String id, String name, Boolean hasMembership, Boolean hasFee, String operator,
-                   Double lat, Double lon) {
-        this.id = id;
-        this.name = name;
-        this.hasMembership = hasMembership;
-        this.hasFee = hasFee;
-        this.operator = operator;
-        this.lon = lon;
-        this.lat = lat;
-    }
-
-    public Station(String name, Boolean hasMembership, Boolean hasFee, String operator, Double lat, Double lon) {
-        this.name = name;
-        this.hasMembership = hasMembership;
-        this.hasFee = hasFee;
-        this.operator = operator;
-        this.lon = lon;
-        this.lat = lat;
+    private Station(final Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.maxVoltage = builder.maxVoltage;
+        this.maxAmperage = builder.maxAmperage;
+        this.hasMembership = builder.hasMembership;
+        this.capacity = builder.capacity;
+        this.hasFee = builder.hasFee;
+        this.note = builder.note;
+        this.openingHours = builder.openingHours;
+        this.operator = builder.operator;
+        this.socketSchukoAmount = builder.socketSchukoAmount;
+        this.socketType2Amount = builder.socketType2Amount;
+        this.socketType2Output = builder.socketType2Output;
+        this.lat = builder.lat;
+        this.lon = builder.lon;
     }
 
     public String getId() {
@@ -236,7 +198,7 @@ public class Station implements IPlace {
 
     @Override
     public String toString() {
-        String output =  Stream.of(this.name, this.operator)
+        String output = Stream.of(this.name, this.operator)
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(this.id);
@@ -253,11 +215,126 @@ public class Station implements IPlace {
         if (this == o) return true;
         if (o == null || this.getClass() != o.getClass()) return false;
         Station station = (Station) o;
-        return Objects.equals(this.id, station.id) && Objects.equals(this.name, station.name) && Objects.equals(this.maxVoltage, station.maxVoltage) && Objects.equals(this.maxAmperage, station.maxAmperage) && Objects.equals(this.hasMembership, station.hasMembership) && Objects.equals(this.capacity, station.capacity) && Objects.equals(this.hasFee, station.hasFee) && Objects.equals(this.note, station.note) && Objects.equals(this.openingHours, station.openingHours) && Objects.equals(this.operator, station.operator) && Objects.equals(this.socketSchukoAmount, station.socketSchukoAmount) && Objects.equals(this.socketType2Amount, station.socketType2Amount) && Objects.equals(this.socketType2Output, station.socketType2Output) && Objects.equals(this.lon, station.lon) && Objects.equals(this.lat, station.lat);
+        return Objects.equals(this.id, station.id) && Objects.equals(this.name, station.name)
+                && Objects.equals(this.maxVoltage, station.maxVoltage)
+                && Objects.equals(this.maxAmperage, station.maxAmperage)
+                && Objects.equals(this.hasMembership, station.hasMembership)
+                && Objects.equals(this.capacity, station.capacity)
+                && Objects.equals(this.hasFee, station.hasFee)
+                && Objects.equals(this.note, station.note)
+                && Objects.equals(this.openingHours, station.openingHours)
+                && Objects.equals(this.operator, station.operator)
+                && Objects.equals(this.socketSchukoAmount, station.socketSchukoAmount)
+                && Objects.equals(this.socketType2Amount, station.socketType2Amount)
+                && Objects.equals(this.socketType2Output, station.socketType2Output)
+                && Objects.equals(this.lon, station.lon)
+                && Objects.equals(this.lat, station.lat);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.maxVoltage, this.maxAmperage, this.hasMembership, this.capacity, this.hasFee, this.note, this.openingHours, this.operator, this.socketSchukoAmount, this.socketType2Amount, this.socketType2Output, this.lon, this.lat);
+        return Objects.hash(this.id, this.name, this.maxVoltage, this.maxAmperage, this.hasMembership,
+                this.capacity, this.hasFee, this.note, this.openingHours, this.operator, this.socketSchukoAmount,
+                this.socketType2Amount, this.socketType2Output, this.lon, this.lat);
+    }
+
+    /**
+     * Builder class for creating Station objects
+     */
+    public static class Builder {
+        private String id;
+        private String name;
+        private Integer maxVoltage;
+        private Integer maxAmperage;
+        private Boolean hasMembership;
+        private String capacity;
+        private Boolean hasFee;
+        private String note;
+        private String openingHours;
+        private String operator;
+        private Integer socketSchukoAmount;
+        private Integer socketType2Amount;
+        private Integer socketType2Output;
+        private Double lat;
+        private Double lon;
+
+        public Station build() {
+            return new Station(this);
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withMaxVoltage(Integer maxVoltage) {
+            this.maxVoltage = maxVoltage;
+            return this;
+        }
+
+        public Builder withMaxAmperage(Integer maxAmperage) {
+            this.maxAmperage = maxAmperage;
+            return this;
+        }
+
+        public Builder withHasMembership(Boolean hasMembership) {
+            this.hasMembership = hasMembership;
+            return this;
+        }
+
+        public Builder withCapacity(String capacity) {
+            this.capacity = capacity;
+            return this;
+        }
+
+        public Builder withHasFee(Boolean hasFee) {
+            this.hasFee = hasFee;
+            return this;
+        }
+
+        public Builder withNote(String note) {
+            this.note = note;
+            return this;
+        }
+
+        public Builder withOpeningHours(String openingHours) {
+            this.openingHours = openingHours;
+            return this;
+        }
+
+        public Builder withOperator(String operator) {
+            this.operator = operator;
+            return this;
+        }
+
+        public Builder withSocketSchukoAmount(Integer socketSchukoAmount) {
+            this.socketSchukoAmount = socketSchukoAmount;
+            return this;
+        }
+
+        public Builder withSocketType2Amount(Integer socketType2Amount) {
+            this.socketType2Amount = socketType2Amount;
+            return this;
+        }
+
+        public Builder withSocketType2Output(Integer socketType2Output) {
+            this.socketType2Output = socketType2Output;
+            return this;
+        }
+
+        public Builder withLat(Double lat) {
+            this.lat = lat;
+            return this;
+        }
+
+        public Builder withLon(Double lon) {
+            this.lon = lon;
+            return this;
+        }
     }
 }

@@ -46,7 +46,7 @@ public class PlaceService implements IService<Place> {
      * @param lat       latitude
      * @param lon       longitude
      * @param maxDistKm maximum distance in kilometers
-     * @return  a list of Places close to the coordinate
+     * @return a list of Places close to the coordinate
      */
     public List<Place> getPlacesCloseTo(Double lat, Double lon, Double maxDistKm) {
         List<Place> places = this.placeRepo.findAll();
@@ -54,6 +54,11 @@ public class PlaceService implements IService<Place> {
         return places.stream().filter(p -> GeoUtils.getLinearDistanceKm(lat, lon, p.getLat(), p.getLon()) <= maxDistKm).collect(Collectors.toList());
     }
 
+    /**
+     * Deletes a Place from database
+     *
+     * @param place object to delete
+     */
     public void delete(Place place) {
         this.placeRepo.delete(place);
     }

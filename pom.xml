@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>de.volkswagen.f73</groupId>
 	<artifactId>evnavigator</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>evnavigator</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Infotainment system with integrated navigation system optimized for electric vehicles</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<sonar.coverage.jacoco.xmlReportPaths>
@@ -24,7 +24,8 @@
 		<sonar.projectKey>
 			EVNavigator
 		</sonar.projectKey>
-		<start-class>de.volkswagen.f73.evnavigator.EvnavigatorApplication</start-class>
+		<start-class>de.volkswagen.f73.evnavigator.EvNavigatorApplication</start-class>
+		<exec.mainClass>de.volkswagen.f73.evnavigator.EvNavigatorApplication</exec.mainClass>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,33 +79,6 @@
 			<version>1.33.2</version>
 		</dependency>
 
-		<!-- JDK 11 PACKAGES FOR SONARQUBE -->
-<!--		<dependency>-->
-<!--			<groupId>de.jensd</groupId>-->
-<!--			<artifactId>fontawesomefx-commons</artifactId>-->
-<!--			<version>9.1.2</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>de.jensd</groupId>-->
-<!--			<artifactId>fontawesomefx-fontawesome</artifactId>-->
-<!--			<version>4.7.0-9.1.2</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.sothawo</groupId>-->
-<!--			<artifactId>mapjfx</artifactId>-->
-<!--			<version>2.15.3</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.openjfx</groupId>-->
-<!--			<artifactId>javafx-controls</artifactId>-->
-<!--			<version>11</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.openjfx</groupId>-->
-<!--			<artifactId>javafx-fxml</artifactId>-->
-<!--			<version>11</version>-->
-<!--		</dependency>-->
-
 	</dependencies>
 
 	<build>
@@ -139,14 +113,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-					<mainClass>de.volkswagen.f73.evnavigator.EvnavigatorApplication</mainClass>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

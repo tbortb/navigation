@@ -11,6 +11,10 @@ import java.time.Duration;
  */
 class GuiUtilTests {
 
+    /**
+     * Tests whether a number value of distance in meters or kilometers is converted to a human-readable String
+     * with the unit appended
+     */
     @Test
     void distanceShouldBeFormattedHumanReadableTest() {
         Assertions.assertEquals("800 meters", GuiUtils.distanceToString(800, false));
@@ -19,6 +23,9 @@ class GuiUtilTests {
         Assertions.assertEquals("1.25 km", GuiUtils.distanceToString(1250, false));
     }
 
+    /**
+     * Tests whether a duration value in minutes is converted to a human-readable String
+     */
     @Test
     void timeShouldBeFormattedHumanReadableTest() {
         Duration oneHourThirtyMinutes = Duration.ofMinutes(90);

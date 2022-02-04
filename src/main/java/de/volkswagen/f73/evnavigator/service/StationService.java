@@ -12,7 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,7 +49,7 @@ public class StationService implements IService<Station> {
      *
      * @param station to be deleted
      */
-    public void delete(Station station){
+    public void delete(Station station) {
         this.stationRepo.delete(station);
     }
 
@@ -54,7 +57,7 @@ public class StationService implements IService<Station> {
      * Saves a list of stations to DB.
      *
      * @param stations List of Station objects to save
-     * @return  List of saved Station object
+     * @return List of saved Station object
      */
     public List<Station> saveStations(Collection<Station> stations) {
         return this.stationRepo.saveAll(stations);
@@ -173,7 +176,6 @@ public class StationService implements IService<Station> {
 
         Coordinate firstCoord = path.getCoordinateStream().findFirst().orElse(null);
         Coordinate lastCoord = path.getCoordinateStream().reduce((first, second) -> second).orElse(null);
-
 
 
         return this.addStationsAroundBoundaries(filteredList, firstCoord, lastCoord, maxDistKm);

@@ -3,6 +3,8 @@ package de.volkswagen.f73.evnavigator.model;
 import org.springframework.stereotype.Component;
 
 /**
+ * Interface for objects that are defined by its latitude and longitude
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */

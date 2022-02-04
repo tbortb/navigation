@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.text.NumberFormat;
@@ -53,9 +52,8 @@ public class Navigation implements IController {
     private static final Coordinate LOCATION_DEFAULT = new Coordinate(52.421150, 10.744060);
     private static final Logger LOGGER = LoggerFactory.getLogger(Navigation.class);
     private static final int ZOOM_DEFAULT = 14;
-
-    private Marker currentMarker;
     private final List<Marker> stationMarkers = new ArrayList<>();
+    private Marker currentMarker;
     private Marker destinationMarker;
     private Marker originMarker;
     private Coordinate currentCoordinate;
@@ -125,14 +123,12 @@ public class Navigation implements IController {
      */
     @FXML
     private void initialize() {
+        LOGGER.debug("Initializing MapJFX map...");
         // don't block the view when initializing map
-        Platform.runLater(() -> {
-            LOGGER.debug("Initializing MapJFX map...");
-            this.map.initialize();
-        });
+        Platform.runLater(this.map::initialize);
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+            if (Boolean.TRUE.equals(newValue)) {
                 LOGGER.debug("Map is initialized");
                 this.map.setZoom(ZOOM_DEFAULT);
                 this.map.setCenter(LOCATION_DEFAULT);
@@ -161,7 +157,7 @@ public class Navigation implements IController {
     }
 
     /**
-     * Sets up event handlers and bindings.
+     * Sets up event MapView event handlers
      */
     private void setUpMapEvents() {
         this.map.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
@@ -190,6 +186,9 @@ public class Navigation implements IController {
         });
     }
 
+    /**
+     * Sets up JavaFX handlers like Bindings and event handlers
+     */
     private void initComponents() {
         this.zoomSlider.valueProperty().bindBidirectional(this.map.zoomProperty());
 

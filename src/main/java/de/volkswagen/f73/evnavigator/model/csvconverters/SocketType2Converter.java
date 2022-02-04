@@ -12,11 +12,11 @@ public class SocketType2Converter extends MaxIntConverter {
     @Override
     public Integer convert(String checkString) throws CsvDataTypeMismatchException, CsvConstraintViolationException {
         Integer maxInt = super.convert(checkString);
-        if (maxInt == null){
+        if (maxInt == null) {
             return null;
         }
         //In case the provided integer is in Watts, convert it to kW and cut decimals
-        if (maxInt > 1000){
+        if (maxInt > 1000) {
             return maxInt / 1000;
         }
         return maxInt;

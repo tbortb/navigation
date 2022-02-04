@@ -1,6 +1,6 @@
 package de.volkswagen.f73.evnavigator.application;
 
-import de.volkswagen.f73.evnavigator.EvnavigatorApplication;
+import de.volkswagen.f73.evnavigator.EvNavigatorApplication;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -20,7 +20,7 @@ public class JavaFxApplication extends Application {
     @Override
     public void init() {
         this.context = new SpringApplicationBuilder()
-                .sources(EvnavigatorApplication.class)
+                .sources(EvNavigatorApplication.class)
                 .run(this.getParameters().getRaw().toArray(new String[0]));
     }
 

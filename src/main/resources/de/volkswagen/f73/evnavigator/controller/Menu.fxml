@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
+
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-
-<VBox fx:id="menuBox" alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Menu">
-   <children>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" >
-          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PHONE" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
-              <graphic>
-                  <MaterialDesignIconView fill="#c5cdef" glyphName="RADIO" size="80" />
-              </graphic>
-              <HBox.margin>
-                  <Insets left="25.0" right="25.0" />
-              </HBox.margin>
-              <font>
-                  <Font name="Roboto" size="14.0" />
-              </font>
-          </JFXButton>
-          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PHONE" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
-              <graphic>
-                  <MaterialDesignIconView fill="#c5cdef" glyphName="PHONE" size="80" />
-              </graphic>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox fx:id="menuBox" alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Menu">
+    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="650.0" prefWidth="1200.0">
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0"
+                   minWidth="128.0" prefHeight="128.0" prefWidth="128.0"
+                   style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PHONE" textFill="#c5cdef"
+                   HBox.hgrow="SOMETIMES">
+            <graphic>
+                <MaterialDesignIconView fill="#c5cdef" glyphName="RADIO" size="80"/>
+            </graphic>
             <HBox.margin>
-               <Insets left="25.0" right="25.0" />
+                <Insets left="25.0" right="25.0"/>
             </HBox.margin>
             <font>
-               <Font name="Roboto" size="14.0" />
+                <Font name="Roboto" size="14.0"/>
             </font>
-          </JFXButton>
-          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" defaultButton="true" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" onAction="#openNavigationView" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263 ; -fx-background-radius: 10;" text="NAVIGATION" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
-              <graphic>
-                  <MaterialDesignIconView fill="#c5cdef" glyphName="MAP_MARKER" size="80" />
-              </graphic>
-              <HBox.margin>
-                  <Insets left="25.0" right="25.0" />
-              </HBox.margin>
-              <font>
-                  <Font name="Roboto" size="14.0" />
-              </font>
-          </JFXButton>
-          <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" onAction="#openSettingsView" prefHeight="128.0" prefWidth="128.0" style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="DATA" textFill="#c5cdef" HBox.hgrow="SOMETIMES">
-              <graphic>
-                  <MaterialDesignIconView fill="#c5cdef" glyphName="DATABASE" size="80" />
-              </graphic>
-              <HBox.margin>
-                  <Insets left="25.0" right="25.0" />
-              </HBox.margin>
-              <font>
-                  <Font name="Roboto" size="14.0" />
-              </font>
-          </JFXButton>
-      
-      </HBox>
-      <JFXButton buttonType="RAISED" onAction="#openLicenses" prefHeight="23.0" prefWidth="55.0" style="-fx-background-color: #2D4263;" text="Licenses" textAlignment="CENTER" textFill="#94bdff">
-         <font>
-            <Font size="10.0" />
-         </font>
-         <VBox.margin>
-            <Insets bottom="30.0" />
-         </VBox.margin>
-      </JFXButton>
-   </children>
+        </JFXButton>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0"
+                   minWidth="128.0" prefHeight="128.0" prefWidth="128.0"
+                   style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="PHONE" textFill="#c5cdef"
+                   HBox.hgrow="SOMETIMES">
+            <graphic>
+                <MaterialDesignIconView fill="#c5cdef" glyphName="PHONE" size="80"/>
+            </graphic>
+            <HBox.margin>
+                <Insets left="25.0" right="25.0"/>
+            </HBox.margin>
+            <font>
+                <Font name="Roboto" size="14.0"/>
+            </font>
+        </JFXButton>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" defaultButton="true"
+                   graphicTextGap="15.0" minHeight="128.0" minWidth="128.0" onAction="#openNavigationView"
+                   prefHeight="128.0" prefWidth="128.0"
+                   style="-fx-background-color: #2D4263 ; -fx-background-radius: 10;" text="NAVIGATION"
+                   textFill="#c5cdef" HBox.hgrow="SOMETIMES">
+            <graphic>
+                <MaterialDesignIconView fill="#c5cdef" glyphName="MAP_MARKER" size="80"/>
+            </graphic>
+            <HBox.margin>
+                <Insets left="25.0" right="25.0"/>
+            </HBox.margin>
+            <font>
+                <Font name="Roboto" size="14.0"/>
+            </font>
+        </JFXButton>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="15.0" minHeight="128.0"
+                   minWidth="128.0" onAction="#openSettingsView" prefHeight="128.0" prefWidth="128.0"
+                   style="-fx-background-color: #2D4263; -fx-background-radius: 10;" text="DATA" textFill="#c5cdef"
+                   HBox.hgrow="SOMETIMES">
+            <graphic>
+                <MaterialDesignIconView fill="#c5cdef" glyphName="DATABASE" size="80"/>
+            </graphic>
+            <HBox.margin>
+                <Insets left="25.0" right="25.0"/>
+            </HBox.margin>
+            <font>
+                <Font name="Roboto" size="14.0"/>
+            </font>
+        </JFXButton>
+
+    </HBox>
+    <JFXButton buttonType="RAISED" onAction="#openLicenses" prefHeight="23.0" prefWidth="55.0"
+               style="-fx-background-color: #2D4263;" text="Licenses" textAlignment="CENTER" textFill="#94bdff">
+        <font>
+            <Font size="10.0"/>
+        </font>
+        <VBox.margin>
+            <Insets bottom="30.0"/>
+        </VBox.margin>
+    </JFXButton>
 </VBox>

@@ -6,37 +6,39 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="licensePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="536.0" style="-fx-background-color: #17223B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.Licenses">
-   <children>
-      <Label layoutX="222.0" layoutY="44.0" text="Licenses" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="149.0" layoutY="114.0" text="The Apache License 2.0" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Separator layoutX="150.0" layoutY="145.0" prefHeight="3.0" prefWidth="236.0" />
-      <Label layoutX="150.0" layoutY="160.0" text="Spring Boot&#9;&#9;&#9;&#9;&#9;2.3.6&#10;Spring Boot Web&#9;&#9;&#9;&#9;5.3.15&#10;Spring Boot Starter Data JPA&#9;&#9;2.6.3&#10;" textFill="WHITE" wrapText="true" />
-      <Label layoutX="150.0" layoutY="211.0" text="© 2022 VMware, Inc. or its affiliates." textFill="WHITE" />
-      <Label layoutX="150.0" layoutY="240.0" text="FontAwesomeFX&#9;&#9;&#9;&#9;8.9" textFill="WHITE" wrapText="true" />
-      <Label layoutX="150.0" layoutY="257.0" text="© 2016 Jens Deters" textFill="WHITE" />
-      <Label layoutX="150.0" layoutY="286.0" text="JavaFX-Weaver&#9;&#9;&#9;&#9;1.3.0" textFill="WHITE" wrapText="true" />
-      <Label layoutX="150.0" layoutY="303.0" text="© 2015 René Gielen" textFill="WHITE" />
-      <Label layoutX="150.0" layoutY="331.0" text="mapjfx&#9;&#9;&#9;&#9;&#9;&#9;1.33.2" textFill="WHITE" wrapText="true" />
-      <Label layoutX="150.0" layoutY="348.0" text="© 2007 Peter-Josef Meisch" textFill="WHITE" />
-      <Label layoutX="150.0" layoutY="376.0" text="OpenCSV&#9;&#9;&#9;&#9;&#9;&#9;5.5.2" textFill="WHITE" wrapText="true" />
-      <Label layoutX="150.0" layoutY="393.0" text="© 2022 the original author or authors" textFill="WHITE" />
-      <Label layoutX="150.0" layoutY="423.0" text="JFoenix&#9;&#9;&#9;&#9;&#9;&#9;8.0.10" textFill="WHITE" wrapText="true" />
-      <Label layoutX="150.0" layoutY="440.0" text="© 2016 JFoenix" textFill="WHITE" />
-      <Label layoutX="150.0" layoutY="489.0" text="The JSON License" textFill="WHITE">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Separator layoutX="151.0" layoutY="520.0" prefHeight="3.0" prefWidth="236.0" />
-      <Label layoutX="151.0" layoutY="537.0" text="JSON in Java&#9;&#9;&#9;&#9;&#9;20211205" textFill="WHITE" wrapText="true" />
-      <Label layoutX="151.0" layoutY="554.0" text="© 2002 JSON.org" textFill="WHITE" />
-   </children>
+    <children>
+        <Label layoutX="222.0" layoutY="44.0" text="Licenses" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="150.0" layoutY="93.0" text="The Apache License 2.0" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Separator layoutX="151.0" layoutY="124.0" prefHeight="3.0" prefWidth="236.0" />
+        <Label layoutX="151.0" layoutY="139.0" text="Spring Boot&#9;&#9;&#9;&#9;&#9;2.3.6&#10;Spring Boot Web&#9;&#9;&#9;&#9;5.3.15&#10;Spring Boot Starter Data JPA&#9;&#9;2.6.3&#10;" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="190.0" text="© 2022 VMware, Inc. or its affiliates." textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="219.0" text="FontAwesomeFX&#9;&#9;&#9;&#9;8.9" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="236.0" text="© 2016 Jens Deters" textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="265.0" text="JavaFX-Weaver&#9;&#9;&#9;&#9;1.3.0" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="282.0" text="© 2015 René Gielen" textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="310.0" text="mapjfx&#9;&#9;&#9;&#9;&#9;&#9;1.33.2" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="327.0" text="© 2007 Peter-Josef Meisch" textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="355.0" text="OpenCSV&#9;&#9;&#9;&#9;&#9;&#9;5.5.2" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="372.0" text="© 2022 the original author or authors" textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="402.0" text="JFoenix&#9;&#9;&#9;&#9;&#9;&#9;8.0.10" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="419.0" text="© 2016 JFoenix" textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="449.0" text="Roboto&#9;&#9;&#9;&#9;&#9;&#9;2.138" textFill="WHITE" wrapText="true" />
+        <Label layoutX="151.0" layoutY="466.0" text="© 2012 Google" textFill="WHITE" />
+        <Label layoutX="151.0" layoutY="502.0" text="The JSON License" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Separator layoutX="152.0" layoutY="533.0" prefHeight="3.0" prefWidth="236.0" />
+        <Label layoutX="152.0" layoutY="550.0" text="JSON in Java&#9;&#9;&#9;&#9;&#9;20211205" textFill="WHITE" wrapText="true" />
+        <Label layoutX="152.0" layoutY="567.0" text="© 2002 JSON.org" textFill="WHITE" />
+    </children>
 </AnchorPane>

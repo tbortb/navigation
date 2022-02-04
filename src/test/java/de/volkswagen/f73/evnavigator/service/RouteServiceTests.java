@@ -1,8 +1,6 @@
 package de.volkswagen.f73.evnavigator.service;
 
 import com.sothawo.mapjfx.Coordinate;
-import de.volkswagen.f73.evnavigator.service.RouteService;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,7 @@ import java.util.List;
  * @author Bücker, Thies (SE-A/34)
  */
 @SpringBootTest
-@TestPropertySource(locations= "classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 class RouteServiceTests {
 
     private static final double ORIGIN_LON = 13.542373;
@@ -34,7 +32,7 @@ class RouteServiceTests {
      * Tests whether calling OSRM API returns a response that signals a correct request.
      */
     @Test
-    void getRouteFromApiReturnsStatusCodeOkTest()  {
+    void getRouteFromApiReturnsStatusCodeOkTest() {
         JSONObject result = this.routeService.getRouteFromCoordinates(ORIGIN_LAT, ORIGIN_LON,
                 DESTINATION_LAT, DESTINATION_LON);
         String responseCode = Assertions.assertDoesNotThrow(() -> result.getString("code"));
@@ -65,7 +63,7 @@ class RouteServiceTests {
                 ORIGIN_LON,
                 DESTINATION_LAT_FAR,
                 DESTINATION_LON_FAR)
-                ) / 1000;
+        ) / 1000;
         Assertions.assertTrue(distance > 250 && distance < 500);
     }
 }

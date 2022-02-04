@@ -46,24 +46,26 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
     @FXML
     private CheckBox hasFeeCb;
 
-    private boolean isLoaded = false;
+    private boolean isLoaded;
 
     @Override
     protected Station createNewPlace() {
-        return new Station(this.nameInput.getText(),
-                tfToIntegerOrNull(this.voltageInput),
-                tfToIntegerOrNull(this.amperageInput),
-                this.membershipNeededCb.isIndeterminate() ? null : this.membershipNeededCb.isSelected(),
-                this.capacityInput.getText(),
-                this.hasFeeCb.isIndeterminate() ? null : this.hasFeeCb.isSelected(),
-                this.notesInput.getText(),
-                this.openingHoursInput.getText(),
-                this.operatorInput.getText(),
-                tfToIntegerOrNull(this.socketSchukoInput),
-                tfToIntegerOrNull(this.socketType2Input),
-                tfToIntegerOrNull(this.socketType2OutputInput),
-                tfToDoubleOrNull(this.latitudeInput),
-                tfToDoubleOrNull(this.longitudeInput));
+        return new Station.Builder()
+                .withName(this.nameInput.getText())
+                .withMaxVoltage(tfToIntegerOrNull(this.voltageInput))
+                .withMaxAmperage(tfToIntegerOrNull(this.amperageInput))
+                .withHasMembership(this.membershipNeededCb.isIndeterminate() ? null : this.membershipNeededCb.isSelected())
+                .withCapacity(this.capacityInput.getText())
+                .withHasFee(this.hasFeeCb.isIndeterminate() ? null : this.hasFeeCb.isSelected())
+                .withNote(this.notesInput.getText())
+                .withOpeningHours(this.openingHoursInput.getText())
+                .withOperator(this.operatorInput.getText())
+                .withSocketSchukoAmount(tfToIntegerOrNull(this.socketSchukoInput))
+                .withSocketType2Amount(tfToIntegerOrNull(this.socketType2Input))
+                .withSocketType2Output(tfToIntegerOrNull(this.socketType2OutputInput))
+                .withLat(tfToDoubleOrNull(this.latitudeInput))
+                .withLon(tfToDoubleOrNull(this.longitudeInput))
+                .build();
     }
 
     @Override
@@ -90,31 +92,19 @@ public class ManageStations extends ManagePlacesBase<Station, StationService> {
      */
     public void show(Class<? extends IController> backClass, Station selectedPlace) {
 
-        if (!this.isLoaded) {
-            map.initializedProperty().addListener((observable, oldValue, newValue) -> {
-                if (Boolean.TRUE.equals(newValue)) {
-                    LOGGER.debug("Map in ManageStations initialized.");
-                    Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
-                    if (optStation.isPresent()) {
-                        this.placesList.getSelectionModel().select(selectedPlace);
-                        this.selectedPlace = selectedPlace;
-                        this.updateMapWithSelectedItem();
-                    } else {
-                        LOGGER.info("Place could not be found in database: {}", selectedPlace);
-                    }
+        this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
+            if (Boolean.TRUE.equals(newValue)) {
+                LOGGER.debug("Map in ManageStations initialized.");
+                Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
+                if (optStation.isPresent()) {
+                    this.placesList.getSelectionModel().select(selectedPlace);
+                    this.selectedPlace = selectedPlace;
+                    this.updateMapWithSelectedItem();
+                } else {
+                    LOGGER.info("Place could not be found in database: {}", selectedPlace);
                 }
-            });
-        } else {
-            LOGGER.debug("ManageStations map already loaded, go on...");
-            Optional<Station> optStation = this.placesList.getItems().stream().filter(s -> s.getId().equals(selectedPlace.getId())).findAny();
-            if (optStation.isPresent()) {
-                this.placesList.getSelectionModel().select(selectedPlace);
-                this.selectedPlace = selectedPlace;
-                this.updateMapWithSelectedItem();
-            } else {
-                LOGGER.info("Place could not be found in database: {}", selectedPlace);
             }
-        }
+        });
 
         this.fetchPlaces();
         this.isLoaded = true;

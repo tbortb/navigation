@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,33 +24,86 @@ import java.util.Set;
 @TestPropertySource(locations = "classpath:application-test.properties")
 class StationServiceTests {
 
-    @Autowired
-    private StationService stationService;
-
-    @Value("${stations.default.path}")
-    private String stationsCsvLocation;
-
-    @Autowired
-    private StationRepository stationRepo;
-
     private final Set<Station> sampleStations = new HashSet<>();
     private final Set<Station> csvTestStaions = new HashSet<>();
+    @Autowired
+    private StationService stationService;
+    @Value("${stations.default.path}")
+    private String stationsCsvLocation;
+    @Autowired
+    private StationRepository stationRepo;
 
     @BeforeEach
     void setUp() {
         this.stationRepo.deleteAll();
         this.sampleStations.clear();
         this.csvTestStaions.clear();
-        this.csvTestStaions.add(new Station("node/663773225", null, null, true, "Allgäuer Überlandwerk", 47.727446, 10.3187933));
-        this.csvTestStaions.add(new Station("node/5549505721", "name1", null, null, true, "3", false, null, null, "Tesla", null, null, null, 53.5167306, 12.6866268));
-        //TODO:lat and long must be reverset in Stations
-        this.csvTestStaions.add(new Station("node/7848608385", "name2", 36, 5, false, null, false, null, null, "Thüringer Energie AG", 0, 1, 22, 51.0150151, 11.0412338));
-        this.sampleStations.add(new Station("MLC Station", false, false,
-                "TestOperator", 52.42072813, 10.746537651));
-        this.sampleStations.add(new Station("Kassel Station", false, false,
-                "TestOperator", 51.31567287, 9.4978098202));
-        this.sampleStations.add(new Station("Hannover Station", false, false,
-                "TestOperator", 52.374206, 9.736088));
+        this.csvTestStaions.add(new Station.Builder()
+                .withId("node/663773225")
+                .withName(null)
+                .withHasMembership(null)
+                .withHasFee(true)
+                .withOperator("Allgäuer Überlandwerk")
+                .withLat(47.727446)
+                .withLon(10.3187933)
+                .build());
+        this.csvTestStaions.add(new Station.Builder()
+                .withId("node/5549505721")
+                .withName("name1")
+                .withMaxVoltage(null)
+                .withMaxAmperage(null)
+                .withHasMembership(true)
+                .withCapacity("3")
+                .withHasFee(false)
+                .withNote(null)
+                .withOpeningHours(null)
+                .withOperator("Tesla")
+                .withSocketSchukoAmount(null)
+                .withSocketType2Amount(null)
+                .withSocketType2Output(null)
+                .withLat(53.5167306)
+                .withLon(12.6866268).build());
+        this.csvTestStaions.add(new Station.Builder()
+                .withId("node/7848608385")
+                .withName("name2")
+                .withMaxVoltage(36)
+                .withMaxAmperage(5)
+                .withHasMembership(false)
+                .withCapacity(null)
+                .withHasFee(false)
+                .withNote(null)
+                .withOpeningHours(null)
+                .withOperator("Thüringer Energie AG")
+                .withSocketSchukoAmount(0)
+                .withSocketType2Amount(1)
+                .withSocketType2Output(22)
+                .withLat(51.0150151)
+                .withLon(11.0412338)
+                .build());
+        this.sampleStations.add(new Station.Builder()
+                .withName("MLC Station")
+                .withHasMembership(false)
+                .withHasFee(false)
+                .withOperator("TestOperator")
+                .withLat(52.42072813)
+                .withLon(10.746537651)
+                .build());
+        this.sampleStations.add(new Station.Builder()
+                .withName("Kassel Station")
+                .withHasMembership(false)
+                .withHasFee(false)
+                .withOperator("TestOperator")
+                .withLat(51.31567287)
+                .withLon(9.4978098202)
+                .build());
+        this.sampleStations.add(new Station.Builder()
+                .withName("Hannover Station")
+                .withHasMembership(false)
+                .withHasFee(false)
+                .withOperator("TestOperator")
+                .withLat(52.374206)
+                .withLon(9.736088)
+                .build());
     }
 
     /**
@@ -135,6 +187,9 @@ class StationServiceTests {
         Assertions.assertEquals(2, actual.size());
     }
 
+    /**
+     * Tests whether a known station close to a certain coordinate gets found
+     */
     @Test
     void getStationAtCoordinateShouldReturnKnownStationTest() {
         this.stationService.saveStations(this.sampleStations);
@@ -152,7 +207,6 @@ class StationServiceTests {
         List<Station> readStations = Assertions.assertDoesNotThrow(() -> this.stationService.csvToStations(this.stationsCsvLocation));
 
         Assertions.assertEquals(this.csvTestStaions.size(), readStations.size());
-        readStations.forEach(st -> this.csvTestStaions.contains(st));
     }
 
     /**

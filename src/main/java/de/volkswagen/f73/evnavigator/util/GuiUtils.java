@@ -24,9 +24,9 @@ import java.util.Locale;
 @Component
 public class GuiUtils {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(GuiUtils.class);
     public static final String COORD_ERROR_TITLE = "Invalid coordinates";
     public static final String COORD_ERROR_BODY = "Please enter valid coordinates in the \"Decimal Degrees\" format.";
+    protected static final Logger LOGGER = LoggerFactory.getLogger(GuiUtils.class);
 
     private GuiUtils() {
     }
@@ -139,6 +139,12 @@ public class GuiUtils {
         return "";
     }
 
+    /**
+     * Parses integer from TextField or returns null if not valid
+     *
+     * @param intTf TextField to parse from
+     * @return integer value or null
+     */
     public static Integer tfToIntegerOrNull(TextField intTf) {
         try {
             return Integer.parseInt(intTf.getText());
@@ -148,6 +154,12 @@ public class GuiUtils {
         }
     }
 
+    /**
+     * Parses double from TextField or returns null if not valid
+     *
+     * @param doubleTf TextField to parse from
+     * @return double value or null
+     */
     public static Double tfToDoubleOrNull(TextField doubleTf) {
         try {
             return Double.parseDouble(doubleTf.getText());
@@ -157,11 +169,13 @@ public class GuiUtils {
         }
     }
 
+    /**
+     * Sets a TextField to either the provided number or null if not valid
+     *
+     * @param tf        TextField to fill
+     * @param number    the number to parse
+     */
     public static void numberOrEmptyToTextField(TextField tf, Number number) {
         tf.setText(number == null ? "" : String.valueOf(number));
-    }
-
-    public static Boolean nullToFalse(Boolean checkBool) {
-        return checkBool != null && checkBool;
     }
 }

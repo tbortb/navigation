@@ -4,7 +4,7 @@ import com.opencsv.bean.AbstractBeanField;
 import de.volkswagen.f73.evnavigator.model.Station;
 
 /**
- *  OpenCSV helper class for parsing CSV fields
+ * OpenCSV helper class for parsing CSV fields
  *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)

@@ -66,7 +66,7 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
         LOGGER.debug("Initializing MapJFX map...");
 
         // don't block the view when initializing map
-        Platform.runLater(() -> this.map.initialize());
+        Platform.runLater(this.map::initialize);
 
         this.map.initializedProperty().addListener((observable, oldValue, newValue) -> {
             if (Boolean.TRUE.equals(newValue)) {
@@ -88,6 +88,9 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
         });
     }
 
+    /**
+     * Updates the MapView with a selected item
+     */
     protected void updateMapWithSelectedItem() {
         if (this.selectedPlace != null) {
             this.map.setCenter(new Coordinate(this.selectedPlace.getLat(), this.selectedPlace.getLon()));
@@ -99,6 +102,9 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
         }
     }
 
+    /**
+     * Clear textfields on view
+     */
     protected void clearFields() {
         this.nameInput.clear();
         this.latitudeInput.clear();
@@ -117,7 +123,7 @@ public abstract class ManagePlacesBase<T extends IPlace, S extends IService> {
     /**
      * Sets the Place ListView to a newly fetched list from DB
      */
-    public void fetchPlaces() {
+    protected void fetchPlaces() {
         this.placesList.setItems(FXCollections.observableArrayList(this.placeService.getAll()));
         this.placesList.refresh();
     }

@@ -1,7 +1,7 @@
 package de.volkswagen.f73.evnavigator.controller;
 
 /**
- * Interface for menu controllers, that can be used for the MainWindow'S back button as an intermediate view
+ * Interface for controllers that can be used as an intermediate view in the menu navigation
  *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)

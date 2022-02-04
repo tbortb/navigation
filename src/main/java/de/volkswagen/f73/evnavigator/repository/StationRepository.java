@@ -14,7 +14,8 @@ import java.util.List;
  */
 @Repository
 public interface StationRepository extends JpaRepository<Station, String> {
-    List<Station> findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(Double lat, Double lon, Double lat2, Double lon2);
+    List<Station> findByLatGreaterThanAndLonGreaterThanAndLatLessThanAndLonLessThan(Double lat, Double lon,
+                                                                                    Double lat2, Double lon2);
 
     Station findStationByLatEqualsAndLonEquals(Double lat, Double lon);
 }

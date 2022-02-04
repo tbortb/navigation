@@ -4,44 +4,46 @@
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.MainWindow">
-   <top>
-      <HBox fx:id="topMenu" alignment="CENTER" prefHeight="40.0" prefWidth="1060.0" BorderPane.alignment="CENTER">
-         <HBox prefHeight="41.0" prefWidth="156.0" spacing="50.0">
-            <children>
-               <JFXButton fx:id="standbyButton" buttonType="RAISED" onAction="#toggleStandby" style="-fx-background-radius: 30px; -fx-background-color: #2D4263;">
-                  <graphic>
-                     <MaterialDesignIconView fill="#94bdff" glyphName="POWER" size="32" />
-                  </graphic>
-               </JFXButton>
-               <JFXButton fx:id="backButton" style="-fx-background-radius: 10px; -fx-background-color: #2D4263;" visible="false">
-                  <graphic>
-                     <MaterialDesignIconView fill="#94bdff" glyphName="ARROW_LEFT" size="32" textAlignment="CENTER" wrappingWidth="40.428571701049805" />
-                  </graphic>
-               </JFXButton>
-            </children>
-         </HBox>
-         <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="700.0" text="Menu Title" style="-fx-text-fill: #94bdff;" HBox.hgrow="ALWAYS">
-            <HBox.margin>
-               <Insets />
-            </HBox.margin>
-            <font>
-               <Font name="System Bold" size="22.0" />
-            </font>
-         </Label>
-         <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="177.0" text="01.01.1970 00:00:00" textAlignment="CENTER" style="-fx-text-fill: #94bdff;" HBox.hgrow="SOMETIMES">
-            <font>
-               <Font name="System Bold" size="17.0" />
-            </font>
-         </Label>
-         <padding>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </padding>
-      </HBox>
-   </top>
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="740.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.volkswagen.f73.evnavigator.controller.MainWindow">
+    <top>
+        <HBox fx:id="topMenu" alignment="CENTER" prefHeight="40.0" prefWidth="1060.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="41.0" prefWidth="156.0" spacing="50.0">
+                <JFXButton buttonType="RAISED" onAction="#toggleStandby"
+                           style="-fx-background-radius: 30px; -fx-background-color: #2D4263;">
+                    <graphic>
+                        <MaterialDesignIconView fill="#94bdff" glyphName="POWER" size="32"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="backButton" style="-fx-background-radius: 10px; -fx-background-color: #2D4263;"
+                           visible="false">
+                    <graphic>
+                        <MaterialDesignIconView fill="#94bdff" glyphName="ARROW_LEFT" size="32"
+                                                textAlignment="CENTER" wrappingWidth="40.428571701049805"/>
+                    </graphic>
+                </JFXButton>
+            </HBox>
+            <Label fx:id="menuTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="32.0"
+                   prefWidth="700.0" text="Menu Title" style="-fx-text-fill: #94bdff;" HBox.hgrow="ALWAYS">
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+                <font>
+                    <Font name="System Bold" size="22.0"/>
+                </font>
+            </Label>
+            <Label fx:id="clock" alignment="CENTER" prefHeight="26.0" prefWidth="177.0" text="01.01.1970 00:00:00"
+                   textAlignment="CENTER" style="-fx-text-fill: #94bdff;" HBox.hgrow="SOMETIMES">
+                <font>
+                    <Font name="System Bold" size="17.0"/>
+                </font>
+            </Label>
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+            </padding>
+        </HBox>
+    </top>
 </BorderPane>

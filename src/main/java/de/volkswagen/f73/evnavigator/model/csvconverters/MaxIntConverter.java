@@ -9,6 +9,8 @@ import java.util.OptionalInt;
 import java.util.stream.Stream;
 
 /**
+ * OpenCSV helper class for parsing CSV fields
+ *
  * @author Justo, David (SE-A/34)
  * @author Bücker, Thies (SE-A/34)
  */

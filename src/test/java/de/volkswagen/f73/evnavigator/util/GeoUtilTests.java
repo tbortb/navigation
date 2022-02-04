@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 class GeoUtilTests {
 
     /**
-     * Test if the earth surface distance calculation gives results close to the ones drawn from google
+     * Test if the earth surface distance calculation gives results close to the ones drawn from Google
      */
     @Test
-    void distanceCalculationTestShouldReturnApproximateResultTest(){
+    void distanceCalculationTestShouldReturnApproximateResultTest() {
         //Test values from http://www.movable-type.co.uk/scripts/latlong.html?from=49.243824,-121.887340&to=49.235347,-121.92532
         double lon1 = -121.887340;
         double lat1 = 49.243824;
@@ -71,8 +71,8 @@ class GeoUtilTests {
         double expected = 60;
         double errorMarginPct = 0.01;
 
-        Assertions.assertTrue(actual < expected * (1 + errorMarginPct ));
-        Assertions.assertTrue(actual > expected * (1 - errorMarginPct ));
+        Assertions.assertTrue(actual < expected * (1 + errorMarginPct));
+        Assertions.assertTrue(actual > expected * (1 - errorMarginPct));
     }
 
     /**
